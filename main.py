@@ -6,133 +6,109 @@ In Tokyo, the veil between the material world and the spirit world has thinned.
 The old spirits remember. The new spirits are waking. And in the space between—
 in the ma—a young person named Aoi is learning to walk in both worlds.
 
-This is a story about the spaces between things:
-between people, between worlds, between words.
-The silence that speaks. The pause that connects.
-
 Press any key to begin.
 Or wait. The spirits notice those who wait.
 """
 
 import sys
 import os
+import logging
 
 # Add source to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from src.engine.game import Game, GameState
-from src.engine.config import DISPLAY, GAMEPLAY, AUDIO, SPIRIT
-from src.engine.events import EventBus, EventType, GameEvent
 
-
-def print_title():
-    """Display the title in the terminal."""
-    title = """
-    ╔══════════════════════════════════════════════════════════════╗
-    ║                                                              ║
-    ║                        間  の  国                            ║
-    ║                                                              ║
-    ║                   M A   N O   K U N I                        ║
-    ║                                                              ║
-    ║                  The Country Between                         ║
-    ║                                                              ║
-    ║                         ・                                   ║
-    ║                                                              ║
-    ║          In the space between worlds, between words,         ║
-    ║              between heartbeats — there is ma.               ║
-    ║                                                              ║
-    ║                And in the ma, there is you.                  ║
-    ║                                                              ║
-    ╚══════════════════════════════════════════════════════════════╝
-
-                     Tokyo, Spring, Year One
-                  of the Great Permeation
-
-    """
-    print(title)
-
-
-def print_opening():
-    """The opening text crawl."""
-    opening = """
-    ─────────────────────────────────────────────
-
-    It started with small things.
-
-    A teacup that hummed when left alone too long.
-    A cat staring at an empty corner, purring.
-    A crosswalk signal that flickered in a rhythm
-    no engineer had programmed.
-
-    Then the bigger things.
-
-    The cherry trees in Inokashira Park bloomed
-    in October. Every train on the Chuo Line
-    arrived exactly on time for a week — including
-    the ones that had been cancelled.
-
-    Then the impossible things.
-
-    The old woman at the shrine said she'd always
-    known. The scientists said it was unprecedented.
-    The politicians said it was under control.
-
-    None of them were entirely right.
-
-    The veil between worlds had thinned.
-    Not torn — thinned. Like paper held to light.
-    And through it, the spirits were remembering
-    that they had always been here.
-
-    Your name is Aoi.
-    You live with your grandmother in Kichijoji.
-    Her cat is named Mikan.
-    You haven't spoken to your parents in a year.
-    And this morning, the tea kettle said good morning.
-
-    ─────────────────────────────────────────────
-    """
-    print(opening)
-
-
-def initialize_game() -> Game:
-    """Initialize all game systems."""
-    game = Game()
-    event_bus = EventBus()
-
-    # Register the event bus
-    game.register_system("events", event_bus)
-
-    print("  [Initializing the material world...]")
-    print("  [Initializing the spirit world...]")
-    print("  [Thinning the veil between them...]")
-    print("  [Listening for the silence...]")
-    print()
-    print("  Ma no Kuni is ready.")
-    print()
-
-    return game
+def setup_logging() -> None:
+    """Configure logging for the game."""
+    logging.basicConfig(
+        level=logging.INFO,
+        format="  [%(name)s] %(message)s",
+        handlers=[logging.StreamHandler()],
+    )
 
 
 def main():
     """Entry point for Ma no Kuni."""
-    print_title()
-    print_opening()
+    setup_logging()
+    logger = logging.getLogger("ma_no_kuni")
 
-    game = initialize_game()
+    print()
+    print("  間の国 — Ma no Kuni — The Country Between")
+    print("  ─────────────────────────────────────────")
+    print()
 
-    print("  ─── Game Systems ───")
-    print(f"  Display: {DISPLAY.SCREEN_WIDTH}x{DISPLAY.SCREEN_HEIGHT}")
-    print(f"  World: Day {game.clock.day}, {game.clock.season.value}")
-    print(f"  Time: {game.clock.time_of_day.value}")
-    print(f"  Spirit Permeability: {game.clock.spirit_permeability:.0%}")
-    print(f"  Ma Level: {game.ma.current_ma:.0f}/{game.ma.max_ma:.0f}")
+    # Step 1: Bootstrap the game world from data files
+    logger.info("Initializing the material world...")
+
+    try:
+        from src.engine.bootstrap import GameBootstrap
+        bootstrap = GameBootstrap()
+        systems = bootstrap.initialize()
+    except Exception as e:
+        logger.error("Bootstrap failed: %s", e)
+        import traceback
+        traceback.print_exc()
+        print("\n  The world could not be initialized.")
+        print("  Check the logs above for details.")
+        return
+
+    game = systems["game"]
+    event_bus = systems["event_bus"]
+
+    logger.info("Thinning the veil between worlds...")
+    logger.info(
+        "World: Day %d, %s, %s | Permeability: %.0f%% | Ma: %.0f/%.0f",
+        game.clock.day,
+        game.clock.season.value,
+        game.clock.time_of_day.value,
+        game.clock.spirit_permeability * 100,
+        game.ma.current_ma,
+        game.ma.max_ma,
+    )
+
+    # Step 2: Create the pygame game loop
+    logger.info("Opening the window to both worlds...")
+
+    try:
+        from src.engine.game_loop import GameLoop
+        from src.engine.input_handler import InputHandler
+
+        loop = GameLoop()
+
+        # Override the loop's game with our bootstrapped one
+        loop._game = game
+        loop._event_bus = event_bus
+
+        # Create and register input handler
+        input_handler = InputHandler(event_bus=event_bus)
+        loop.register_input_handler(input_handler)
+
+        # Register scene manager from bootstrap
+        scene_manager = systems.get("scene_manager")
+        if scene_manager is not None:
+            loop.register_scene_manager(scene_manager)
+
+        logger.info("Ma no Kuni is ready.")
+        logger.info("The journey begins in Kichijoji.")
+        print()
+
+        # Step 3: Run the game
+        loop.run()
+
+    except ImportError as e:
+        logger.error("Could not start pygame: %s", e)
+        print(f"\n  Missing dependency: {e}")
+        print("  Run: pip install pygame")
+        return
+    except Exception as e:
+        logger.error("Game crashed: %s", e)
+        import traceback
+        traceback.print_exc()
+        return
+
     print()
-    print("  The journey begins in Kichijoji.")
-    print("  Grandmother is making tea.")
-    print("  Mikan is watching something you can't see.")
-    print()
-    print("  ...yet.")
+    print("  The spirits will remember you.")
+    print("  間")
     print()
 
 

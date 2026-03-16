@@ -618,6 +618,14 @@ def _parse_condition(data: dict) -> DialogueCondition:
     return DialogueCondition(condition_type=ctype, parameters=params)
 
 
+def _safe_tone(value: str) -> DialogueTone:
+    """Parse a tone string, falling back to NEUTRAL for unknown values."""
+    try:
+        return DialogueTone(value)
+    except ValueError:
+        return DialogueTone.NEUTRAL
+
+
 def _parse_effect(data: dict) -> EffectDefinition:
     """Parse an effect from YAML data."""
     etype = DialogueEffect(data.get("type", "set_flag"))
@@ -631,7 +639,7 @@ def _parse_spirit_whisper(data: dict) -> SpiritWhisper:
     return SpiritWhisper(
         text=data.get("text", ""),
         conditions=conditions,
-        tone=DialogueTone(data.get("tone", "cryptic")),
+        tone=_safe_tone(data.get("tone", "cryptic")),
     )
 
 
@@ -661,7 +669,7 @@ def _parse_line(data: dict) -> DialogueLine:
         speaker=data.get("speaker", ""),
         speaker_type=SpeakerType(data.get("speaker_type", "npc")),
         text=data.get("text", ""),
-        tone=DialogueTone(data.get("tone", "neutral")),
+        tone=_safe_tone(data.get("tone", "neutral")),
         stage_direction=direction,
         spirit_whisper=whisper,
         pause_after=data.get("pause_after", 0.0),
@@ -682,7 +690,7 @@ def _parse_choice(data: dict) -> DialogueChoice:
         id=data.get("id", ""),
         text=data.get("text", ""),
         display_text=data.get("display_text", ""),
-        tone=DialogueTone(data.get("tone", "neutral")),
+        tone=_safe_tone(data.get("tone", "neutral")),
         is_silence=data.get("is_silence", False),
         conditions=conditions,
         effects=effects,
