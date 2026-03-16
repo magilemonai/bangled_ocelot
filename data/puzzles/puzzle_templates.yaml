@@ -1,0 +1,538 @@
+# Ma no Kuni - Puzzle Templates
+# Puzzles that bridge two worlds. Solutions that require both mind and heart.
+
+puzzles:
+  # === DUAL-LAYER PUZZLES ===
+  - id: shrine_gate_alignment
+    name: "The Misaligned Gate"
+    type: dual_layer
+    location: hidden_shrine
+    district: kichijoji
+    difficulty: 2
+    description: >
+      A torii gate in the material world stands crooked, damaged by a storm.
+      In the spirit world, the gate's spirit counterpart stands perfectly
+      straight - but blocks a spirit path. The two gates must be aligned
+      for both worlds to function.
+    setup_text: >
+      The hidden shrine's torii gate leans at an angle. Through spirit vision,
+      you see a second gate, glowing softly, standing upright in a different
+      position. Spirits cluster behind it, unable to pass. The shrine fox
+      watches you expectantly.
+    hint_1: "Look at both gates. They need to be in the same place."
+    hint_2: "Moving the physical gate affects the spirit gate's alignment."
+    hint_3: "You'll need both hands in one world and spirit sight in the other."
+    solutions:
+      - approach: "physical_realignment"
+        description: "Physically push the material gate upright. The spirit gate aligns automatically."
+        requirements: ["resolve_4"]
+        reward_modifier: 1.0
+      - approach: "spirit_negotiation"
+        description: "Ask the gate's tsukumogami to straighten itself. It's been waiting for someone to ask."
+        requirements: ["spirit_affinity_3", "perception_3"]
+        reward_modifier: 1.5
+      - approach: "dual_approach"
+        description: "Support the physical gate while communing with its spirit. Both worlds heal together."
+        requirements: ["empathy_4", "resolve_3"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 50
+      ma_bonus: 10
+      item: "shrine_blessing"
+      discovery: "hidden_shrine_secret_path"
+    time_conditions: null
+    spirit_companion_hints:
+      kasa_obake: "The gate is sad. It used to stand so tall..."
+      kodama: "The trees remember when it was straight. They can show you."
+    failure_text: "The gate groans but doesn't move. Perhaps force isn't the answer."
+    success_text: >
+      The gates align. Material and spirit, crooked and straight, become
+      one. The shrine fox bows. The spirit path opens. For a moment,
+      both worlds shimmer as one, and you see the shrine as it was
+      a hundred years ago - beautiful, attended, alive.
+
+  - id: train_station_memory
+    name: "Platform Zero"
+    type: dual_layer
+    location: shinjuku_station
+    district: shinjuku
+    difficulty: 4
+    description: >
+      Shinjuku Station has a platform that doesn't appear on any map.
+      In the material world, it's a sealed maintenance corridor. In the
+      spirit world, it's an active platform for the spirit express. To
+      access it, you must exist in both worlds simultaneously.
+    setup_text: >
+      Deep in Shinjuku Station, you find a locked maintenance door.
+      Spirit vision reveals: beyond this door, a platform bustling with
+      spirit passengers. A departure board lists destinations that don't
+      exist. Or don't exist anymore.
+    hint_1: "The door is locked in one world but not the other."
+    hint_2: "You need to phase between worlds at the threshold."
+    hint_3: "High ma allows you to hold both worlds at once. Stand at the door and wait."
+    solutions:
+      - approach: "ma_phasing"
+        description: "Accumulate ma at the threshold until you exist in both worlds. Walk through."
+        requirements: ["ma_level_60"]
+        reward_modifier: 1.5
+      - approach: "spirit_pass"
+        description: "The Densha-no-tamashii can grant passage if bonded."
+        requirements: ["bond_densha_no_tamashii"]
+        reward_modifier: 1.0
+    rewards:
+      experience: 200
+      unlock: "spirit_train_fast_travel"
+      item: "spirit_pass"
+    time_conditions:
+      time: [midnight, witching]
+    spirit_companion_hints:
+      densha_no_tamashii: "This is my oldest platform. I remember when humans used it too."
+    failure_text: "The door remains solid. You are too present in one world."
+    success_text: >
+      The threshold dissolves. You step onto Platform Zero. The departure
+      board updates: next train to Anywhere You've Lost. The spirit
+      passengers regard you with curiosity. A conductor spirit tips its
+      hat. You have found the hidden railway.
+
+  - id: konbini_shelving
+    name: "The Spirit Shelf"
+    type: dual_layer
+    location: yukis_konbini
+    district: shibuya
+    difficulty: 2
+    description: >
+      Yuki's konbini has a shelf that exists in both worlds. In the
+      material world, it's half-empty. In the spirit world, it's full
+      of products that haven't existed in years. Arranging both shelves
+      correctly serves both customer bases.
+    setup_text: >
+      Yuki sighs. "The spirits keep buying discontinued products. The
+      humans can't see the spirit products. Everything's a mess." Both
+      shelves need organizing - material for humans, spirit for spirits.
+    hint_1: "Match the products to the customers who can actually see them."
+    hint_2: "Some products exist in both worlds. These go in the middle."
+    hint_3: "Ask Yuki what the spirits have been asking for."
+    solutions:
+      - approach: "systematic"
+        description: "Sort material products left, spirit products right, dual-world items center."
+        requirements: ["perception_2"]
+        reward_modifier: 1.0
+      - approach: "creative"
+        description: "Create spirit labels for material products so spirits can read them too."
+        requirements: ["craft_skill_3"]
+        reward_modifier: 1.5
+    rewards:
+      experience: 75
+      relationship: {yuki: 10}
+      item: "konbini_discount_card"
+    failure_text: "The shelves look organized but the spirit customers still can't find what they need."
+    success_text: >
+      The shelf gleams. Human products on one side, spirit products on
+      the other, and in the center, items that serve both worlds.
+      Yuki nods approvingly. A spirit customer buys a Memory Melon Soda.
+      A human customer buys green tea. Neither bumps into the other.
+
+  # === MA PUZZLES (SILENCE/WAITING) ===
+  - id: garden_spirits_gathering
+    name: "Grandmother's Evening"
+    type: ma_puzzle
+    location: grandmothers_house
+    district: kichijoji
+    difficulty: 1
+    description: >
+      Every evening, small spirits gather in grandmother's garden. But
+      they only appear when the house is perfectly still. The puzzle is
+      to create and maintain silence long enough for them to emerge.
+    setup_text: >
+      Evening falls. Grandmother is knitting. Mikan is curled by the
+      window. The garden is dark. You sense presences just beyond
+      perception. Grandmother glances at the garden and smiles.
+      "They're shy tonight," she says. "Perhaps if we're quiet."
+    hint_1: "Do nothing. Wait."
+    hint_2: "The longer you're still, the more appear."
+    hint_3: "This is ma. The answer is in the waiting itself."
+    solutions:
+      - approach: "patience"
+        description: "Sit still for 60 real seconds. No inputs. No actions. Just wait."
+        requirements: []
+        reward_modifier: 1.0
+      - approach: "deep_patience"
+        description: "Wait for 120 seconds. The rarest spirits appear."
+        requirements: []
+        reward_modifier: 2.0
+    rewards:
+      experience: 30
+      ma_bonus: 25
+      discovery: "garden_spirit_names"
+      vignette: "evening_tea"
+    time_conditions:
+      time: [evening, midnight]
+    spirit_companion_hints: {}
+    failure_text: "You shifted. A cup clinked. The presences retreated. Grandmother says nothing, but there's a gentle suggestion in her silence."
+    success_text: >
+      Stillness settles like snow. And then, one by one, they come.
+      A tiny spirit emerges from the watering can. Another peeks from
+      behind a flower pot. They are impossibly small and impossibly
+      real. They dance in the garden while grandmother watches with
+      the expression of someone greeting old friends. Mikan purrs.
+      The evening holds you all in its gentle hand.
+
+  - id: crying_lantern
+    name: "The Weeping Light"
+    type: ma_puzzle
+    location: asakusa
+    district: asakusa
+    difficulty: 3
+    description: >
+      A chochin-obake (lantern spirit) weeps at the edge of Senso-ji.
+      Other visitors try to relight it, thinking that's the problem.
+      It isn't. The lantern doesn't need to be lit. It needs to be
+      told it's okay to go dark.
+    setup_text: >
+      A paper lantern spirit hangs from a temple eave, its single eye
+      weeping. Its light flickers weakly. Visitors have left matches,
+      oil, candles. None have helped. The spirit sobs louder when
+      someone tries to light it.
+    hint_1: "It's crying harder when people try to light it. Maybe light isn't what it needs."
+    hint_2: "Sometimes being dark is not the same as being broken."
+    hint_3: "Choose silence. Choose to sit with it without trying to fix it."
+    solutions:
+      - approach: "acceptance"
+        description: "Choose the silence dialogue option. Sit with it without trying to light it. Wait."
+        requirements: ["empathy_3"]
+        reward_modifier: 1.5
+      - approach: "words"
+        description: "Tell it: 'You don't have to shine.' Direct dialogue option."
+        requirements: ["empathy_4", "perception_3"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 100
+      spirit_bond: "chochin_obake"
+      item: "tear_of_light"
+      ma_bonus: 15
+    failure_text: "You offered fire. The lantern spirit wailed and dimmed further. It doesn't want to burn."
+    success_text: >
+      You sit beneath the weeping lantern and say nothing. The silence
+      stretches. The lantern's sobs slow. Then stop. In the quiet, its
+      eye meets yours, and you say — or don't say, it doesn't matter —
+      that darkness is not failure. The lantern sighs. Its light goes
+      out completely, gently, like an exhale. And in the darkness, it
+      smiles. It has never been more at peace.
+
+  # === RESONANCE PUZZLES ===
+  - id: park_harmony
+    name: "The Dissonant Grove"
+    type: resonance
+    location: inokashira_park
+    district: kichijoji
+    difficulty: 3
+    description: >
+      A grove of trees in Inokashira Park has fallen out of spiritual
+      harmony. Each tree's kodama resonates at a different frequency,
+      creating a discordant hum that disturbs the park. Restore harmony
+      by finding the right resonance pattern.
+    setup_text: >
+      Five trees stand in a circle. Each hums at a different pitch.
+      Through spirit vision, you see their kodama vibrating, agitated.
+      The ground between them crackles with conflicting energy. A
+      pattern stone at the center has five positions.
+    hint_1: "Listen to each tree's tone. There's a natural harmony if they're in the right order."
+    hint_2: "The Biwa-bokuboku companion can identify the correct frequencies."
+    hint_3: "Arrange the pattern stone to match the pentatonic scale: do, re, mi, sol, la."
+    solutions:
+      - approach: "musical"
+        description: "Arrange the stones in pentatonic order by listening to each tree."
+        requirements: ["perception_4"]
+        reward_modifier: 1.0
+      - approach: "spirit_assisted"
+        description: "Let Biwa-bokuboku play the correct harmony. The trees align to match."
+        requirements: ["bond_biwa_bokuboku"]
+        reward_modifier: 1.5
+      - approach: "ma_listening"
+        description: "Enter deep ma state and let the trees tell you their natural order."
+        requirements: ["ma_level_40"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 150
+      unlock: "grove_meditation_spot"
+      item: "harmony_crystal"
+    failure_text: "The tones clash. The kodama wince. This isn't the right harmony."
+    success_text: >
+      The fifth stone clicks into place. The trees' hum shifts from
+      discord to a chord so beautiful that birds stop flying to listen.
+      The kodama glow, synchronized, and the ground between the trees
+      blooms with spirit flowers that exist in both worlds. The harmony
+      resonates outward, and for a block in every direction, every
+      broken thing feels slightly more whole.
+
+  - id: vending_choice
+    name: "The Spirit of Choice"
+    type: resonance
+    location: shibuya_crossing
+    district: shibuya
+    difficulty: 2
+    description: >
+      A vending machine spirit is overwhelmed by options. It vibrates
+      between frequencies, unable to settle. Help it find its resonance
+      by choosing FOR it — not what it should sell, but what it IS.
+    setup_text: >
+      A vending machine at the crossing flickers wildly. Through spirit
+      vision, you see a being of light and choices, fracturing between
+      a hundred possible forms. "Too many," it buzzes. "What am I? What
+      do I dispense? What is my PURPOSE?"
+    hint_1: "It's not asking what drink. It's asking what it is."
+    hint_2: "Every answer you give changes its resonance. Find the one that feels stable."
+    hint_3: "The right answer isn't a drink. It's an identity."
+    solutions:
+      - approach: "comfort"
+        description: "Tell it: 'You are comfort for the tired.' Its frequency stabilizes around warm drinks."
+        requirements: ["empathy_3"]
+        reward_modifier: 1.0
+      - approach: "surprise"
+        description: "Tell it: 'You are the surprise of the new.' It becomes a mystery machine."
+        requirements: ["perception_3"]
+        reward_modifier: 1.0
+      - approach: "choice_itself"
+        description: "Tell it: 'You are the joy of choosing.' It embraces its nature fully."
+        requirements: ["empathy_5"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 100
+      spirit_bond: "jidohanbaiki_no_kami"
+      item: "spirit_coin"
+    failure_text: "The machine buzzes louder. That answer didn't resonate. It needs something truer."
+    success_text: >
+      The machine's flickering stops. Its hum deepens into a contented
+      purr. Through spirit vision, the fractured being coalesces into a
+      single, warm form. It glows. It knows what it is now. It dispenses
+      a drink you've never seen before — perfectly cold, perfectly sweet,
+      tasting of the exact thing you needed right now. It smiles with
+      a face made of buttons and light.
+
+  # === MEMORY PUZZLES ===
+  - id: demolished_building
+    name: "The Memory of Walls"
+    type: memory
+    location: shinjuku
+    district: shinjuku
+    difficulty: 4
+    description: >
+      Where an old apartment building once stood, there is now an empty
+      lot. But the building's spirit lingers, unable to rest because no
+      one remembers what it looked like. Reconstruct its memory from
+      fragments scattered through the district.
+    setup_text: >
+      An empty lot hums with distress. Through spirit vision, you see a
+      shimmering outline — the ghost of a building, flickering, incomplete.
+      A voice like creaking wood whispers: "I was here. I was here.
+      No one remembers me." Five memory fragments are scattered nearby,
+      each a piece of the building's self-image.
+    hint_1: "Search the surrounding blocks for memory echoes — old photographs, faded signs, structural remnants."
+    hint_2: "Each fragment makes the spirit more solid. Find them in order: foundation, walls, rooms, roof, name."
+    hint_3: "The Natsukashii spirit can sense memory fragments if bonded."
+    solutions:
+      - approach: "thorough_search"
+        description: "Find all 5 fragments by searching nearby locations. Each piece restores part of the building."
+        requirements: ["perception_4"]
+        reward_modifier: 1.0
+      - approach: "spirit_memory"
+        description: "Bond with Natsukashii to sense fragments. They glow golden in spirit vision."
+        requirements: ["bond_natsukashii"]
+        reward_modifier: 1.5
+      - approach: "archivist_knowledge"
+        description: "Consult The Archivist. It has the complete memory but asks for one of yours in return."
+        requirements: ["bond_archivist", "memory_item_to_trade"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 200
+      item: "building_spirit_crystal"
+      relationship: {natsukashii: 15}
+      unlock: "spirit_architecture_lore"
+    failure_text: "The fragments don't fit. The building spirit flickers and fades. It needs more pieces."
+    success_text: >
+      The last fragment slides into place. The empty lot shimmers. For
+      one breathtaking moment, the building stands again — five stories
+      of warm windows, laundry lines, the smell of cooking rice, the
+      sound of a child laughing on the third floor. The building spirit
+      sighs with relief. "Thank you. I remember myself now." It fades
+      gently, at peace, leaving behind a small crystal that holds the
+      warmth of a hundred thousand dinners.
+
+  - id: photograph_memory
+    name: "Grandmother's Photograph"
+    type: memory
+    location: grandmothers_house
+    district: kichijoji
+    difficulty: 3
+    description: >
+      Aoi finds an old photograph of grandmother standing before a spirit
+      gate. The photograph's spirit can show the memory, but it's faded
+      and needs to be restored.
+    setup_text: >
+      In a drawer, beneath scarves that smell of lavender, a photograph.
+      Grandmother as a young woman, standing before a torii gate that
+      doesn't exist anymore. She's smiling in a way you've never seen.
+      The photograph trembles in your hands. It wants to show you.
+    hint_1: "The photograph has a spirit. It has been waiting to share this memory."
+    hint_2: "Hold the photograph during a ma moment. Let it speak."
+    hint_3: "Grandmother's tea kettle spirit knows this memory too. It was there."
+    solutions:
+      - approach: "stillness"
+        description: "Hold the photograph and enter a ma state. The memory plays."
+        requirements: ["ma_level_30"]
+        reward_modifier: 1.0
+      - approach: "tea_ceremony"
+        description: "Hold the photograph during grandmother's tea ceremony. The ritual unlocks the memory."
+        requirements: ["story_flag_tea_ceremony_learned"]
+        reward_modifier: 1.5
+    rewards:
+      experience: 150
+      story_flag: "grandmothers_past_revealed"
+      vignette: "the_photograph"
+      ma_bonus: 20
+    failure_text: "The photograph trembles but stays flat. The memory isn't ready. Or you aren't."
+    success_text: >
+      The photograph ripples like water. You fall through it into a
+      summer day fifty years ago. Grandmother — young, fierce, radiant —
+      stands before a spirit gate, her hands raised, calling something
+      vast and luminous through the veil. She was magnificent. She was
+      powerful. And she was not alone. Understanding hits like a wave.
+      You return to the present. Grandmother stands in the doorway.
+      She sees the photograph. The silence between you holds fifty
+      years of secrets. "Ah," she says. "You found that."
+
+  # === EMPATHY PUZZLES ===
+  - id: lonely_umbrella
+    name: "The Waiting Umbrella"
+    type: empathy
+    location: shibuya
+    district: shibuya
+    difficulty: 1
+    description: >
+      A Kasa-obake sits in a lost-and-found bin at Shibuya Station,
+      pretending to be a normal umbrella. It has been waiting for its
+      owner for thirty years. Understanding its pain is the key.
+    setup_text: >
+      In the station's lost-and-found, among hundreds of forgotten
+      umbrellas, one is different. Through spirit vision, it has a
+      single eye that blinks back tears. It flinches when station
+      workers check the bin. It is terrified of being thrown away.
+    hint_1: "It doesn't need to be opened or used. It needs to be seen."
+    hint_2: "Talk to it. But gently. It hasn't been spoken to in thirty years."
+    hint_3: "The kindest thing might be to tell it the truth about waiting."
+    solutions:
+      - approach: "adopt"
+        description: "Take it home. Not as a tool, but as a companion."
+        requirements: ["empathy_2"]
+        reward_modifier: 1.0
+      - approach: "truth_and_comfort"
+        description: "Tell it: 'They're not coming back. But I'm here.' Acknowledge the loss."
+        requirements: ["empathy_4"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 75
+      spirit_bond: "kasa_obake"
+      ma_bonus: 10
+    failure_text: "You tried to use it as a regular umbrella. It went limp with disappointment."
+    success_text: >
+      You kneel beside the lost-and-found bin. "I see you," you say.
+      The umbrella's eye widens. No one has spoken to it since the
+      hand that held it last. "They loved you," you say, because
+      you can feel it — the echo of a child's grip on the handle.
+      "They just grew up." The umbrella weeps and then, slowly,
+      hops out of the bin on its single leg. It leans against you.
+      It has found its person again.
+
+  - id: empty_swing
+    name: "The Playground Ghost"
+    type: empathy
+    location: ueno_park
+    district: ueno
+    difficulty: 3
+    description: >
+      A swing in Ueno Park moves by itself. A spirit sits on it —
+      the spirit of a playground that was demolished years ago. It
+      remembers children but there are no children anymore. It swings
+      endlessly, waiting for someone to play.
+    setup_text: >
+      In a quiet corner of the park, a single swing creaks back and
+      forth. No wind. No child. Through spirit vision, a small, round
+      spirit sits on the swing, pumping its legs joylessly. Around it,
+      ghostly playground equipment flickers - slides, monkey bars,
+      a sandbox. All gone now.
+    hint_1: "It doesn't want sympathy. It wants to play."
+    hint_2: "Sit on the other swing. Remember what it was like to be a child."
+    hint_3: "Push the spirit on the swing. Sometimes the simplest thing is the right thing."
+    solutions:
+      - approach: "play"
+        description: "Sit on the neighboring swing and swing alongside it. Just play."
+        requirements: []
+        reward_modifier: 1.5
+      - approach: "remember"
+        description: "Share a memory of your own childhood playground. Let it know it's not forgotten."
+        requirements: ["empathy_3"]
+        reward_modifier: 2.0
+    rewards:
+      experience: 100
+      ma_bonus: 20
+      item: "playground_spirit_marble"
+      vignette: "the_empty_swing"
+    failure_text: "You tried to explain that playgrounds change. The spirit just swung slower."
+    success_text: >
+      You sit on the swing and push off. The chains creak. The spirit
+      looks at you, startled. You swing higher. It swings higher.
+      For a moment, the ghostly playground solidifies around you -
+      children's laughter echoes, the slide gleams, the sandbox is
+      full. The spirit is beaming. It was never about the equipment.
+      It was about this: someone choosing to play. The playground
+      fades. The spirit remains, at peace, swinging gently in a
+      park that remembers what it was.
+
+  # === CALLIGRAPHY PUZZLE ===
+  - id: spirit_seal
+    name: "The Unwritten Name"
+    type: calligraphy
+    location: sensoji
+    district: asakusa
+    difficulty: 5
+    description: >
+      A powerful corrupted spirit is sealed beneath Senso-ji, held by
+      ancient calligraphy that has faded. To renew the seal, you must
+      write the spirit's true name in spiritual ink. But the name has
+      been forgotten, and writing the wrong name could release it.
+    setup_text: >
+      In the deepest chamber beneath Senso-ji, ancient ink glows faintly
+      on stone. A seal, cracking. Something vast stirs below. The monks
+      say the seal must be rewritten, but the name that binds it has been
+      lost to time. "The name," the head monk says, "is written in the
+      space between what is spoken and what is meant."
+    hint_1: "The name is not a word. It is the calligraphic expression of understanding."
+    hint_2: "The Archivist knows the name. The biwa spirit heard it once."
+    hint_3: "The name is 間 - ma - but written with the intention of compassion, not containment."
+    solutions:
+      - approach: "archival"
+        description: "Consult The Archivist for the true name. Write it precisely."
+        requirements: ["bond_archivist", "craft_skill_5"]
+        reward_modifier: 1.0
+      - approach: "musical"
+        description: "Have Biwa-bokuboku play the name as music. Translate sound to calligraphy."
+        requirements: ["bond_biwa_bokuboku", "craft_skill_4"]
+        reward_modifier: 1.5
+      - approach: "ma_understanding"
+        description: "Enter the deepest ma state and understand that the name is 間 written with compassion. The spirit doesn't need to be sealed. It needs to be understood."
+        requirements: ["ma_level_80", "empathy_6", "craft_skill_4"]
+        reward_modifier: 3.0
+    rewards:
+      experience: 500
+      item: "spirit_brush"
+      unlock: "calligraphy_combat_art"
+      story_flag: "sensoji_seal_renewed"
+    failure_text: "The ink splatters. Wrong intention, wrong name. The seal cracks further. You feel the stirring below grow stronger."
+    success_text: >
+      You dip the brush. You breathe. The ink is spirit essence and
+      intention. You write 間 — not as a barrier, but as a bridge.
+      The character glows. The seal doesn't just hold — it transforms.
+      What was a prison becomes a conversation. The vast spirit beneath
+      sighs, not with rage but with relief. Someone finally understood.
+      The seal glows golden, warm, permanent. Not because it contains.
+      Because it connects.

@@ -1,0 +1,1362 @@
+# =============================================================================
+# Ma no Kuni - Main Story Arc
+# 間の国 - The Country Between
+#
+# Seven chapters. One question: what lives in the space between worlds?
+#
+# The answer is not a destination. It is a practice.
+# =============================================================================
+
+chapters:
+  - number: 1
+    title: "The First Tremor"
+    subtitle: "Something flickers at the edge of sight"
+    description: |
+      Aoi's world is small and careful: grandmother's house in Kichijoji,
+      the cat, the garden, the daily rituals that hold a fractured life
+      together. Then the edges begin to blur. A shimmer in the steam
+      from the tea kettle. A sound like breathing from an empty room.
+      Mikan stares at nothing, and nothing stares back.
+
+      Grandmother Haruki notices. She says nothing. The nothing she says
+      is deafening.
+    main_quest_ids:
+      - main_1_1_first_sight
+      - main_1_2_kettle_spirit
+      - main_1_3_mikans_secret
+      - main_1_4_grandmother_knows
+    side_quest_ids:
+      - side_1_garden_spirits
+      - side_1_neighborhood_cats
+    spirit_quest_ids:
+      - spirit_1_kettle_friend
+    on_start_flags:
+      chapter_1_started: true
+      aoi_can_see_spirits: false
+    global_permeability_change: 0.0
+    estimated_duration_hours: 3.0
+    vignettes_available:
+      - vig_evening_tea
+      - vig_mikans_vigil
+      - vig_morning_garden
+    completion_flags:
+      - chapter_1_complete
+
+  - number: 2
+    title: "The Tide Rises"
+    subtitle: "The city shimmers. Others begin to see."
+    description: |
+      It is not just Aoi. Reports surface on social media - blurry photos,
+      breathless threads. Something is happening to Tokyo. The spirit tide
+      is rising, and the city is becoming two cities layered on top of
+      each other: the one everyone knows, and the one that was always there.
+
+      At a shrine in Yotsuya, Aoi meets Ren - a shrine keeper's apprentice
+      who has always seen spirits, and who has been waiting, without knowing
+      it, for someone like Aoi. The city is beautiful and frightening.
+      Both things are true. Both things are the same thing.
+    main_quest_ids:
+      - main_2_1_the_tide
+      - main_2_2_meet_ren
+      - main_2_3_spirit_affinity
+      - main_2_4_tokyo_changes
+    side_quest_ids:
+      - side_2_social_media_spirits
+      - side_2_lost_shrine
+      - side_2_train_spirit
+    spirit_quest_ids:
+      - spirit_2_river_memory
+    on_start_flags:
+      chapter_2_started: true
+      aoi_can_see_spirits: true
+      tokyo_permeability_rising: true
+    global_permeability_change: 0.1
+    district_changes:
+      yotsuya: 0.15
+      kichijoji: 0.05
+      shinjuku: 0.1
+    estimated_duration_hours: 4.0
+    vignettes_available:
+      - vig_evening_tea
+      - vig_last_train
+      - vig_rain_shrine
+      - vig_rooftop_dawn
+    completion_flags:
+      - chapter_2_complete
+
+  - number: 3
+    title: "The Corporation"
+    subtitle: "Someone is putting prices on the invisible"
+    description: |
+      MIRAIKAN Corporation. The name means "Future Hall" - the same name
+      as the science museum in Odaiba, but twisted into something colder.
+      They have found a way to capture spirits. Contain them. Study them.
+      Sell what they learn.
+
+      And Aoi's estranged parent Kaito works for them.
+
+      The call comes on a Tuesday evening. Kaito's voice, after years
+      of silence, careful and strange. "I need to talk to you about what
+      you've been seeing." How does Kaito know what Aoi has been seeing?
+
+      Nothing is simple. Some spirits are dangerous. Some have hurt people.
+      Is containment always wrong? Is freedom always right? The game
+      refuses to answer. It asks you to sit with the question.
+    main_quest_ids:
+      - main_3_1_miraikan_discovery
+      - main_3_2_kaitos_call
+      - main_3_3_captured_spirits
+      - main_3_4_moral_weight
+    side_quest_ids:
+      - side_3_miraikan_employee
+      - side_3_dangerous_spirit
+      - side_3_protest_march
+    spirit_quest_ids:
+      - spirit_3_captured_garden
+    on_start_flags:
+      chapter_3_started: true
+      miraikan_known: true
+      kaito_contacted: true
+    global_permeability_change: 0.1
+    district_changes:
+      odaiba: 0.2
+      roppongi: 0.1
+      shibuya: 0.15
+    estimated_duration_hours: 5.0
+    vignettes_available:
+      - vig_evening_tea
+      - vig_photograph
+      - vig_kaitos_hands
+      - vig_corporate_garden
+    completion_flags:
+      - chapter_3_complete
+
+  - number: 4
+    title: "The Deep Crossing"
+    subtitle: "The other Tokyo. The one beneath."
+    description: |
+      Aoi can cross over now. Not just see - enter. The spirit world
+      is not a separate place. It is the same place, seen completely.
+      Tokyo's spirit-side is ancient: Edo-period gardens growing through
+      skyscrapers. Rivers that were buried a century ago flowing again,
+      luminous and cold. Shrines that exist only in memory, standing
+      whole and burning with foxfire.
+
+      The Archivist waits in a library that was never built. They know
+      everything that has ever been forgotten. They will share it.
+      For a price. The price is a memory - one of Aoi's own. Which one?
+    main_quest_ids:
+      - main_4_1_first_crossing
+      - main_4_2_spirit_tokyo
+      - main_4_3_the_archivist
+      - main_4_4_the_price
+    side_quest_ids:
+      - side_4_buried_river
+      - side_4_edo_garden
+      - side_4_foxfire_shrine
+    spirit_quest_ids:
+      - spirit_4_lost_district
+      - spirit_4_memory_river
+    on_start_flags:
+      chapter_4_started: true
+      aoi_can_cross: true
+      spirit_world_accessible: true
+    global_permeability_change: 0.15
+    estimated_duration_hours: 5.0
+    vignettes_available:
+      - vig_evening_tea
+      - vig_spirit_city_dawn
+      - vig_the_library
+      - vig_mikan_crossing
+    completion_flags:
+      - chapter_4_complete
+
+  - number: 5
+    title: "Grandmother's Secret"
+    subtitle: "The silence breaks. What was underneath is devastating."
+    description: |
+      Haruki was a spirit medium. One of the strongest in a generation.
+      She stopped thirty years ago, after something happened - something
+      she has never spoken of. The falling out with Aoi's parents was
+      about this. Kaito begged her to stop. She wouldn't. Then something
+      went wrong, and she did stop, and the silence that followed
+      swallowed the family whole.
+
+      This chapter is the quietest and the loudest. The revelations
+      come not in exposition but in silences that crack open. In a
+      photograph Aoi finds. In a room in the house that has always
+      been locked. In the way Haruki's hands shake when she finally
+      speaks.
+
+      The ma between revelations is where the real story lives.
+    main_quest_ids:
+      - main_5_1_the_locked_room
+      - main_5_2_harukis_past
+      - main_5_3_the_tragedy
+      - main_5_4_reconciliation
+    side_quest_ids:
+      - side_5_old_medium_network
+      - side_5_family_album
+    spirit_quest_ids:
+      - spirit_5_harukis_old_friend
+    on_start_flags:
+      chapter_5_started: true
+      haruki_secret_emerging: true
+    global_permeability_change: 0.05
+    district_changes:
+      kichijoji: 0.2
+    estimated_duration_hours: 4.0
+    vignettes_available:
+      - vig_evening_tea_heavy
+      - vig_photograph
+      - vig_grandmothers_hands
+      - vig_the_locked_room
+      - vig_old_shrine_visit
+    completion_flags:
+      - chapter_5_complete
+
+  - number: 6
+    title: "The Convergence"
+    subtitle: "Two worlds pressed together. The seams are splitting."
+    description: |
+      The spirit tide is at dangerous levels. MIRAIKAN's industrial-scale
+      spirit harvesting has torn the veil in ways that cannot self-repair.
+      Spirits flood into the material world - some confused, some
+      frightened, some angry. Humans are panicking. The government
+      is involved now.
+
+      Aoi must do what they have been preparing for without knowing it:
+      unite. Bring together Ren's knowledge, Haruki's experience, Kaito's
+      insider access to MIRAIKAN, and the trust of the spirit community
+      Aoi has built through patience and presence and ma.
+
+      The climax is coming. But first: preparation. Alliances.
+      Difficult conversations. The hardest quest is asking for help.
+    main_quest_ids:
+      - main_6_1_the_tearing
+      - main_6_2_gather_allies
+      - main_6_3_miraikan_confrontation
+      - main_6_4_spirit_council
+    side_quest_ids:
+      - side_6_evacuation
+      - side_6_frightened_spirits
+      - side_6_media_storm
+    spirit_quest_ids:
+      - spirit_6_elder_spirits
+    on_start_flags:
+      chapter_6_started: true
+      convergence_approaching: true
+    global_permeability_change: 0.2
+    district_changes:
+      shibuya: 0.3
+      shinjuku: 0.3
+      akihabara: 0.25
+      odaiba: 0.35
+    estimated_duration_hours: 6.0
+    vignettes_available:
+      - vig_evening_tea
+      - vig_before_the_storm
+      - vig_rens_fear
+      - vig_kaitos_choice
+    completion_flags:
+      - chapter_6_complete
+
+  - number: 7
+    title: "Ma"
+    subtitle: "間"
+    description: |
+      The final chapter is called Ma because that is the answer.
+
+      The convergence cannot be stopped by force. The spirit world cannot
+      be pushed back, and the material world cannot absorb it. The
+      solution - if it can be called that - is not a solution at all.
+      It is a way of being.
+
+      Ma. The space between. Not empty, not full. The pause in music
+      that makes the notes mean something. The silence in conversation
+      that lets understanding grow. The threshold that is neither inside
+      nor outside.
+
+      Aoi does not save the world. Aoi teaches the world to breathe.
+
+      Multiple endings, depending on everything: relationships, choices,
+      ma accumulated, spirits befriended, silences held, moments witnessed.
+      Every vignette Aoi sat through. Every time the player chose to wait
+      instead of act. It all matters now.
+    main_quest_ids:
+      - main_7_1_the_convergence
+      - main_7_2_the_crossing
+      - main_7_3_the_choice
+      - main_7_4_ma
+    on_start_flags:
+      chapter_7_started: true
+      final_chapter: true
+    global_permeability_change: 0.3
+    estimated_duration_hours: 4.0
+    vignettes_available:
+      - vig_evening_tea_final
+      - vig_last_dawn
+      - vig_mikan_knows
+    completion_flags:
+      - game_complete
+
+# =============================================================================
+# Main Story Quests
+# =============================================================================
+
+quests:
+  # --------------------------------------------------------------------------
+  # Chapter 1: The First Tremor
+  # --------------------------------------------------------------------------
+
+  - id: main_1_1_first_sight
+    title: "Flickering"
+    type: main
+    chapter: 1
+    urgency: patient
+    description: |
+      Something is wrong with Aoi's eyes. Or something is right with them.
+      Shapes at the periphery. A shimmer in steam. The way shadows don't
+      quite match what casts them. It could be nothing. It could be stress,
+      or the light, or not enough sleep. But Mikan sees it too. Mikan has
+      always seen it.
+    short_description: "Strange things flicker at the edge of Aoi's vision."
+    journal_entries:
+      - "I keep seeing things. Not things - edges of things. Like the air has seams."
+      - "Mikan won't stop staring at the corner of the kitchen. There's nothing there. There's something there."
+    objectives:
+      - id: first_sight_1
+        description: "Notice the flickering in the kitchen steam"
+        on_complete_text: |
+          The steam from the kettle does something it should not do. It curls
+          around a shape that isn't there - or shouldn't be. For a moment,
+          just a moment, Aoi sees a tiny face in the steam. Old. Patient.
+          Fond. Then it's gone, and the kettle is just a kettle, and Aoi's
+          hands are shaking.
+        on_complete_flags:
+          seen_first_spirit: true
+      - id: first_sight_2
+        description: "Watch Mikan's reaction to the spirits"
+        hint: "The cat sees more than you do. Watch where Mikan looks."
+        on_complete_text: |
+          Mikan tracks something across the room. Not with the sharp attention
+          of a hunter - with the lazy fondness of someone greeting old friends.
+          The cat's eyes are wide and golden and seeing a room full of things
+          Aoi is only beginning to glimpse.
+        on_complete_flags:
+          noticed_mikan_sees: true
+      - id: first_sight_3
+        description: "Experience the flickering three times"
+        hint: "Be present. Be still. They'll come to you."
+        on_complete_flags:
+          flickering_established: true
+    rewards:
+      ma_bonus: 5.0
+      flags:
+        aoi_sight_awakening: true
+      narrative_text: |
+        The world has not changed. Aoi's ability to see it has.
+        This is not a gift. It is an unveiling.
+    next_quests:
+      - main_1_2_kettle_spirit
+
+  - id: main_1_2_kettle_spirit
+    title: "The Kettle's Name"
+    type: main
+    chapter: 1
+    urgency: patient
+    description: |
+      Grandmother's tea kettle is old - cast iron, heavy, the kind that
+      takes years of use to season properly. Haruki has had it for decades.
+      The spirit inside has been there almost as long. It is small, warm,
+      and desperately glad that someone can finally see it.
+
+      Tsukumogami - the spirits of objects loved long enough to wake.
+      The kettle has been loved for forty years. It has been awake for ten.
+      It has been lonely for all of them.
+    short_description: "Befriend the spirit living in grandmother's tea kettle."
+    prerequisites:
+      - type: flag
+        target: seen_first_spirit
+        operator: eq
+        value: true
+    objectives:
+      - id: kettle_1
+        description: "See the kettle spirit clearly for the first time"
+        requires_ma: 10.0
+        on_complete_text: |
+          It happens during evening tea. The steam rises and does not disperse.
+          It gathers. It takes shape. A face like crumpled paper, eyes like
+          embers, a body no larger than a fist. It sits on the kettle's lid
+          and looks at Aoi with an expression that can only be described as
+          hope. Grandmother pours the tea without comment.
+        on_complete_flags:
+          kettle_spirit_seen: true
+      - id: kettle_2
+        description: "Learn the kettle spirit's name"
+        hint: "Names are given in silence. Wait. Listen."
+        requires_ma: 15.0
+        on_complete_text: |
+          Not a name spoken. A name felt - like warmth on cold hands,
+          like the memory of the first hot drink after rain. Chairo.
+          The color of tea. The color of comfort. The spirit hums,
+          and the kettle sings along, and Aoi understands that naming
+          is an act of intimacy between worlds.
+        on_complete_flags:
+          chairo_named: true
+      - id: kettle_3
+        description: "Share tea with Chairo as a conscious act"
+        on_complete_text: |
+          Aoi pours a cup and sets it beside the kettle. The gesture is
+          small. The meaning is not. Chairo glows - actually glows, a warm
+          amber light that fills the kitchen for a breath, then settles.
+          Across the table, grandmother's hand pauses mid-pour. Her eyes
+          are bright. She still says nothing. But the nothing is different now.
+        on_complete_flags:
+          chairo_bonded: true
+          first_spirit_friend: true
+    rewards:
+      spirit_affinity: chairo
+      ma_bonus: 10.0
+      relationship_changes:
+        haruki: 1
+      flags:
+        has_spirit_companion: true
+      narrative_text: |
+        Aoi's first friend from the other side is the size of a teacup
+        and has been living in the kitchen for a decade. The extraordinary,
+        it turns out, lives in the ordinary. It always has.
+    next_quests:
+      - main_1_3_mikans_secret
+
+  - id: main_1_3_mikans_secret
+    title: "What Mikan Sees"
+    type: main
+    chapter: 1
+    urgency: eternal
+    description: |
+      The cat has always known. Cats live on the border between worlds
+      as easily as they live on the border between sleep and waking.
+      Mikan's secret is not that they can see spirits. Mikan's secret
+      is that they have been guarding this house - and this family -
+      from the ones that mean harm. Every night. For years.
+    short_description: "Discover what the cat has been doing all along."
+    prerequisites:
+      - type: flag
+        target: first_spirit_friend
+        operator: eq
+        value: true
+    objectives:
+      - id: mikan_1
+        description: "Follow Mikan during the night"
+        requires_time: midnight
+        on_complete_text: |
+          Mikan makes rounds. Aoi follows, silent, and watches the cat
+          pause at every window, every door, every crack in the old house's
+          walls. At each one, Mikan does something - a sound, a posture,
+          a flick of the tail that carries authority. And at each one,
+          something small and dark retreats. Not all spirits are kind.
+          Mikan has known this. Mikan has been the border guard.
+        on_complete_flags:
+          mikan_patrol_witnessed: true
+      - id: mikan_2
+        description: "Understand Mikan's role"
+        requires_ma: 20.0
+        on_complete_text: |
+          In the spirit-sight, Mikan is not just a cat. Mikan is a
+          threshold guardian - a nekomata in training, perhaps, or
+          something older. The cat's fur shimmers with a light that
+          has nothing to do with the lamp. Mikan looks at Aoi, and
+          for the first time, Aoi understands the look: I have been
+          protecting you. Now you can help.
+      - id: mikan_3
+        description: "Assist Mikan in guarding the house"
+        optional: true
+        on_complete_text: |
+          Together, they walk the perimeter. Human and cat. The house
+          has never been safer. The spirits outside press close - not
+          threatening, but curious. Word travels, even between worlds.
+          The house in Kichijoji has a new guardian.
+        on_complete_flags:
+          house_guardian_established: true
+    rewards:
+      relationship_changes:
+        mikan: 2
+      ma_bonus: 8.0
+      flags:
+        mikan_role_known: true
+    next_quests:
+      - main_1_4_grandmother_knows
+
+  - id: main_1_4_grandmother_knows
+    title: "What She Doesn't Say"
+    type: main
+    chapter: 1
+    urgency: patient
+    description: |
+      Grandmother has not asked a single question. Not about the flickering.
+      Not about the kettle spirit. Not about why Aoi now sits differently
+      at tea - attentive, watchful, seeing. Haruki's silence is not
+      ignorance. It is its own kind of language.
+
+      The question is not whether grandmother knows. The question is
+      what she is choosing not to say, and why.
+    short_description: "Confront - or sit with - grandmother's knowing silence."
+    prerequisites:
+      - type: flag
+        target: mikan_role_known
+        operator: eq
+        value: true
+    objectives:
+      - id: grandmother_1
+        description: "Notice grandmother's small, careful reactions"
+        on_complete_text: |
+          Once Aoi starts looking, it's everywhere. The way Haruki
+          adjusts the flowers - always toward the window where spirits
+          gather. The extra cup of tea she leaves on the counter.
+          The way she hums old songs that make Chairo dance. She has
+          been having a conversation with the spirit world for years.
+          Just not in words.
+        on_complete_flags:
+          haruki_signals_noticed: true
+      - id: grandmother_2
+        description: "Share a moment of mutual understanding with grandmother"
+        requires_ma: 25.0
+        on_complete_text: |
+          It happens without words. Aoi is watching a spirit in the garden -
+          a small one, made of moss and patient waiting. Grandmother sits
+          beside Aoi. She watches too. She can see it. She has always been
+          able to see it. The understanding passes between them like warmth
+          through a wall. Neither speaks. Neither needs to. This is ma -
+          the fullness of silence. The conversation that needs no words.
+        on_complete_flags:
+          haruki_understanding: true
+    branches:
+      - id: grandmother_branch
+        description: "How to address what grandmother knows"
+        options:
+          - id: ask_directly
+            text: "Ask her directly what she sees"
+            description: |
+              Break the silence. Ask the question.
+              Sometimes directness is its own kind of courage.
+            consequence_text: |
+              Grandmother's hands still. For a long moment she looks at
+              the garden, then at Aoi. "You see them now," she says.
+              Not a question. Her voice carries the weight of decades.
+              "We'll talk. But not today. Today, just see."
+            on_choose_flags:
+              asked_grandmother_directly: true
+            relationship_changes:
+              haruki: 1
+          - id: sit_in_silence
+            text: "Say nothing. Let the silence speak."
+            description: |
+              Honor the ma between you. The understanding is already there.
+              Words might diminish it.
+            consequence_text: |
+              They sit together until the garden fills with dusk and the
+              spirits grow bold enough to drift close. Grandmother reaches
+              over and covers Aoi's hand with her own. Her hand is warm
+              and thin and steady. She squeezes once. That is enough.
+              That is everything.
+            on_choose_flags:
+              honored_grandmothers_silence: true
+            relationship_changes:
+              haruki: 2
+            requires_ma: 30.0
+    rewards:
+      ma_bonus: 15.0
+      relationship_changes:
+        haruki: 2
+      flags:
+        chapter_1_complete: true
+      narrative_text: |
+        The first tremor is over. The ground has shifted beneath Aoi's life,
+        and the new landscape is strange and beautiful and vast. Grandmother
+        knows. The cat has always known. And somewhere in a kettle in the
+        kitchen, a small spirit named Chairo hums to itself, content,
+        because finally, finally, someone poured a cup for it too.
+
+  # --------------------------------------------------------------------------
+  # Chapter 2: The Tide Rises
+  # --------------------------------------------------------------------------
+
+  - id: main_2_1_the_tide
+    title: "The Shimmer Spreads"
+    type: main
+    chapter: 2
+    urgency: patient
+    required_chapter: 2
+    description: |
+      It started with isolated incidents - a viral video of lights over
+      Shibuya, a trending hashtag about "ghost trains" on the Yamanote line.
+      Now it's undeniable. Tokyo is becoming translucent. The spirit world
+      bleeds through in patches: a park in Nakano where the trees glow at
+      dusk, a konbini in Shimokitazawa where the shelves stock items from
+      another century.
+
+      People are scared. People are awed. People are both.
+    short_description: "The spirit tide is rising across Tokyo."
+    objectives:
+      - id: tide_1
+        description: "Witness the spirit tide affecting a public space"
+        on_complete_text: |
+          Inokashira Park. Aoi has walked here a hundred times. Today the
+          pond is different - a second pond layered over the first, deeper,
+          older, its surface covered in lotuses that shouldn't bloom until
+          summer. Visitors walk past. Some of them shiver. Some of them stop
+          and stare without knowing why. One child points and says, "Pretty,"
+          and her mother pulls her away.
+      - id: tide_2
+        description: "Help a confused spirit who has surfaced in the wrong place"
+        on_complete_text: |
+          The spirit is an old one - a river spirit from the Kanda, which was
+          buried under concrete decades ago. It stands in the middle of a
+          crosswalk in Ochanomizu, looking for water that isn't there anymore.
+          It is so lost. It is so old. Aoi guides it to the nearest fountain.
+          The spirit touches the water and weeps without sound.
+        on_complete_flags:
+          helped_lost_spirit: true
+      - id: tide_3
+        description: "Understand that the tide is accelerating"
+        on_complete_text: |
+          The news reports are increasing. The government has issued a vague
+          advisory about "atmospheric phenomena." But Aoi can feel it in
+          their skin - the permeability is rising. The wall between worlds
+          is thinning. And it is not going to stop.
+        on_complete_flags:
+          tide_acceleration_understood: true
+    rewards:
+      ma_bonus: 5.0
+      flags:
+        tide_witnessed: true
+    next_quests:
+      - main_2_2_meet_ren
+
+  - id: main_2_2_meet_ren
+    title: "The Shrine Keeper"
+    type: main
+    chapter: 2
+    urgency: patient
+    required_chapter: 2
+    description: |
+      Suwa Shrine in Yotsuya. A small shrine, easy to miss, wedged between
+      office buildings. The kind of place that tourists never find and
+      salarymen pass without seeing. Someone is sweeping the steps with
+      a focus that borders on ritual. They look up when Aoi approaches,
+      and for one breath, neither of them moves.
+
+      Recognition. Not of faces - they have never met. Of sight. This
+      person sees what Aoi sees. The relief is physical, like putting
+      down something heavy that Aoi didn't know they were carrying.
+    short_description: "Meet Ren at the Yotsuya shrine."
+    prerequisites:
+      - type: flag
+        target: tide_witnessed
+        operator: eq
+        value: true
+    objectives:
+      - id: ren_1
+        description: "Visit the Suwa Shrine in Yotsuya"
+        requires_location: yotsuya
+        on_complete_text: |
+          The shrine is small and perfect. The air here is different -
+          cleaner, older, as if this patch of ground remembers what it was
+          before the city grew around it. Someone is sweeping. The broom
+          moves in patterns that are not about cleaning.
+      - id: ren_2
+        description: "Speak with Ren"
+        on_complete_text: |
+          "You can see them." Ren says it without preamble, without doubt.
+          The broom stops. Dark eyes, steady hands, a calm that comes from
+          certainty. "I've been waiting for more of us. Come inside. I'll
+          make tea."
+
+          Tea again. In this story, tea is always the beginning of something.
+        on_complete_flags:
+          ren_met: true
+      - id: ren_3
+        description: "Learn about the shrine's role as a spirit waypoint"
+        on_complete_text: |
+          The shrine is a node - a place where the worlds have always been
+          thin. Ren's family has tended it for generations. Not just the
+          physical shrine. The spiritual one. They are gatekeepers, guides,
+          mediators between worlds. Ren is the latest in a long line, but
+          the first to face a tide this strong.
+        on_complete_flags:
+          shrine_waypoint_known: true
+    rewards:
+      relationship_changes:
+        ren: 3
+      ma_bonus: 8.0
+      flags:
+        ren_allied: true
+      narrative_text: |
+        For the first time since this began, Aoi is not alone in seeing.
+    next_quests:
+      - main_2_3_spirit_affinity
+
+  - id: main_2_3_spirit_affinity
+    title: "A Different Frequency"
+    type: main
+    chapter: 2
+    urgency: patient
+    required_chapter: 2
+    description: |
+      Ren recognizes something in Aoi that goes beyond simple sight.
+      Most people who can see spirits perceive them dimly - shapes,
+      feelings, shadows. Aoi sees them whole. And more: spirits respond
+      to Aoi differently. They approach. They trust. They speak.
+
+      This is rare. This is significant. This changes everything.
+    short_description: "Discover the depth of Aoi's spirit affinity."
+    prerequisites:
+      - type: flag
+        target: ren_allied
+        operator: eq
+        value: true
+    objectives:
+      - id: affinity_1
+        description: "Undergo Ren's spirit sensitivity assessment"
+        on_complete_text: |
+          Ren produces a series of ofuda - paper talismans, each carrying
+          a different spiritual frequency. "Hold each one. Tell me what
+          you feel." Aoi holds the first and feels warmth. The second, a
+          hum. The third - the third blazes with light that only they can
+          see, and across the shrine, every spirit turns to look.
+
+          "I thought so," Ren says quietly. "You're not just a seer.
+          You're a bridge."
+        on_complete_flags:
+          aoi_is_bridge: true
+      - id: affinity_2
+        description: "Communicate clearly with a spirit for the first time"
+        requires_ma: 20.0
+        on_complete_text: |
+          Not words. Never quite words. But meaning, clear as water.
+          The garden spirit in the shrine speaks in images: roots,
+          seasons, the slow patient work of growing. And Aoi answers
+          in kind - memories of grandmother's garden, of Mikan's warmth,
+          of Chairo's contented hum. The spirit understands. The bridge
+          holds. The communication is real.
+    rewards:
+      unlock_ability: spirit_communication
+      ma_bonus: 10.0
+      flags:
+        spirit_communication_unlocked: true
+    next_quests:
+      - main_2_4_tokyo_changes
+
+  - id: main_2_4_tokyo_changes
+    title: "Two Cities"
+    type: main
+    chapter: 2
+    urgency: pressing
+    required_chapter: 2
+    description: |
+      Tokyo is becoming two cities. The material one carries on - trains
+      run, konbini glow, salarymen hurry. But the spirit city is growing
+      louder. Cherry trees bloom out of season where spirit energy pools.
+      Foxfire lights abandoned lots. The Sumida River glows at midnight
+      with the memories of a thousand years of lantern festivals.
+
+      Beautiful. Terrifying. The city holds its breath.
+    short_description: "Navigate a Tokyo that is becoming something new."
+    prerequisites:
+      - type: flag
+        target: spirit_communication_unlocked
+        operator: eq
+        value: true
+    objectives:
+      - id: tokyo_1
+        description: "Map the spirit tide patterns across Tokyo"
+        on_complete_text: |
+          Ren provides a map. Together, they mark the hotspots: Meiji Shrine
+          blazes like a beacon. Akihabara hums with the spirits of obsolete
+          electronics - tiny, fizzing, chattering in dial-up modem sounds.
+          Yanaka Cemetery is a parliament of the dead, orderly and ancient.
+          The Tsukiji area remembers the fish market with the devotion of
+          a thousand mornings.
+        on_complete_flags:
+          spirit_map_created: true
+      - id: tokyo_2
+        description: "Witness the public reaction to the spirit tide"
+        on_complete_text: |
+          A crowd at Shibuya Crossing, phones raised, recording a column
+          of light that isn't there for the cameras. An old woman at a
+          bus stop, talking to what appears to be empty air - but Aoi
+          sees the tiny spirit on the bench beside her, listening with
+          the patience of something that has nowhere else to be.
+          A child drawing pictures of "the pretty ghosts" at school.
+          Tokyo is adjusting. Tokyo has always been good at holding
+          contradictions.
+      - id: tokyo_3
+        description: "Make a choice about Aoi's role in the changing city"
+        on_complete_flags:
+          chapter_2_complete: true
+    branches:
+      - id: role_branch
+        description: "What will Aoi be in this new world?"
+        options:
+          - id: mediator
+            text: "I want to help both sides understand each other"
+            description: "A bridge. A translator. Someone who stands between."
+            on_choose_flags:
+              aoi_role: mediator
+            relationship_changes:
+              ren: 1
+          - id: protector
+            text: "I want to protect people - humans and spirits both"
+            description: "A guardian. Like Mikan, but for the whole city."
+            on_choose_flags:
+              aoi_role: protector
+            relationship_changes:
+              mikan: 1
+          - id: seeker
+            text: "I want to understand. I want to know what's really happening"
+            description: "A seeker. The truth is somewhere in the space between."
+            on_choose_flags:
+              aoi_role: seeker
+    rewards:
+      ma_bonus: 10.0
+      flags:
+        chapter_2_complete: true
+
+  # --------------------------------------------------------------------------
+  # Chapter 3: The Corporation (key quests)
+  # --------------------------------------------------------------------------
+
+  - id: main_3_1_miraikan_discovery
+    title: "Future Hall"
+    type: main
+    chapter: 3
+    urgency: patient
+    required_chapter: 3
+    description: |
+      MIRAIKAN Corporation occupies a sleek tower in Odaiba. Their public
+      face is clean energy research. Their private work is something else
+      entirely. They have developed technology to detect, contain, and
+      study spirits. In boardrooms, executives discuss "spiritual resource
+      extraction." In laboratories, captured spirits glow dimly in glass
+      containers, pressing against walls they cannot break.
+
+      The future they are building has no room for the space between.
+    short_description: "Learn about MIRAIKAN Corporation and their spirit operations."
+    objectives:
+      - id: miraikan_1
+        description: "Discover MIRAIKAN's involvement with spirits"
+        on_complete_text: |
+          The news article is buried - not censored, just unnoticed. A small
+          tech blog reporting on MIRAIKAN's new "atmospheric energy" patents.
+          But Aoi can read between the lines. The frequencies described. The
+          containment protocols. They are catching spirits and calling them
+          something else.
+      - id: miraikan_2
+        description: "Visit the Odaiba facility from outside"
+        requires_location: odaiba
+        on_complete_text: |
+          The tower is beautiful. Glass and steel, designed to catch the
+          light. In spirit-sight, it is something else: a void. A cold
+          spot. The spirits in the surrounding area give it a wide berth.
+          Inside, through the glass, Aoi can see them - faint glows in
+          dark rooms. Captured. Held. Silent. The tower does not hum with
+          spiritual energy. It swallows it.
+        on_complete_flags:
+          miraikan_facility_seen: true
+      - id: miraikan_3
+        description: "Learn that Kaito works for MIRAIKAN"
+        on_complete_text: |
+          Ren finds the connection. An employee directory. A name that
+          makes Aoi's chest tighten. Kaito. Senior researcher. Department
+          of Permeability Studies. Aoi's estranged parent, studying the
+          very thing that tore the family apart.
+        on_complete_flags:
+          kaito_miraikan_known: true
+    rewards:
+      flags:
+        miraikan_investigated: true
+    next_quests:
+      - main_3_2_kaitos_call
+
+  - id: main_3_2_kaitos_call
+    title: "After Years of Silence"
+    type: main
+    chapter: 3
+    urgency: pressing
+    required_chapter: 3
+    description: |
+      The phone rings on a Tuesday evening. Aoi almost doesn't answer.
+      The number is unfamiliar but the area code is Odaiba. When Kaito
+      speaks, the years between them are audible - a careful, measured
+      voice that used to read bedtime stories and then one day simply
+      stopped calling.
+
+      "I know what you've been seeing. I need to talk to you. Please."
+
+      The 'please' is what does it. Not the information. The vulnerability.
+    short_description: "Kaito reaches out after years of estrangement."
+    prerequisites:
+      - type: flag
+        target: kaito_miraikan_known
+        operator: eq
+        value: true
+    objectives:
+      - id: kaito_call_1
+        description: "Answer Kaito's call"
+        on_complete_text: |
+          "Aoi." A pause. The pause is years long. "I know we - I know
+          it's been a long time. I know I don't have the right to call.
+          But something is happening and you are part of it and I need
+          you to know that I -" Another pause. "Can we meet? Somewhere
+          neutral. Wherever you want."
+      - id: kaito_call_2
+        description: "Meet with Kaito"
+        on_complete_text: |
+          A cafe in Kichijoji - Aoi's territory, not Kaito's. Neutral
+          ground. Kaito looks older. Tired in a specific way that has
+          nothing to do with sleep. When they sit, neither speaks for
+          a moment. The ma between them is not comfortable. It is not
+          hostile. It is a space full of unasked questions.
+
+          "MIRAIKAN is doing something wrong," Kaito says. "And I
+          helped them do it."
+        on_complete_flags:
+          kaito_met: true
+    branches:
+      - id: kaito_response
+        description: "How to respond to Kaito's confession"
+        options:
+          - id: anger
+            text: "You left. You left and now you want my help?"
+            description: "The anger is real. It deserves to be spoken."
+            consequence_text: |
+              Kaito doesn't flinch. "Yes. I left. And I'm not asking for
+              forgiveness. I'm telling you the truth because you deserve it,
+              and because the truth is dangerous and I want you to be safe."
+            on_choose_flags:
+              kaito_confronted_angrily: true
+            relationship_changes:
+              kaito: -1
+          - id: listen
+            text: "Tell me everything."
+            description: "Listen first. The anger can wait."
+            consequence_text: |
+              Kaito talks for an hour. About MIRAIKAN. About the containment
+              tech. About what happens to spirits in those glass rooms. About
+              the growing unease among researchers. About the profits that
+              make the executives deaf to anything else.
+            on_choose_flags:
+              kaito_heard_fully: true
+            relationship_changes:
+              kaito: 2
+          - id: silence_option
+            text: "..."
+            description: "Say nothing. Let Kaito sit with it."
+            consequence_text: |
+              The silence stretches. Kaito's hands wrap around the coffee cup.
+              The cafe hums around them. Minutes pass. Then: "I'm sorry, Aoi.
+              Not just for MIRAIKAN. For everything before it." The words
+              come out like they've been held underwater. When they surface,
+              they are gasping.
+            on_choose_flags:
+              kaito_silence_shared: true
+            relationship_changes:
+              kaito: 3
+            requires_ma: 35.0
+    rewards:
+      relationship_changes:
+        kaito: 1
+      flags:
+        kaito_reunion_complete: true
+    next_quests:
+      - main_3_3_captured_spirits
+
+  - id: main_3_3_captured_spirits
+    title: "Glass Rooms"
+    type: main
+    chapter: 3
+    urgency: pressing
+    required_chapter: 3
+    description: |
+      With Kaito's access, Aoi enters MIRAIKAN. The containment labs are
+      underground. Row after row of glass chambers, each holding a spirit.
+      Some are small - object spirits, garden spirits, the gentle kind.
+      Some are large and old and furious. All of them are diminishing.
+
+      Spirit containment is not a kindness. It is a slow death.
+    short_description: "Infiltrate MIRAIKAN and witness the captured spirits."
+    prerequisites:
+      - type: flag
+        target: kaito_reunion_complete
+        operator: eq
+        value: true
+    objectives:
+      - id: captured_1
+        description: "Enter the MIRAIKAN containment facility"
+        requires_location: odaiba
+        on_complete_text: |
+          Underground. Fluorescent light. The hum of machinery that exists
+          to hold the unholdable. Aoi's spirit-sight blazes - every cell
+          in their body can feel the wrongness of this place. The spirits
+          see Aoi and press against their glass. Not with anger. With hope.
+      - id: captured_2
+        description: "Communicate with a captured spirit"
+        requires_ma: 25.0
+        on_complete_text: |
+          An old river spirit, its form shifting and grey. It speaks in
+          images: a river in sunlight, fish leaping, children playing on
+          banks that no longer exist. Then: glass walls, shrinking, the
+          light going out. "Help," it says. Not a word. A feeling.
+          The most human feeling in the world.
+        on_complete_flags:
+          spirit_plea_heard: true
+      - id: captured_3
+        description: "Discover the scope of MIRAIKAN's operation"
+        on_complete_text: |
+          Hundreds. Not dozens. Hundreds of spirits across multiple
+          facilities. Some have been here for months. The data readouts
+          show their life force declining in steady graphs. The scientists
+          call this "normalization." They have given it a clean name
+          for an unclean thing.
+        on_complete_flags:
+          miraikan_scope_known: true
+    rewards:
+      flags:
+        containment_witnessed: true
+    next_quests:
+      - main_3_4_moral_weight
+
+  - id: main_3_4_moral_weight
+    title: "The Weight of It"
+    type: main
+    chapter: 3
+    urgency: patient
+    required_chapter: 3
+    description: |
+      But here is the thing the story insists you consider: some of those
+      contained spirits are dangerous. The river spirit in Lab 7 flooded
+      Edogawa ward twice. The mountain spirit in Lab 12 caused landslides.
+      MIRAIKAN isn't entirely wrong about the need for management. They
+      are wrong about the method. But where is the line?
+
+      The game will not tell you. It will make you sit with the question
+      until you understand that the sitting IS the answer.
+    short_description: "Grapple with the moral complexity of spirit containment."
+    prerequisites:
+      - type: flag
+        target: containment_witnessed
+        operator: eq
+        value: true
+    objectives:
+      - id: moral_1
+        description: "Learn about spirits that have harmed people"
+        on_complete_text: |
+          Ren shows Aoi the shrine records. Not all spirits are kind.
+          Not all spirits are gentle. The mountain spirit destroyed homes.
+          The deep-water spirit drowned a fisherman. They are not evil -
+          they are forces, as amoral as weather, as indifferent as gravity.
+          But people got hurt. Real people. And that is real too.
+      - id: moral_2
+        description: "Talk to Ren, Kaito, and Haruki about containment"
+        on_complete_text: |
+          Three perspectives. Ren: "Containment is violence. We should
+          learn to coexist, even with the dangerous ones." Kaito:
+          "Some coexistence means people die." Grandmother, after a long
+          silence: "Your grandfather asked the same question. He never
+          found an answer either."
+      - id: moral_3
+        description: "Make a decision about MIRAIKAN"
+        on_complete_flags:
+          chapter_3_complete: true
+    branches:
+      - id: miraikan_stance
+        description: "Where does Aoi stand on MIRAIKAN's containment program?"
+        options:
+          - id: oppose_fully
+            text: "All containment is wrong. Every spirit must be freed."
+            description: "An absolute stance. Clear. Potentially dangerous."
+            on_choose_flags:
+              miraikan_stance: oppose
+              chose_spirit_empathy: true
+            relationship_changes:
+              ren: 2
+              kaito: -1
+          - id: reform
+            text: "MIRAIKAN's methods are wrong, but the problem is real."
+            description: "The middle path. Harder. Requires more of everyone."
+            on_choose_flags:
+              miraikan_stance: reform
+              miraikan_confronted_peacefully: true
+            relationship_changes:
+              ren: 1
+              kaito: 2
+          - id: uncertain
+            text: "I don't know. I don't know and I won't pretend to."
+            description: |
+              Honesty. The bravest choice is admitting you don't have
+              the answer yet.
+            on_choose_flags:
+              miraikan_stance: uncertain
+            relationship_changes:
+              haruki: 2
+            requires_ma: 40.0
+    rewards:
+      ma_bonus: 15.0
+      flags:
+        chapter_3_complete: true
+
+  # --------------------------------------------------------------------------
+  # Chapters 4-7: Key quest entries (representative selections)
+  # --------------------------------------------------------------------------
+
+  - id: main_4_1_first_crossing
+    title: "The Threshold"
+    type: main
+    chapter: 4
+    urgency: patient
+    required_chapter: 4
+    description: |
+      The boundary is not a wall. It is a frequency. Aoi has been tuning
+      toward it for weeks. Tonight, at the witching hour, at the shrine
+      in Yotsuya where the veil is thinnest, with Ren's guidance and
+      Mikan at their side, Aoi will step across.
+
+      Not into another world. Into the rest of this one.
+    short_description: "Cross into the spirit world for the first time."
+    objectives:
+      - id: crossing_1
+        description: "Prepare for the crossing at Suwa Shrine"
+        requires_time: witching
+        requires_location: yotsuya
+        requires_ma: 40.0
+        on_complete_text: |
+          Ren has drawn the patterns. Mikan sits at the threshold, watching
+          with eyes that have always seen both sides. "You won't be going
+          somewhere else," Ren says. "You'll be seeing all of where you
+          already are."
+      - id: crossing_2
+        description: "Step across"
+        on_complete_text: |
+          It is not a door. It is not a portal. It is a deepening - like
+          looking at a painting and suddenly seeing the brushstrokes, and
+          then the canvas, and then the wall behind the canvas, and then
+          the history of the wall, and then the earth, and then the memory
+          of the earth, all the way down.
+
+          Tokyo blazes. Ancient and modern, layered and luminous. The Edo
+          castle stands whole and burning with foxfire, its walls
+          superimposed on the Imperial Palace. Rivers run where streets
+          are - the buried waterways of old Edo, flowing again, silver
+          and cold. Above the skyscrapers, great spirits drift like
+          clouds with eyes.
+
+          It is the most beautiful thing Aoi has ever seen.
+          It is the most terrifying.
+        on_complete_flags:
+          first_crossing_complete: true
+          spirit_world_accessible: true
+    rewards:
+      unlock_area: spirit_tokyo
+      unlock_ability: spirit_crossing
+      ma_bonus: 20.0
+      narrative_text: |
+        The space between worlds is not empty. It is where everything real lives.
+
+  - id: main_5_2_harukis_past
+    title: "The Medium's Silence"
+    type: main
+    chapter: 5
+    urgency: eternal
+    required_chapter: 5
+    description: |
+      Grandmother was one of the most gifted spirit mediums of her
+      generation. She could do what Aoi is only beginning to learn -
+      not just see and speak with spirits, but walk between worlds
+      as easily as walking between rooms. She served as a bridge
+      for decades. And then she stopped.
+
+      Why she stopped is the wound at the center of this family.
+    short_description: "Learn the truth about grandmother's past as a spirit medium."
+    objectives:
+      - id: past_1
+        description: "Find the photographs in the locked room"
+        on_complete_text: |
+          The room smells of cedar and old paper. Boxes. Decades of a life
+          packed away. And the photographs. Haruki as a young woman, standing
+          at a torii gate that glows with spirit light. Haruki with her hands
+          raised, surrounded by spirits that lean toward her like flowers
+          toward sun. Haruki smiling. Haruki powerful. Haruki whole.
+        on_complete_flags:
+          haruki_photos_found: true
+      - id: past_2
+        description: "Ask grandmother about her past"
+        requires_ma: 50.0
+        on_complete_text: |
+          Haruki's hands shake. She sets down her tea cup. The silence
+          before she speaks is the longest ma in the game - the player
+          must wait, and wait, and wait, and the waiting is the point.
+
+          "I was a bridge," she says. "Like you. Better than you, for
+          a while. I could walk between worlds the way you walk to the
+          shops. The spirits trusted me. I trusted them."
+
+          She stops. The stopping is a cliff edge.
+
+          "Then I trusted the wrong one."
+      - id: past_3
+        description: "Learn about the tragedy"
+        on_complete_text: |
+          It comes in fragments. Not a dramatic revelation but a slow
+          unwinding, like pulling a thread from a very old garment.
+
+          A powerful spirit. A crossing that went wrong. Someone died.
+          Not a stranger - someone Haruki loved. The details don't come
+          all at once. They come over days, in half-sentences, in the
+          way Haruki's voice breaks on certain words and goes silent
+          on others.
+
+          The falling out with Kaito: "Your parent begged me to stop.
+          I wouldn't listen. I was arrogant. And then someone died
+          because of my arrogance, and Kaito was right, and I couldn't
+          bear it. I couldn't bear being near someone who was right."
+        on_complete_flags:
+          haruki_tragedy_known: true
+    rewards:
+      relationship_changes:
+        haruki: 3
+      ma_bonus: 25.0
+      flags:
+        haruki_past_resolved: true
+
+  - id: main_7_4_ma
+    title: "The Space Between"
+    type: main
+    chapter: 7
+    urgency: critical
+    required_chapter: 7
+    description: |
+      This is it.
+
+      The convergence point. Two worlds pressing together so hard
+      they might break. Every choice, every relationship, every
+      moment of ma - it all comes to this. Not a battle. Not a
+      spell. A breath.
+
+      Aoi stands at the place between worlds and does the hardest
+      thing: nothing. Everything. The same thing.
+
+      Ma.
+    short_description: "The final resolution. The space between."
+    objectives:
+      - id: ma_1
+        description: "Reach the convergence point"
+        on_complete_text: |
+          Every step is a threshold. Every breath is a crossing. Aoi walks
+          toward the place where the worlds are thinnest and the light from
+          both sides is blinding. Grandmother on one side. Ren on the other.
+          Kaito behind, having finally chosen. Mikan ahead, as always,
+          walking in both worlds without effort, because cats have always
+          known the secret.
+      - id: ma_2
+        description: "Stand in the space between"
+        requires_ma: 80.0
+        on_complete_text: |
+          It is not dramatic. That is the secret.
+
+          Aoi stands where the worlds meet and does not push. Does not pull.
+          Does not close the gap or widen it. Holds. The way you hold a
+          breath. The way you hold a cup of tea. The way you hold silence
+          with someone you love.
+
+          The worlds do not merge. They do not separate. They breathe.
+          Together. Apart. Together. Apart. Like lungs. Like tides.
+          Like the spaces between notes that make music possible.
+      - id: ma_3
+        description: "Choose the ending"
+        on_complete_flags:
+          game_complete: true
+    branches:
+      - id: ending_branch
+        description: "The final resolution"
+        options:
+          - id: ending_bridge
+            text: "Become the permanent bridge between worlds"
+            description: |
+              Aoi gives themselves to the threshold. They become the door
+              that is always open. Both worlds can pass through. It is a
+              sacrifice. It is a gift. It is both.
+            on_choose_flags:
+              ending: bridge
+            conditions:
+              - type: flag
+                target: chose_spirit_empathy
+                operator: eq
+                value: true
+          - id: ending_guardian
+            text: "Guard the boundary with allies at your side"
+            description: |
+              Not alone. Never alone. A network of guardians, human and
+              spirit, tending the border the way Ren's family tends the
+              shrine. With patience. With presence. Forever.
+            on_choose_flags:
+              ending: guardian
+            conditions:
+              - type: relationship
+                target: ren
+                operator: gte
+                value: 8
+          - id: ending_integration
+            text: "Let the worlds merge, gently and completely"
+            description: |
+              No more boundary. No more veil. The spirit world and the
+              material world become one world, strange and luminous and
+              whole. Humanity will adapt. They always do.
+            on_choose_flags:
+              ending: integration
+            conditions:
+              - type: flag
+                target: spirit_council_allied
+                operator: eq
+                value: true
+          - id: ending_separation
+            text: "Close the gate, with love, with sorrow"
+            description: |
+              Some doors need to close. Not in anger. In tenderness. The
+              worlds part like hands releasing. The spirits return. The
+              veil heals. It is a loss. It is a mercy. It is both.
+            on_choose_flags:
+              ending: separation
+              chose_gentle_separation: true
+            conditions:
+              - type: relationship
+                target: kaito
+                operator: gte
+                value: 7
+          - id: ending_ma
+            text: "..."
+            description: |
+              Say nothing. Do nothing. Be present. The space between is not
+              a problem to be solved. It is a place to live in. The worlds
+              will find their own balance, the way they always have, if
+              given room to breathe.
+
+              This is the true ending. The answer was always the pause.
+            on_choose_flags:
+              ending: ma
+            requires_ma: 80.0
+            conditions:
+              - type: relationship
+                target: haruki
+                operator: gte
+                value: 9
+    rewards:
+      ma_bonus: 100.0
+      flags:
+        game_complete: true
+      narrative_text: |
+        The story ends the way all true stories end: not with a period
+        but with a breath. Not with an answer but with a space where
+        an answer might grow, if given time, if given silence, if given ma.
+
+        Thank you for being present.

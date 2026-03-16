@@ -1,0 +1,666 @@
+# ============================================================================
+# Ma no Kuni - Recipe Definitions
+#
+# A recipe is a conversation. The crafter speaks with their hands,
+# the materials speak with their nature, and the spirits speak with
+# their willingness. What emerges from that conversation is crafting.
+# ============================================================================
+
+recipes:
+
+  # --------------------------------------------------------------------------
+  # OFUDA (Spirit Talismans)
+  # --------------------------------------------------------------------------
+
+  - id: ofuda_ward_basic
+    name: "Ward of Gentle Refusal"
+    description: "A paper talisman that politely but firmly discourages minor spirits from entering a space."
+    category: ofuda
+    materials:
+      - { material_id: hinoki_bark, quantity: 1 }
+      - { material_id: spirit_essence, quantity: 1 }
+      - { material_id: morning_dew, quantity: 1 }
+    min_spirit_affinity: 1
+    result_item_id: item_ofuda_ward_basic
+    crafting_time: 0.5
+    discovery_method: innate
+    base_success_rate: 0.90
+    great_success_rate: 0.08
+    flavor_text: >
+      You press the hinoki bark flat and smooth it with your palm. The dew
+      soaks into the grain, carrying the spirit essence with it. For a moment,
+      the bark glows from within - a warm amber, like a lantern behind paper
+      screens. When the light fades, the ward is set. It smells of cypress
+      and something older than cypress.
+    lore: "The simplest and oldest form of spiritual boundary-setting. Not a wall, but a polite request."
+    tags: [protection, beginner, defensive]
+
+  - id: ofuda_communication
+    name: "Whispering Ofuda"
+    description: "A talisman that allows the bearer to hear the surface thoughts of nearby spirits. The spirits know you're listening."
+    category: ofuda
+    materials:
+      - { material_id: echo_crystal, quantity: 1 }
+      - { material_id: spirit_essence, quantity: 2 }
+      - { material_id: payphone_wire, quantity: 1 }
+    min_spirit_affinity: 3
+    result_item_id: item_ofuda_whisper
+    crafting_time: 1.5
+    discovery_method: spirit_taught
+    base_success_rate: 0.80
+    great_success_rate: 0.12
+    flavor_text: >
+      The echo crystal hums as you wind the payphone wire around it - a sound
+      like a phone ringing in an empty room. The spirit essence seeps into the
+      wire, and suddenly you can hear it: a murmur, like a conversation in the
+      next room. The ofuda is ready when the murmur becomes words you almost
+      understand.
+    lore: "Communication between worlds requires a medium that knows both languages. Copper wire and crystal memories bridge the gap."
+    conditions:
+      time_of_day: [evening, midnight]
+    tags: [communication, intermediate, perception]
+
+  - id: ofuda_binding
+    name: "Ofuda of Considerate Binding"
+    description: "A powerful talisman that can temporarily bind a spirit in place. It holds them gently, like cupped hands around a firefly."
+    category: ofuda
+    materials:
+      - { material_id: rusty_nail, quantity: 2 }
+      - { material_id: memory_thread, quantity: 1 }
+      - { material_id: void_ink, quantity: 1 }
+      - { material_id: hinoki_bark, quantity: 2 }
+    min_spirit_affinity: 5
+    result_item_id: item_ofuda_binding
+    crafting_time: 3.0
+    discovery_method: quest_reward
+    base_success_rate: 0.70
+    great_success_rate: 0.15
+    curious_item_rate: 0.80
+    flavor_text: >
+      This one takes time. You write the binding kanji with void ink on hinoki
+      bark, each stroke a negotiation between control and respect. The rusty
+      nails anchor the corners, their accumulated prayers giving the binding
+      weight. The memory thread weaves through it all, reminding the bound
+      spirit of who they were before they became dangerous. It is a cage made
+      of courtesy.
+    lore: "True binding doesn't trap - it reminds. A spirit held by memory remembers itself, and a spirit that remembers itself often chooses to stay."
+    conditions:
+      min_ma: 30.0
+    tags: [binding, advanced, powerful, respectful]
+
+  # --------------------------------------------------------------------------
+  # SPIRIT CHARMS
+  # --------------------------------------------------------------------------
+
+  - id: charm_spirit_sight
+    name: "Charm of Thin Seeing"
+    description: "A small pendant that sharpens the wearer's perception of the spirit world. Everything looks slightly translucent."
+    category: spirit_charm
+    materials:
+      - { material_id: spirit_touched_glass, quantity: 1 }
+      - { material_id: ghost_wire, quantity: 1 }
+      - { material_id: foxfire_ember, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_charm_spirit_sight
+    crafting_time: 1.0
+    discovery_method: npc_taught
+    base_success_rate: 0.85
+    great_success_rate: 0.10
+    flavor_text: >
+      You hold the spirit-touched glass up to the foxfire, and the light passes
+      through it wrong - showing you, for a flickering instant, the room as the
+      spirits see it. You wrap the ghost wire around the glass to hold that
+      moment in place. The finished charm feels heavier than its materials
+      should allow.
+    lore: "Seeing is not always believing. Sometimes seeing is remembering that the world is wider than it looks."
+    tags: [perception, accessory, spirit_world]
+
+  - id: charm_ember_heart
+    name: "Ember Heart Charm"
+    description: "A charm that keeps the wearer warm in spirit-cold areas and grants minor resistance to spirit-drain attacks."
+    category: spirit_charm
+    materials:
+      - { material_id: foxfire_ember, quantity: 2 }
+      - { material_id: shrine_rust, quantity: 1 }
+      - { material_id: camphor_leaf, quantity: 2 }
+    min_spirit_affinity: 3
+    result_item_id: item_charm_ember_heart
+    crafting_time: 1.5
+    discovery_method: experimentation
+    base_success_rate: 0.82
+    great_success_rate: 0.10
+    flavor_text: >
+      The foxfire embers orbit each other slowly as you work, drawn together
+      by something you can't see. The living rust acts as a cradle, its slow
+      breathing synchronizing with the embers' pulse. Camphor leaves pressed
+      around the assembly release their sharp, clean scent. The finished charm
+      beats like a tiny heart made of blue light.
+    lore: "Foxfire is deception, but even a lie can keep you warm. The shrine rust teaches the fire honesty; the camphor keeps it clean."
+    tags: [resistance, warmth, accessory, defensive]
+
+  - id: charm_silent_step
+    name: "Charm of Quiet Passing"
+    description: "A charm woven from urban moss and dream fragments that muffles the wearer's spiritual presence."
+    category: spirit_charm
+    materials:
+      - { material_id: alley_moss, quantity: 3 }
+      - { material_id: dream_fragment, quantity: 1 }
+      - { material_id: bamboo_segment, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_charm_silent_step
+    crafting_time: 1.0
+    discovery_method: world_find
+    base_success_rate: 0.85
+    great_success_rate: 0.08
+    flavor_text: >
+      The moss wraps around the dream fragment willingly, as if it has always
+      wanted something to cling to that isn't concrete. Inside the bamboo
+      segment, the assembly becomes a tiny garden of forgetfulness. When you
+      hold the finished charm, the room seems to forget you're in it.
+    lore: "The moss knows how to be overlooked. The dream fragment knows how to be forgotten. Together, they teach you the art of not being noticed."
+    tags: [stealth, accessory, evasion]
+
+  # --------------------------------------------------------------------------
+  # TEA BLENDS (Grandmother's Recipes)
+  # --------------------------------------------------------------------------
+
+  - id: tea_comfort
+    name: "Grandmother's Comfort Blend"
+    description: "A simple houjicha blend that restores health and makes everything feel slightly more manageable. Grandmother's everyday tea."
+    category: tea_blend
+    materials:
+      - { material_id: roasted_houjicha, quantity: 1 }
+      - { material_id: dried_chrysanthemum, quantity: 1 }
+    min_spirit_affinity: 1
+    result_item_id: item_tea_comfort
+    result_quantity: 3
+    crafting_time: 0.5
+    discovery_method: innate
+    base_success_rate: 0.95
+    great_success_rate: 0.15
+    flavor_text: >
+      Grandmother's kitchen. The kettle on the gas stove whistles its familiar
+      note. You measure the houjicha the way she taught you - not by weight
+      but by the sound it makes settling into the pot. The chrysanthemum goes
+      in last, one flower at a time. The tea steeps in silence. You pour.
+      The apartment smells like it has always smelled, like it will always
+      smell, even though nothing lasts forever. Especially not this.
+    lore: "This is the first tea Aoi learned to make. It doesn't do anything extraordinary. It just makes the ordinary bearable."
+    teaches_recipe: tea_renewal
+    tags: [healing, comfort, grandmother, ma_moment, beginner]
+
+  - id: tea_renewal
+    name: "Spring Awakening Tea"
+    description: "A bright sencha blend that restores ma energy and sharpens spiritual perception. It tastes like the first warm day of the year."
+    category: tea_blend
+    materials:
+      - { material_id: first_flush_sencha, quantity: 1 }
+      - { material_id: morning_dew, quantity: 1 }
+      - { material_id: sakura_petal, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_tea_renewal
+    result_quantity: 2
+    crafting_time: 0.5
+    discovery_method: npc_taught
+    base_success_rate: 0.88
+    great_success_rate: 0.12
+    flavor_text: >
+      The sencha leaves are almost too green - they look like they're still
+      growing. You pour the morning dew over them instead of boiled water,
+      and the leaves unfurl instantly, eagerly, as if they've been waiting.
+      The sakura petal floats on the surface and slowly turns transparent.
+      Grandmother watches from her chair without commenting, which is how
+      you know you're doing it right. The tea is the color of new leaves
+      in sunlight. It tastes like hope that hasn't been tested yet.
+    lore: "Grandmother learned this from her own grandmother, who learned it from a shrine maiden, who learned it from a wind spirit."
+    conditions:
+      season: [spring]
+    teaches_recipe: tea_deep_calm
+    tags: [ma_restore, perception, grandmother, ma_moment, spring]
+
+  - id: tea_deep_calm
+    name: "Tea of Deep Calm"
+    description: "Aged pu-erh steeped with spirit honey. Grants a significant ma boost and temporary resistance to spiritual disturbance."
+    category: tea_blend
+    materials:
+      - { material_id: aged_pu_erh, quantity: 1 }
+      - { material_id: spirit_honey, quantity: 1 }
+      - { material_id: twilight_water, quantity: 1 }
+    min_spirit_affinity: 4
+    result_item_id: item_tea_deep_calm
+    result_quantity: 1
+    crafting_time: 1.0
+    discovery_method: npc_taught
+    base_success_rate: 0.80
+    great_success_rate: 0.15
+    flavor_text: >
+      This tea takes patience. The pu-erh must be rinsed three times - once
+      for the body, once for the mind, once for the spirit between them.
+      Twilight water goes in when it's ready, which you know by a feeling
+      you can't explain. The spirit honey dissolves slowly, turning the dark
+      tea into something that glows from within. You and grandmother sit
+      with it in silence for a full minute before drinking. In that minute,
+      you hear the apartment building breathing. You hear your own heartbeat
+      finding the rhythm of the kettle's cooling tick. The tea tastes of
+      earth and time and the specific peace of someone who has decided,
+      at last, to stop rushing.
+    lore: "Grandmother makes this tea only when something difficult is coming. She never says what. She just makes the tea and sits with you."
+    conditions:
+      time_of_day: [dusk, evening]
+      min_ma: 20.0
+    tags: [ma_boost, resistance, grandmother, ma_moment, advanced, intimate]
+
+  - id: tea_memory
+    name: "Remembrance Brew"
+    description: "A tea that helps the drinker recall forgotten things - lost names, faded faces, misplaced feelings."
+    category: tea_blend
+    materials:
+      - { material_id: roasted_houjicha, quantity: 1 }
+      - { material_id: memory_thread, quantity: 1 }
+      - { material_id: dried_chrysanthemum, quantity: 2 }
+    min_spirit_affinity: 3
+    result_item_id: item_tea_memory
+    result_quantity: 1
+    crafting_time: 0.75
+    discovery_method: npc_taught
+    base_success_rate: 0.82
+    great_success_rate: 0.12
+    flavor_text: >
+      Grandmother's hands shake slightly as she guides you through this one.
+      The memory thread must be wound around the chrysanthemum stems before
+      steeping, creating a small bundle that looks like a cocoon. The houjicha
+      goes in the pot first, the bundle second. As it steeps, you see images
+      in the steam - faces you recognize but can't name. Grandmother sees
+      them too. She smiles at one of them. She doesn't say who it is. The
+      tea tastes like a room you haven't visited in years.
+    lore: "Grandmother says everyone forgets the things they need to remember and remembers the things they need to forget. This tea fixes neither problem, but it lets you choose."
+    tags: [memory, reveal, grandmother, ma_moment, emotional]
+
+  - id: tea_courage
+    name: "Bitter Courage Tea"
+    description: "A sharp, bracing tea that grants temporary attack and defense bonuses. It tastes terrible. Grandmother insists this is the point."
+    category: tea_blend
+    materials:
+      - { material_id: wild_mugwort, quantity: 2 }
+      - { material_id: roasted_houjicha, quantity: 1 }
+      - { material_id: camphor_leaf, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_tea_courage
+    result_quantity: 2
+    crafting_time: 0.5
+    discovery_method: npc_taught
+    base_success_rate: 0.88
+    great_success_rate: 0.10
+    flavor_text: >
+      The mugwort fights the hot water. It doesn't want to release its
+      bitterness, and you can respect that. The camphor leaf cuts through
+      the resistance with its sharp medicinal edge, and the houjicha rounds
+      the bottom so the bitterness has somewhere to land. The result is
+      a tea that makes you wince. Grandmother nods approvingly. "If it
+      tasted good," she says, "it would be comfort. Comfort doesn't make
+      you brave. This does." She's right. After the first cup, everything
+      seems like less of a big deal.
+    lore: "Bravery is not the absence of fear. It is the decision that something else matters more. This tea tastes like that decision."
+    tags: [buff, combat, grandmother, bracing]
+
+  # --------------------------------------------------------------------------
+  # INK & BRUSHWORK
+  # --------------------------------------------------------------------------
+
+  - id: ink_spirit_name
+    name: "Spirit Name Inscription"
+    description: "Calligraphy that writes a spirit's true name, granting insight into their nature and making communication easier."
+    category: ink_brushwork
+    materials:
+      - { material_id: void_ink, quantity: 1 }
+      - { material_id: echo_crystal, quantity: 1 }
+      - { material_id: bamboo_segment, quantity: 1 }
+    min_spirit_affinity: 4
+    result_item_id: item_ink_spirit_name
+    crafting_time: 2.0
+    discovery_method: spirit_taught
+    base_success_rate: 0.75
+    great_success_rate: 0.12
+    curious_item_rate: 0.75
+    flavor_text: >
+      You split the bamboo into a brush and dip it in void ink. The ink
+      doesn't drip - it waits. You hold the brush over the paper and listen
+      to the echo crystal. A name forms in your mind, syllable by syllable,
+      like remembering a word in a language you've never spoken. Your hand
+      moves. The void ink writes characters that hurt to read directly -
+      you have to look at them from the corner of your eye. They say
+      something true about a spirit you've met, something the spirit
+      couldn't say about itself.
+    lore: "A name is a doorway. Writing a spirit's true name opens a path between your understanding and their existence."
+    conditions:
+      time_of_day: [midnight, witching]
+      min_ma: 15.0
+    tags: [calligraphy, identification, spirit_world, advanced]
+
+  - id: ink_seal_passage
+    name: "Passage Seal Scroll"
+    description: "A calligraphic seal that can temporarily close a gap between the material and spirit worlds."
+    category: ink_brushwork
+    materials:
+      - { material_id: void_ink, quantity: 1 }
+      - { material_id: concrete_dust, quantity: 2 }
+      - { material_id: rusty_nail, quantity: 1 }
+      - { material_id: river_stone, quantity: 1 }
+    min_spirit_affinity: 4
+    result_item_id: item_ink_seal
+    crafting_time: 2.5
+    discovery_method: quest_reward
+    base_success_rate: 0.72
+    great_success_rate: 0.10
+    flavor_text: >
+      The concrete dust mixes with river water ground from the stone to make
+      a paste that dries like the city itself - hard, grey, final. The void
+      ink writes the sealing characters over this foundation: each stroke a
+      door closing, each dot a lock turning. The rusty nail pins the scroll
+      to existence. When you're done, the scroll radiates a sense of closure
+      so strong you feel homesick for a place you haven't left.
+    lore: "Sealing a passage is an act of separation. It must be done with care - some passages exist because something on the other side needs them."
+    tags: [seal, defensive, passage, advanced]
+
+  # --------------------------------------------------------------------------
+  # REPAIR ITEMS
+  # --------------------------------------------------------------------------
+
+  - id: repair_spirit_salve
+    name: "Spirit-Mending Salve"
+    description: "A paste that can heal spirit-corrupted objects or soothe a spirit suffering from material-world contamination."
+    category: repair
+    materials:
+      - { material_id: morning_dew, quantity: 2 }
+      - { material_id: wild_mugwort, quantity: 1 }
+      - { material_id: spirit_essence, quantity: 1 }
+      - { material_id: shrine_rust, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_repair_salve
+    result_quantity: 2
+    crafting_time: 1.0
+    discovery_method: npc_taught
+    base_success_rate: 0.85
+    great_success_rate: 0.10
+    flavor_text: >
+      The mugwort and morning dew combine into a green paste that smells
+      medicinal in a way that transcends chemistry. Spirit essence turns it
+      translucent. The living rust goes in last and dissolves reluctantly,
+      adding the memory of a thousand repairs. The salve glows faintly
+      green-gold. When you touch it to something broken, you can feel it
+      reaching for the fracture, eager to close it.
+    lore: "Healing is just remembering wholeness. This salve carries enough memories of being unbroken to remind damaged things of their original shape."
+    tags: [healing, repair, versatile]
+
+  - id: repair_corruption_purge
+    name: "Purification Compound"
+    description: "A volatile mixture that can cleanse deep spiritual corruption from objects, places, or weakened spirits."
+    category: repair
+    materials:
+      - { material_id: foxfire_ember, quantity: 1 }
+      - { material_id: morning_dew, quantity: 2 }
+      - { material_id: hinoki_bark, quantity: 2 }
+      - { material_id: spirit_essence, quantity: 2 }
+    min_spirit_affinity: 4
+    result_item_id: item_repair_purify
+    crafting_time: 2.0
+    discovery_method: quest_reward
+    base_success_rate: 0.78
+    great_success_rate: 0.08
+    curious_item_rate: 0.70
+    flavor_text: >
+      You build a small fire from the hinoki bark - not a real fire, but
+      a memory of fire, sparked by the foxfire ember. The morning dew
+      steams in this impossible heat, and the spirit essence crystallizes
+      around the steam. What remains is a white powder that smells of
+      lightning storms and shrine incense. It burns corruption the way
+      dawn burns shadows: not with violence, but with the simple
+      insistence of light.
+    lore: "Corruption is a spirit that has forgotten itself. Purification is the act of reminding."
+    conditions:
+      time_of_day: [dawn]
+    tags: [purification, advanced, powerful]
+
+  # --------------------------------------------------------------------------
+  # GIFTS
+  # --------------------------------------------------------------------------
+
+  - id: gift_spirit_lantern
+    name: "Spirit Lantern"
+    description: "A small lantern made of spirit-touched glass and foxfire. Spirits find it beautiful. Giving one is a sign of deep respect."
+    category: gift
+    materials:
+      - { material_id: spirit_touched_glass, quantity: 1 }
+      - { material_id: foxfire_ember, quantity: 1 }
+      - { material_id: ghost_wire, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_gift_lantern
+    crafting_time: 1.0
+    discovery_method: world_find
+    base_success_rate: 0.85
+    great_success_rate: 0.10
+    flavor_text: >
+      The ghost wire bends into a frame without much convincing - it seems
+      to know the shape of a lantern already. The spirit-touched glass
+      fits the frame like it was always meant to. The foxfire ember goes
+      inside and immediately begins to glow, casting light that shows
+      things as they truly are. In its light, the room looks different.
+      More real. More kind.
+    lore: "Light is the first gift. To give a spirit light that comes from their own world is to say: I see you as you see yourself."
+    tags: [relationship, spirit_gift, beautiful]
+
+  - id: gift_memory_flower
+    name: "Memory Flower"
+    description: "A flower preserved with memory threads that replays a single happy memory when held. An intimate and precious gift."
+    category: gift
+    materials:
+      - { material_id: sakura_petal, quantity: 2 }
+      - { material_id: memory_thread, quantity: 1 }
+      - { material_id: spirit_honey, quantity: 1 }
+    min_spirit_affinity: 3
+    result_item_id: item_gift_memory_flower
+    crafting_time: 1.5
+    discovery_method: experimentation
+    base_success_rate: 0.80
+    great_success_rate: 0.15
+    flavor_text: >
+      You press the sakura petals into a flower shape that never existed
+      on any tree - something new, something that belongs to this moment.
+      The memory thread weaves through the petals, and the spirit honey
+      seals them in place. As you work, a memory surfaces unbidden:
+      something warm, something you'd almost forgotten. The flower
+      catches it and holds it. Whoever receives this gift will feel
+      that warmth when they hold it close.
+    lore: "The best gifts are not things. They are moments, preserved."
+    tags: [relationship, intimate, precious, emotional]
+
+  - id: gift_echo_bell
+    name: "Echo Bell"
+    description: "A tiny bell made from an echo crystal that rings with a sound the listener needs to hear. Different for everyone."
+    category: gift
+    materials:
+      - { material_id: echo_crystal, quantity: 2 }
+      - { material_id: vending_coil, quantity: 1 }
+      - { material_id: regret_dew, quantity: 1 }
+    min_spirit_affinity: 3
+    result_item_id: item_gift_echo_bell
+    crafting_time: 1.0
+    discovery_method: spirit_taught
+    base_success_rate: 0.82
+    great_success_rate: 0.12
+    flavor_text: >
+      The echo crystals sing when you shape them, and the sound is
+      different every time. The vending coil becomes the clapper - all
+      those small transactions, all that patient service, now distilled
+      into a single ringing moment. The regret dew tempers the crystal
+      so the sound carries the weight of things that matter. When you
+      ring it, you hear your mother's voice saying something she said
+      once that you didn't appreciate at the time. Someone else would
+      hear something different. That's the point.
+    lore: "We all carry sounds we need to hear again. This bell finds them."
+    tags: [relationship, sound, personal, emotional]
+
+  - id: gift_npc_warmth_bundle
+    name: "Warmth Bundle"
+    description: "A small cloth bundle containing warm urbanwood, camphor, and spirit essence. For humans who feel the spirit cold without knowing why."
+    category: gift
+    materials:
+      - { material_id: urbanwood, quantity: 1 }
+      - { material_id: camphor_leaf, quantity: 2 }
+      - { material_id: spirit_essence, quantity: 1 }
+    min_spirit_affinity: 1
+    result_item_id: item_gift_warmth
+    crafting_time: 0.5
+    discovery_method: innate
+    base_success_rate: 0.92
+    great_success_rate: 0.08
+    flavor_text: >
+      You wrap the urbanwood in camphor leaves and tie it with string.
+      The spirit essence soaks into the wood, and suddenly the bundle
+      is warm - not hot, just warm, like a hand that has been held
+      recently. You made this for someone who is cold in a way that
+      has nothing to do with the weather. They won't know why it
+      helps. It will help anyway.
+    lore: "Not everyone can see the spirits. But everyone can feel the cold they leave behind. This helps."
+    tags: [relationship, human_gift, comfort, beginner]
+
+  # --------------------------------------------------------------------------
+  # ADDITIONAL OFUDA & ADVANCED RECIPES
+  # --------------------------------------------------------------------------
+
+  - id: ofuda_safe_passage
+    name: "Ofuda of Safe Passage"
+    description: "A talisman that creates a brief corridor of safety through spirit-dense areas. The spirits step aside, not out of fear, but out of courtesy."
+    category: ofuda
+    materials:
+      - { material_id: taxi_meter_glass, quantity: 1 }
+      - { material_id: train_spark, quantity: 2 }
+      - { material_id: spirit_essence, quantity: 1 }
+      - { material_id: bamboo_segment, quantity: 1 }
+    min_spirit_affinity: 3
+    result_item_id: item_ofuda_safe_passage
+    crafting_time: 1.5
+    discovery_method: world_find
+    base_success_rate: 0.82
+    great_success_rate: 0.10
+    flavor_text: >
+      The taxi meter glass knows distance. The train sparks know urgency.
+      Together, sealed in bamboo with spirit essence, they create something
+      that says: I need to pass through, and I will pass through quickly,
+      and I mean no disrespect. The finished ofuda vibrates with the hum
+      of a departing train - the feeling of going somewhere you need to be.
+    lore: "Tokyo's transit system moves millions through tight spaces without collision. This ofuda applies the same principle to the spirit world."
+    tags: [movement, safety, transit, intermediate]
+
+  - id: charm_moonlight_veil
+    name: "Moonlight Veil Charm"
+    description: "A charm that strengthens during the full moon, granting heightened spiritual perception and resistance to illusion."
+    category: spirit_charm
+    materials:
+      - { material_id: moonflower_bud, quantity: 1 }
+      - { material_id: dream_fragment, quantity: 1 }
+      - { material_id: twilight_water, quantity: 1 }
+      - { material_id: neon_glass, quantity: 1 }
+    min_spirit_affinity: 4
+    result_item_id: item_charm_moonlight_veil
+    crafting_time: 2.0
+    discovery_method: experimentation
+    base_success_rate: 0.75
+    great_success_rate: 0.12
+    curious_item_rate: 0.70
+    flavor_text: >
+      The moonflower bud must remain closed - that's the key. You float it
+      in twilight water and the dream fragment dissolves around it like a
+      protective membrane. The neon glass catches the light of the not-yet-
+      bloomed flower and refracts it into colors the human eye wasn't designed
+      to process. The finished charm looks like a drop of moonlight trapped
+      in glass. On full moon nights, it opens like the flower never did.
+    lore: "The moonflower blooms for the moon alone. This charm carries that devotion - a beauty that reveals itself only when the time is right."
+    conditions:
+      moon_phase: [full, waxing_gibbous]
+    tags: [perception, lunar, illusion_resist, accessory]
+
+  - id: repair_object_restore
+    name: "Object Restoration Kit"
+    description: "A kit for repairing mundane objects damaged by spirit interference - cracked phone screens, glitching electronics, warped doorframes."
+    category: repair
+    materials:
+      - { material_id: concrete_dust, quantity: 1 }
+      - { material_id: vending_coil, quantity: 1 }
+      - { material_id: river_stone, quantity: 2 }
+      - { material_id: regret_dew, quantity: 1 }
+    min_spirit_affinity: 2
+    result_item_id: item_repair_object_kit
+    result_quantity: 3
+    crafting_time: 1.0
+    discovery_method: npc_taught
+    base_success_rate: 0.88
+    great_success_rate: 0.08
+    flavor_text: >
+      You grind the river stones against each other until they produce a
+      fine grey powder that mixes with the concrete dust. The vending coil
+      gets dissolved in regret dew, creating a copper-tinged solution that
+      smells faintly of apology. Combined, they make a paste that says
+      to broken things: remember your shape. Remember what you were for.
+      It works on phones, locks, windows, and occasionally on hearts,
+      though the instructions don't mention that last part.
+    lore: "The mundane world breaks under spiritual pressure. This paste is an apology from the spirit world for the inconvenience."
+    tags: [repair, mundane, practical, versatile]
+
+  - id: ink_warding_circle
+    name: "Warding Circle Blueprint"
+    description: "A scroll containing the pattern for a protective circle that can be drawn on any surface. Lasts until the next rain."
+    category: ink_brushwork
+    materials:
+      - { material_id: void_ink, quantity: 1 }
+      - { material_id: static_charge, quantity: 1 }
+      - { material_id: dream_rust, quantity: 1 }
+      - { material_id: morning_dew, quantity: 1 }
+    min_spirit_affinity: 3
+    result_item_id: item_ink_warding_circle
+    crafting_time: 1.5
+    discovery_method: world_find
+    base_success_rate: 0.80
+    great_success_rate: 0.10
+    flavor_text: >
+      The pattern comes to you as you draw, as if the void ink remembers a
+      shape your hand has never learned. The static charge makes your hair
+      stand up as the circle takes form on paper. The dream rust adds
+      unpredictable whorls to the design that you know, somehow, are
+      necessary. The morning dew seals it. The finished scroll hums
+      with the quiet authority of a locked door that doesn't need to
+      announce it's locked.
+    lore: "Circles have no beginning and no end. That makes them the perfect shape for keeping things in - or out."
+    tags: [protection, calligraphy, area_effect, intermediate]
+
+  - id: tea_spirit_bridge
+    name: "Tea of Thin Places"
+    description: "A rare tea brewed with twilight water and moonflower. Temporarily allows the drinker to perceive and interact with the spirit world more fully."
+    category: tea_blend
+    materials:
+      - { material_id: first_flush_sencha, quantity: 1 }
+      - { material_id: twilight_water, quantity: 1 }
+      - { material_id: moonflower_bud, quantity: 1 }
+      - { material_id: spirit_honey, quantity: 1 }
+    min_spirit_affinity: 5
+    result_item_id: item_tea_spirit_bridge
+    result_quantity: 1
+    crafting_time: 1.5
+    discovery_method: spirit_taught
+    base_success_rate: 0.70
+    great_success_rate: 0.15
+    curious_item_rate: 0.80
+    flavor_text: >
+      This tea must be brewed in silence. Not just quiet - silence, the
+      kind where even your thoughts soften to a whisper. The moonflower
+      bud opens in the twilight water before you add the sencha, releasing
+      a fragrance that is not a smell but a feeling. The spirit honey
+      makes it drinkable by human lips. Grandmother doesn't teach this
+      one. She watches you make it with an expression you can't read.
+      The tea is the color of twilight itself. After drinking it, the
+      walls of the apartment become suggestions rather than facts.
+    lore: "Some teas open doors. This one removes the concept of doors entirely, for a little while."
+    conditions:
+      time_of_day: [dusk, midnight]
+      min_ma: 40.0
+    tags: [perception, spirit_world, grandmother, ma_moment, advanced, rare]

@@ -1,0 +1,1024 @@
+# =============================================================================
+# Ma no Kuni - Exploration Events
+#
+# The permeation reveals itself in the margins of the ordinary.
+# Each event is a small window into the overlapping realities of Tokyo.
+# =============================================================================
+
+events:
+
+  # ---------------------------------------------------------------------------
+  # ATMOSPHERIC - Mood without mechanics
+  # ---------------------------------------------------------------------------
+
+  - event_id: atmo_spirit_fox
+    name: The Fox at the Crosswalk
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: A spirit fox casually crosses the street
+    text: >
+      A fox made of pale light trots across the crosswalk, pausing at the
+      center line to look both ways. It carries something in its mouth -
+      a letter, perhaps, or a prayer strip. The traffic light holds red
+      a beat too long, as if waiting for it to pass.
+    text_variants:
+      - >
+        A white fox sits at the edge of the crosswalk, watching the signal.
+        When it changes to green, the fox walks across with the crowd,
+        perfectly in step, and vanishes into the convenience store's
+        automatic doors.
+      - >
+        You catch a flash of russet fur ducking under a parked bicycle.
+        A fox - translucent, shimmering at the edges - emerges on the
+        other side and continues down the sidewalk as if it has somewhere
+        important to be.
+    spirit_vision_text: >
+      The fox blazes with golden light, leaving pawprints of fire on the
+      asphalt. In its mouth it carries a scroll covered in characters
+      you almost understand. It pauses, meets your eyes, and for a
+      moment you see the shrine it's walking toward - a towering
+      vermillion gate in the sky above Shibuya.
+    condition:
+      times_of_day: [dusk, evening, midnight]
+      min_permeability: 0.3
+    base_chance: 0.15
+    permeability_scaling: 0.1
+    cooldown_steps: 50
+    outcome:
+      ma_change: 3.0
+      sound_effect: sfx_fox_bells
+
+  - event_id: atmo_paper_cranes
+    name: The Self-Folding Cranes
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Paper cranes fold themselves on a park bench
+    text: >
+      On a park bench, a sheet of origami paper twitches. You watch as it
+      folds itself - corner to corner, crease by crease - into a perfect
+      crane. It flexes its paper wings once, twice, then settles beside
+      three others already perched on the armrest, waiting for something
+      none of them can name.
+    text_variants:
+      - >
+        A flurry of notebook paper lifts from a nearby trash bin. Each
+        sheet folds itself mid-air into a crane, the flock spiraling
+        upward in a column of white before dispersing above the
+        telephone wires.
+    spirit_vision_text: >
+      Each crane glows with the faint warmth of the wish folded into it.
+      You can read them like tiny lanterns: health, love, passing an exam,
+      a grandmother's recovery. The cranes are carrying the wishes
+      somewhere. You hope it's somewhere that listens.
+    condition:
+      indoor: false
+      min_permeability: 0.2
+    base_chance: 0.12
+    cooldown_steps: 60
+    outcome:
+      ma_change: 5.0
+
+  - event_id: atmo_spirit_musician
+    name: The Musician and the Dancing Spirits
+    category: atmospheric
+    priority: LOW
+    presentation: text_overlay
+    description: A street musician's melody makes spirits dance
+    text: >
+      A busker plays shamisen under the station overpass, the notes sharp
+      and sweet in the evening air. Around him, invisible to the passing
+      salary workers, a ring of small spirits sways in time - dust motes
+      that catch light wrong, shadows that move against the wind. One
+      spirit, no bigger than a thumb, conducts with a twig.
+    spirit_vision_text: >
+      The musician is wreathed in spirits. Dozens of them - tiny flickering
+      shapes like living calligraphy - dance in the resonance of each note.
+      The shamisen itself glows faintly. It's old. It remembers the Edo
+      period, and it plays the songs it learned then, teaching them to a
+      busker who thinks he's improvising.
+    condition:
+      times_of_day: [evening, midnight]
+      min_permeability: 0.3
+      indoor: false
+    base_chance: 0.1
+    cooldown_steps: 80
+    outcome:
+      ma_change: 8.0
+      sound_effect: sfx_shamisen_distant
+
+  - event_id: atmo_rain_spirits
+    name: Sheltering Together
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Spirits shelter from rain alongside humans
+    text: >
+      Under the convenience store awning, people crowd together to
+      escape the sudden rain. Between them - in the gaps they
+      unconsciously leave - stand other figures. Translucent.
+      Patient. A spirit shaped like a paper umbrella. Another like
+      a puddle standing upright. They wait for the rain to stop too,
+      though you suspect they don't mind getting wet.
+    condition:
+      weather: [rain]
+      indoor: false
+      min_permeability: 0.2
+    base_chance: 0.25
+    cooldown_steps: 40
+    outcome:
+      ma_change: 4.0
+
+  - event_id: atmo_cat_staring
+    name: The Cat That Sees Both
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: A cat stares at something between worlds
+    text: >
+      A tabby cat sits on a wall, staring at a point in empty air with
+      the absolute focus only cats possess. Its head tracks something
+      moving - something you can't see. Its tail flicks once. It yawns,
+      apparently unimpressed by whatever impossibility just passed by.
+    spirit_vision_text: >
+      The cat is watching a procession of tiny lantern spirits floating
+      past at head height. It bats at one lazily. The lantern spirit
+      dodges, flickers indignantly, and continues on its way. The cat
+      looks at you as if to say: you see them too, then.
+    condition:
+      min_permeability: 0.1
+    base_chance: 0.18
+    cooldown_steps: 35
+    outcome:
+      ma_change: 2.0
+
+  - event_id: atmo_wind_chime_message
+    name: The Wind Chime's Message
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: A wind chime rings a message from the spirit world
+    text: >
+      A furin wind chime on a balcony above rings out, though there is
+      no breeze. Its tone is different from normal - lower, longer,
+      as if the glass strip is being pulled by an invisible hand. The
+      paper tanzaku strip beneath it bears words that weren't there
+      this morning.
+    condition:
+      seasons: [summer]
+      indoor: false
+      min_permeability: 0.25
+    base_chance: 0.15
+    cooldown_steps: 45
+    outcome:
+      ma_change: 4.0
+      sound_effect: sfx_furin
+
+  - event_id: atmo_cherry_letters
+    name: Letters in the Blossoms
+    category: atmospheric
+    priority: LOW
+    presentation: text_overlay
+    description: Cherry blossom petals carry messages between worlds
+    text: >
+      Cherry blossom petals drift past, though the nearest tree is blocks
+      away. Each petal trails a faint luminescence, and if you catch one
+      and hold it to the light, you can almost read the character brushed
+      onto it in spirit ink - fragments of conversations between worlds,
+      carried on the spring wind.
+    condition:
+      seasons: [spring]
+      indoor: false
+      min_permeability: 0.2
+    base_chance: 0.2
+    cooldown_steps: 30
+    outcome:
+      ma_change: 5.0
+
+  # ---------------------------------------------------------------------------
+  # PERMEATION EFFECTS - The mundane adapting to the impossible
+  # ---------------------------------------------------------------------------
+
+  - event_id: perm_traffic_lights
+    name: Spirit-Mood Traffic Lights
+    category: permeation_effect
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: Traffic lights change based on spirit mood
+    text: >
+      The traffic light at the intersection cycles through colors you've
+      never seen on a signal before - a deep indigo, a warm amber that
+      hums. Cars slow uncertainly. A taxi driver mutters something about
+      new regulations. The light settles on green, but it's the green of
+      deep forest, not the green of go.
+    text_variants:
+      - >
+        Every traffic light on the block turns blue simultaneously. Not
+        the normal blue-green of Japanese signals - a pure, cold blue
+        like winter sky. Pedestrians cross without hesitation, as if
+        they've been waiting for exactly this color their whole lives.
+    spirit_vision_text: >
+      The traffic signals are alive - each one a minor spirit of order
+      and flow, trying to manage a city that now runs on two sets of
+      rules. The indigo light means 'spirit crossing.' The amber hum
+      is a warning: something large is moving through the intersection
+      on the other side.
+    condition:
+      indoor: false
+      min_permeability: 0.4
+    base_chance: 0.12
+    permeability_scaling: 0.15
+    cooldown_steps: 40
+    outcome:
+      ma_change: 2.0
+
+  - event_id: perm_konbini_spirits
+    name: Convenience Store Customers
+    category: permeation_effect
+    priority: LOW
+    presentation: text_overlay
+    description: Spirit customers browse alongside humans
+    text: >
+      Inside the konbini, a figure stands at the onigiri shelf. It's
+      translucent, dressed in clothes from another century, and it's
+      carefully reading the ingredient labels. It selects a tuna mayo,
+      carries it to the counter, and places exact change - coins that
+      shimmer and vanish as the cashier scoops them up without looking.
+      The cashier doesn't blink. This is normal now.
+    text_variants:
+      - >
+        Two spirit children press their faces against the konbini's ice
+        cream freezer. They phase through the glass, argue silently over
+        flavors, and emerge carrying nothing but the memory of cold
+        sweetness. The freezer's temperature drops three degrees.
+    spirit_vision_text: >
+      The convenience store is packed. Half the customers are spirits -
+      a kappa browsing the magazines, a cluster of hitodama floating
+      near the hot food case for warmth, something ancient and patient
+      studying the ATM with deep interest. The cashier, you realize, has
+      spirit blood. She sees all of them. She's seen them her whole life.
+    condition:
+      indoor: true
+      min_permeability: 0.35
+    base_chance: 0.15
+    permeability_scaling: 0.1
+    cooldown_steps: 55
+    outcome:
+      ma_change: 3.0
+
+  - event_id: perm_vending_machine
+    name: The Spirit Drink
+    category: permeation_effect
+    priority: NORMAL
+    presentation: dialogue_box
+    description: A vending machine dispenses something from the other side
+    text: >
+      You press the button for green tea. The machine whirs, clunks, and
+      dispenses a bottle you don't recognize. The label is in a script
+      that shifts when you look at it directly. The liquid inside
+      glows faintly blue. It's cold - colder than the machine should be
+      able to make anything. The price display reads a number, then a
+      character, then nothing.
+    spirit_vision_text: >
+      The vending machine is a spirit, wearing the shape of a machine
+      the way a hermit crab wears a shell. It's been here so long it's
+      forgotten it was ever anything else. The drink it offers you is
+      genuine - distilled moonlight from the spirit world's vending
+      network. Perfectly safe. Probably.
+    condition:
+      min_permeability: 0.4
+      indoor: false
+    base_chance: 0.08
+    permeability_scaling: 0.12
+    cooldown_steps: 100
+    outcome:
+      ma_change: 5.0
+      items_given:
+        - id: spirit_drink_unknown
+          quantity: 1
+
+  - event_id: perm_train_announcement
+    name: The Extra Stop
+    category: permeation_effect
+    priority: LOW
+    presentation: text_overlay
+    description: Train announcements include spirit-world stops
+    text: >
+      "The next stop is... Kasumigaseki... followed by... Hibiya..."
+      The announcement pauses. A different voice, older, like a
+      recording from decades ago, continues: "...followed by
+      Kagome-no-Mori. Please mind the gap between worlds." No one
+      on the platform reacts. The electronic display flickers and
+      shows, for one frame, a station name in characters that
+      hurt to read.
+    condition:
+      min_permeability: 0.35
+    base_chance: 0.1
+    cooldown_steps: 70
+    outcome:
+      ma_change: 4.0
+      sound_effect: sfx_train_announcement_spirit
+
+  - event_id: perm_street_signs
+    name: Dual-Named Streets
+    category: permeation_effect
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: Street signs show both material and spirit names
+    text: >
+      The street sign reads "Meiji-dori" in the usual blue and white.
+      Beneath it, in letters that seem to have grown from the metal
+      itself like moss, another name: "The Road of Remembered Burning."
+      Both names are true. The street has always had two names. It's
+      just that now, both are visible.
+    text_variants:
+      - >
+        A district marker post has sprouted new text overnight. The
+        official neighborhood name remains, but below it, in elegant
+        calligraphy that shifts in the wind, the spirit-world name
+        of this place: "Where the River Goes Underground."
+      - >
+        The station exit sign reads "Exit A3 - Ministry District."
+        In Spirit Vision, it reads "Exit A3 - The Mouth of the
+        Old Dragon." You suspect the ministry was built on something
+        that was here first.
+    condition:
+      min_permeability: 0.3
+      indoor: false
+    base_chance: 0.14
+    cooldown_steps: 50
+    outcome:
+      ma_change: 2.0
+
+  - event_id: perm_puddle_reflection
+    name: The Other Sky
+    category: permeation_effect
+    priority: LOW
+    presentation: text_overlay
+    description: Puddles reflect the spirit world instead of the sky
+    text: >
+      A puddle on the sidewalk reflects the wrong sky. Instead of grey
+      clouds and the face of a department store, you see a canopy of
+      enormous trees - camphor and cryptomeria - stretching impossibly
+      high, their branches hung with paper lanterns and shimenawa rope.
+      Somewhere in that reflected forest, something moves between the
+      trunks. The puddle ripples, though nothing touched it.
+    text_variants:
+      - >
+        The rain left mirrors everywhere. In one puddle: the sky as it
+        should be, grey and modern. In the next, barely a meter away:
+        a sky full of stars, more stars than Tokyo has seen in a century,
+        and the silhouette of a mountain that doesn't exist in this world.
+    spirit_vision_text: >
+      Every puddle is a window. The spirit world stretches below your
+      feet like a second city built on the underside of this one. You
+      can see spirit-world pedestrians walking upside down beneath the
+      surface, going about their day in a Tokyo made of memory and
+      moonlight.
+    condition:
+      weather: [rain]
+      indoor: false
+      min_permeability: 0.3
+    base_chance: 0.2
+    cooldown_steps: 35
+    outcome:
+      ma_change: 6.0
+
+  - event_id: perm_elevator_floor
+    name: The Unlisted Floor
+    category: permeation_effect
+    priority: NORMAL
+    presentation: dialogue_box
+    description: An elevator stops at a floor that shouldn't exist
+    text: >
+      The elevator stops between the third and fourth floors. The
+      display reads a character you don't recognize - not 3, not 4,
+      something between. The doors open onto a hallway that smells of
+      incense and old wood. Paper lanterns line the corridor, leading
+      to a sliding door at the far end. From behind it: the sound of
+      a shamisen, and laughter that ended a hundred years ago.
+    condition:
+      indoor: true
+      min_permeability: 0.5
+    base_chance: 0.06
+    permeability_scaling: 0.1
+    cooldown_steps: 120
+    repeatable: true
+    outcome:
+      ma_change: 10.0
+      flags_set: [seen_unlisted_floor]
+
+  # ---------------------------------------------------------------------------
+  # ENCOUNTERS - Gameplay-affecting events
+  # ---------------------------------------------------------------------------
+
+  - event_id: enc_lost_spirit_child
+    name: The Lost One
+    category: encounter
+    priority: NORMAL
+    presentation: dialogue_box
+    description: A small spirit child is lost and frightened
+    text: >
+      A child stands at the corner, flickering like a candle in wind.
+      It wears a school uniform from a decade that hasn't happened yet
+      - or one that happened long ago. It's crying without sound, its
+      tears evaporating before they fall. It sees you and reaches out
+      one translucent hand. It wants to go home. It doesn't remember
+      where home is.
+    spirit_vision_text: >
+      The child is a memory - someone's memory of being lost, given form
+      by the permeation. It carries the weight of every child who ever
+      stood at this corner and didn't know which way to turn. If you
+      help it, the memory resolves. If you don't, it will stand here
+      forever, waiting.
+    condition:
+      times_of_day: [evening, midnight, witching]
+      min_permeability: 0.4
+    base_chance: 0.07
+    cooldown_steps: 150
+    repeatable: false
+    outcome:
+      trigger_dialogue: dlg_lost_spirit_child
+      ma_change: 5.0
+      flags_set: [met_lost_spirit_child]
+
+  - event_id: enc_shrine_guardian
+    name: The Guardian's Test
+    category: encounter
+    priority: NORMAL
+    presentation: full_scene
+    description: A shrine guardian spirit tests the player
+    text: >
+      The komainu at the shrine entrance turns its stone head. Moss
+      cracks and falls from its jaw as it speaks in a voice like
+      grinding boulders: "You walk between. Do you walk with respect,
+      or do you merely pass through?" Its stone eyes track your every
+      breath. This is not a threat. It is a genuine question, and your
+      answer matters.
+    condition:
+      min_permeability: 0.5
+      movement_mode: sneaking
+      min_ma: 30.0
+    base_chance: 0.1
+    cooldown_steps: 200
+    repeatable: false
+    outcome:
+      trigger_dialogue: dlg_komainu_test
+      ma_change: 10.0
+      flags_set: [komainu_test_offered]
+
+  - event_id: enc_urban_legend_woman
+    name: Kuchisake-onna at the Crosswalk
+    category: encounter
+    priority: HIGH
+    presentation: full_scene
+    description: The slit-mouthed woman appears at a crosswalk
+    text: >
+      She stands across the intersection, surgical mask covering the
+      lower half of her face. She could be anyone - this is Tokyo,
+      masks are common. But the traffic light won't change. The
+      intersection is empty except for you and her. She takes a step
+      forward. "Am I beautiful?" she asks, and the question reverberates
+      in a frequency that makes your teeth ache.
+    condition:
+      times_of_day: [midnight, witching]
+      min_permeability: 0.6
+      indoor: false
+    base_chance: 0.04
+    cooldown_steps: 300
+    repeatable: false
+    outcome:
+      trigger_encounter: enc_kuchisake_onna
+      flags_set: [encountered_kuchisake_onna]
+
+  - event_id: enc_tanuki_merchant
+    name: The Merchant Under the Bridge
+    category: encounter
+    priority: NORMAL
+    presentation: dialogue_box
+    description: A tanuki offers to trade rare items
+    text: >
+      Under the overpass, someone has set up a small stall on a cloth
+      the color of autumn leaves. The merchant is short, round, and
+      wears a hat pulled low. Its tail twitches behind the counter.
+      "Trading, trading!" it announces cheerfully. "Spirit goods for
+      material goods, material goods for spirit goods. Best rates in
+      three realms. No refunds."
+    spirit_vision_text: >
+      The tanuki drops all pretense in Spirit Vision. It sits on its
+      enormous tail, ears perked, wearing its true shape proudly.
+      The merchandise on the cloth shimmers with spirit energy.
+      "Ah, one who sees!" it says. "For you, the special inventory."
+    condition:
+      times_of_day: [evening, midnight]
+      min_permeability: 0.35
+      indoor: false
+    base_chance: 0.06
+    cooldown_steps: 200
+    outcome:
+      trigger_dialogue: dlg_tanuki_merchant
+      flags_set: [met_tanuki_merchant]
+
+  - event_id: enc_memory_bench
+    name: The Bench That Remembers
+    category: encounter
+    priority: NORMAL
+    presentation: vignette
+    description: Sitting on a bench triggers a memory echo
+    text: >
+      You sit. The bench is warm, though it shouldn't be at this hour.
+      And then the park shifts - not moving, but layering. You see it
+      as it was: the same bench, twenty years ago, and a young couple
+      sharing earbuds, listening to a song you almost recognize. They
+      laugh. He points at the sky. She leans into his shoulder. The
+      memory fades like breath on glass, leaving only the warmth
+      behind.
+    condition:
+      min_ma: 20.0
+      min_permeability: 0.25
+      indoor: false
+    base_chance: 0.1
+    ma_scaling: 0.15
+    cooldown_steps: 100
+    outcome:
+      ma_change: 12.0
+      trigger_vignette: vig_bench_memory
+      sound_effect: sfx_memory_chime
+
+  # ---------------------------------------------------------------------------
+  # ENVIRONMENTAL - Time, weather, and seasonal events
+  # ---------------------------------------------------------------------------
+
+  - event_id: env_dawn_spirits_fade
+    name: The Morning Dissolve
+    category: environmental
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Spirits fade as dawn arrives
+    text: >
+      Dawn breaks over the skyline, and the spirit world exhales. The
+      translucent figures on the street grow thinner, more transparent,
+      like watercolors in rain. A spirit that had been sleeping on a
+      bench stretches, yawns silently, and dissolves into the first
+      shaft of sunlight. The city belongs to the material world again.
+      For now.
+    condition:
+      times_of_day: [dawn]
+      min_permeability: 0.2
+    base_chance: 0.3
+    cooldown_steps: 200
+    outcome:
+      ma_change: 5.0
+
+  - event_id: env_witching_surge
+    name: The Deep Hours
+    category: environmental
+    priority: LOW
+    presentation: text_overlay
+    description: The witching hour deepens the permeation
+    text: >
+      2 AM. The city isn't asleep - Tokyo never truly sleeps - but it
+      breathes differently now. The air thickens. Streetlights flicker in
+      unison, once, and when they return the shadows are different. Deeper.
+      Shaped wrong. Something enormous and patient moves behind the
+      skyline, visible only in the way the stars occlude and return.
+      The witching hour is not a time. It is a threshold.
+    condition:
+      times_of_day: [witching]
+    base_chance: 0.25
+    cooldown_steps: 150
+    outcome:
+      ma_change: 8.0
+      permeability_change: 0.05
+
+  - event_id: env_autumn_leaves_memory
+    name: The Leaves Remember
+    category: environmental
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Autumn leaves carry memories as they fall
+    text: >
+      The ginkgo leaves fall like golden coins, and each one carries a
+      fragment of sound as it descends: a laugh, a whisper, a snatch of
+      a song from a radio in 1987. The tree has been listening for
+      centuries. In autumn, it lets go of what it's heard, and the
+      sidewalk fills with a season's worth of overheard conversations
+      from every era the tree has known.
+    condition:
+      seasons: [autumn]
+      indoor: false
+      min_permeability: 0.2
+    base_chance: 0.18
+    cooldown_steps: 60
+    outcome:
+      ma_change: 6.0
+
+  - event_id: env_winter_veil_crack
+    name: The Brittle Veil
+    category: environmental
+    priority: LOW
+    presentation: ambient_detail
+    description: Cold weather makes the veil between worlds fragile
+    text: >
+      Your breath mists in the cold, and for a moment each exhale holds
+      a shape - not random, but formed. Faces. Characters. Maps of
+      places you've never been. The cold makes the boundary between
+      worlds brittle as thin ice, and your breath is warm enough to
+      melt holes in it. Through each hole, a glimpse: the spirit
+      world's winter, which is colder still, and beautiful.
+    condition:
+      seasons: [winter]
+      indoor: false
+    base_chance: 0.2
+    cooldown_steps: 45
+    outcome:
+      ma_change: 4.0
+      permeability_change: 0.02
+
+  - event_id: env_full_moon_tide
+    name: The Spirit Tide Surges
+    category: environmental
+    priority: NORMAL
+    presentation: text_overlay
+    description: The full moon pulls the spirit tide high
+    text: >
+      The full moon hangs over Tokyo like a paper lantern, and the
+      spirit world surges. You can feel it in your chest - a pressure,
+      a fullness, as if the city is holding its breath. Spirits that
+      normally hide in alley shadows walk openly on the main streets.
+      The vending machines all hum in the same key. Somewhere, a torii
+      gate vibrates at a frequency that makes dogs howl and cats purr.
+    condition:
+      moon_phases: [full]
+      indoor: false
+    base_chance: 0.35
+    cooldown_steps: 100
+    outcome:
+      ma_change: 8.0
+      permeability_change: 0.08
+
+  # ---------------------------------------------------------------------------
+  # DISCOVERY HINTS - Clues pointing to nearby secrets
+  # ---------------------------------------------------------------------------
+
+  - event_id: hint_spirit_nest_nearby
+    name: The Gathering Warmth
+    category: discovery_hint
+    priority: LOW
+    presentation: ambient_detail
+    description: Warmth and sound hint at a spirit nest nearby
+    text: >
+      The air grows warmer here, just a degree or two, like standing
+      near a window with sun behind it. A faint sound: something between
+      wind chimes and laughter, coming from no particular direction.
+      Spirits gather in places like this - small pockets of comfort in
+      the vast indifferent city. There's a nest nearby. You can feel it
+      the way you feel someone watching you from across a room.
+    condition:
+      min_permeability: 0.25
+    base_chance: 0.1
+    cooldown_steps: 80
+    outcome:
+      ma_change: 2.0
+      sound_effect: sfx_spirit_chime_faint
+
+  - event_id: hint_hidden_path_shimmer
+    name: The Air Folds
+    category: discovery_hint
+    priority: LOW
+    presentation: ambient_detail
+    description: Air distortion hints at a hidden path
+    text: >
+      The air between two buildings shimmers like heat haze, though
+      it's not hot. The gap is too narrow to walk through - unless
+      it isn't. Unless it's wider than it looks, wider on the inside
+      than the outside, and the shimmer is the seam where two spaces
+      overlap. You've seen this before. There's a path here, folded
+      into the gap.
+    condition:
+      min_permeability: 0.35
+      spirit_vision_active: false
+    base_chance: 0.08
+    cooldown_steps: 100
+    outcome:
+      ma_change: 3.0
+
+  - event_id: hint_ma_spot_silence
+    name: The Sudden Quiet
+    category: discovery_hint
+    priority: LOW
+    presentation: ambient_detail
+    description: Unnatural silence hints at a ma spot
+    text: >
+      The noise drops away. Not gradually - it cuts, like someone muted
+      the city. Traffic, voices, the constant electric hum - all gone.
+      In the silence, you hear your own heartbeat, and beneath it,
+      something deeper: the slow pulse of a place that has been still
+      for a very long time. Ma gathers here like water in a hollow.
+      This is a place of deep pause.
+    condition:
+      min_permeability: 0.2
+    base_chance: 0.09
+    ma_scaling: 0.1
+    cooldown_steps: 90
+    outcome:
+      ma_change: 5.0
+      sound_effect: sfx_silence_deep
+
+  - event_id: hint_urban_legend_whisper
+    name: The Warning
+    category: discovery_hint
+    priority: NORMAL
+    presentation: text_overlay
+    description: A whispered warning about a local urban legend
+    text: >
+      A voice at your ear, but no one is there. "Don't look behind you
+      at the next corner." The voice is neither male nor female, neither
+      young nor old. It sounds like a memory of a voice - something you
+      heard once and forgot. The warning is genuine. Something waits
+      around that corner, something that belongs to a story people tell
+      to scare each other. The stories are true now.
+    condition:
+      times_of_day: [midnight, witching]
+      min_permeability: 0.5
+      min_ma: 20.0
+    base_chance: 0.06
+    cooldown_steps: 150
+    outcome:
+      ma_change: 4.0
+
+  # ---------------------------------------------------------------------------
+  # SCRIPTED - Story-tied events
+  # ---------------------------------------------------------------------------
+
+  - event_id: scr_first_permeation_wave
+    name: The First Wave
+    category: scripted
+    priority: CRITICAL
+    presentation: full_scene
+    description: The player's first experience of a permeation surge
+    text: >
+      It hits without warning. The world stutters - like a video
+      skipping frames - and then everything has a second layer. The
+      buildings are still buildings, but also trees. The road is still
+      a road, but also a river. People walk past with shadows that
+      belong to other shapes. Your hands look the same, but the light
+      that falls on them comes from two suns. This is the permeation.
+      This is what grandmother tried to tell you about. The world has
+      always been double. You're just seeing it now.
+    condition:
+      required_flags: [chapter_1_started]
+      forbidden_flags: [first_permeation_seen]
+    base_chance: 1.0
+    repeatable: false
+    outcome:
+      ma_change: 20.0
+      permeability_change: 0.15
+      flags_set: [first_permeation_seen]
+      music_change: bgm_permeation_theme
+
+  - event_id: scr_grandmother_echo
+    name: Grandmother's Echo
+    category: scripted
+    priority: HIGH
+    presentation: vignette
+    description: An echo of grandmother appears at a familiar location
+    text: >
+      You smell kinmokusei - osmanthus - and for a moment grandmother
+      is here. Not a spirit, not a memory, but an echo pressed into
+      this place by decades of her walking this route to the market.
+      She doesn't see you. She's selecting persimmons, testing their
+      firmness the way she taught you, humming a song she said her
+      mother sang. The echo fades, but the smell of osmanthus lingers,
+      and you know: she walked here. She was happy here. This place
+      remembers.
+    condition:
+      required_flags: [grandmother_passed]
+      forbidden_flags: [grandmother_echo_seen]
+      districts: [yanaka]
+    base_chance: 1.0
+    repeatable: false
+    outcome:
+      ma_change: 25.0
+      flags_set: [grandmother_echo_seen]
+      trigger_vignette: vig_grandmother_echo
+      sound_effect: sfx_osmanthus_memory
+
+  - event_id: scr_spirit_world_bleeds
+    name: The Bleed-Through
+    category: scripted
+    priority: HIGH
+    presentation: full_scene
+    description: The spirit world visibly overlaps the material for all to see
+    text: >
+      It happens in the middle of Shibuya crossing. Between one step and
+      the next, the spirit world becomes visible to everyone. Screams.
+      Phones raised. A forest of enormous camphor trees stands among the
+      buildings, their roots cracking through asphalt that is also moss-
+      covered stone. Spirits walk among the crowd, equally confused.
+      For thirty seconds, there are no worlds - just one place, holding
+      everything. Then it fades, and the city is left shaking, changed.
+    condition:
+      required_flags: [chapter_3_started]
+      forbidden_flags: [shibuya_bleedthrough_seen]
+      districts: [shibuya]
+    base_chance: 1.0
+    repeatable: false
+    outcome:
+      ma_change: 15.0
+      permeability_change: 0.2
+      flags_set: [shibuya_bleedthrough_seen]
+      music_change: bgm_bleedthrough
+
+  # ---------------------------------------------------------------------------
+  # MORE ATMOSPHERIC & PERMEATION - Additional flavor events
+  # ---------------------------------------------------------------------------
+
+  - event_id: atmo_manhole_glow
+    name: The Light Below
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: Manhole covers glow with spirit light
+    text: >
+      A manhole cover glows faintly from below - not the orange of
+      maintenance lights, but a pale blue-white, like moonlight
+      filtered through water. Press your ear to the iron and you hear
+      it: the sound of a river that hasn't flowed on the surface for
+      two hundred years, still running through the spirit world's
+      version of these streets. The old waterways remember.
+    condition:
+      times_of_day: [midnight, witching]
+      indoor: false
+      min_permeability: 0.3
+    base_chance: 0.12
+    cooldown_steps: 55
+    outcome:
+      ma_change: 3.0
+
+  - event_id: perm_crosswalk_melody
+    name: The Crossing Song
+    category: permeation_effect
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: The crosswalk signal plays a melody from the spirit world
+    text: >
+      The crosswalk chime plays its usual melody - "Toryanse" - but today
+      it continues past the normal loop. New notes emerge, older notes,
+      the original song from centuries ago when it was a warning about
+      crossing the boundary of a shrine. The signal knows what it's
+      really saying now. It always did. "Going in is easy. Coming back
+      is frightening."
+    condition:
+      indoor: false
+      min_permeability: 0.3
+    base_chance: 0.1
+    cooldown_steps: 65
+    outcome:
+      ma_change: 4.0
+      sound_effect: sfx_toryanse_extended
+
+  - event_id: atmo_midnight_ramen
+    name: The Late-Night Counter
+    category: atmospheric
+    priority: LOW
+    presentation: text_overlay
+    description: A ramen shop serves both worlds
+    text: >
+      The late-night ramen shop is half-empty, which means it's half-full.
+      Steam rises from the kitchen, and in the steam, shapes move. The
+      cook ladles broth into bowls with practiced ease - some bowls you
+      can see, some you can't. The customers at the counter sit with
+      careful gaps between them, and in those gaps, other customers sit:
+      translucent, patient, waiting for a meal that nourishes something
+      other than a body.
+    spirit_vision_text: >
+      The cook is a master of two kitchens. His spirit-world menu is
+      written on a board only visible in Spirit Vision: Memory Broth,
+      Nostalgia Noodles, Broth of Forgotten Names. The spirit customers
+      eat quietly, savoring each bite as if it were their last. For some
+      of them, it always is.
+    condition:
+      times_of_day: [midnight, witching]
+      indoor: true
+      min_permeability: 0.3
+    base_chance: 0.12
+    cooldown_steps: 90
+    outcome:
+      ma_change: 8.0
+
+  - event_id: perm_photobooth_spirits
+    name: The Extra Faces
+    category: permeation_effect
+    priority: LOW
+    presentation: dialogue_box
+    description: Photo booths capture spirits in the background
+    text: >
+      You pass a purikura booth and notice the sample photos on the
+      outside. In each one, behind the posing teenagers, there are
+      additional figures - blurry, half-formed, smiling. The booth
+      captures what's really there. The customers never notice the
+      extra faces. The spirits never stop smiling.
+    condition:
+      indoor: true
+      min_permeability: 0.3
+    base_chance: 0.08
+    cooldown_steps: 100
+    outcome:
+      ma_change: 3.0
+      flags_set: [noticed_photo_spirits]
+
+  - event_id: atmo_laundromat_spirits
+    name: The Midnight Laundromat
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Spirits do laundry at a 24-hour laundromat
+    text: >
+      Through the plate glass of the 24-hour laundromat, you see the
+      machines running. All of them, spinning in unison. But no one
+      is inside - no one visible, anyway. The fluorescent lights
+      flicker in time with the spin cycle. A dryer door opens by
+      itself. Something small and luminous removes a load of
+      clothes that shimmer and fold themselves neatly on the counter.
+      Even spirits need clean clothes, apparently.
+    condition:
+      times_of_day: [midnight, witching]
+      min_permeability: 0.3
+      indoor: false
+    base_chance: 0.1
+    cooldown_steps: 80
+    outcome:
+      ma_change: 4.0
+
+  - event_id: atmo_telephone_pole_hum
+    name: The Singing Wires
+    category: atmospheric
+    priority: BACKGROUND
+    presentation: ambient_detail
+    description: Telephone wires hum with spirit communications
+    text: >
+      The telephone wires overhead hum. Not with electricity - with
+      voices. Dozens of them, layered, speaking in a language that
+      sounds like Japanese played backward through water. The spirits
+      have discovered the telephone network. They've been using it
+      for months, maybe years, carrying messages along copper veins
+      that span the city. Every call you've ever made shared the
+      line with someone from the other side.
+    condition:
+      indoor: false
+      min_permeability: 0.25
+    base_chance: 0.1
+    cooldown_steps: 70
+    outcome:
+      ma_change: 3.0
+      sound_effect: sfx_wire_hum
+
+  - event_id: enc_jizo_blessing
+    name: The Jizo's Gift
+    category: encounter
+    priority: NORMAL
+    presentation: dialogue_box
+    description: A jizo statue offers a small blessing
+    text: >
+      The roadside jizo statue wears a red bib and a knitted cap.
+      Someone has left a can of coffee at its feet. As you pass,
+      the stone face shifts - not moving, exactly, but rearranging
+      the shadows into something that might be a smile. The air
+      around you warms. Your feet hurt a little less. The path
+      ahead seems a little clearer. The jizo has noticed you, and
+      it approves of where you're going.
+    condition:
+      min_ma: 15.0
+      indoor: false
+    base_chance: 0.1
+    cooldown_steps: 120
+    outcome:
+      ma_change: 10.0
+      spirit_energy_change: 15.0
+      sound_effect: sfx_stone_chime
+
+  - event_id: env_summer_heat_shimmer
+    name: The Shimmer Roads
+    category: environmental
+    priority: BACKGROUND
+    presentation: text_overlay
+    description: Summer heat shimmers become doorways
+    text: >
+      The heat shimmer rising from the asphalt isn't random. It forms
+      shapes - doorways, arches, gates - that ripple and reform. A
+      taxi drives through one and its shadow arrives a moment late,
+      as if it took a detour through somewhere else. The summer heat
+      doesn't just distort the air. It loosens it, makes it pliable,
+      and things from the other side press through like fingers
+      testing wet paper.
+    condition:
+      seasons: [summer]
+      indoor: false
+      times_of_day: [midday, afternoon]
+    base_chance: 0.15
+    cooldown_steps: 50
+    outcome:
+      ma_change: 3.0
+      permeability_change: 0.02

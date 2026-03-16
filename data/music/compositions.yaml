@@ -1,0 +1,836 @@
+# ==========================================================================
+# Ma no Kuni (間の国) — Musical Composition Data
+#
+# Note format: [midi_note_number, duration_in_beats, velocity]
+#   - MIDI notes: C4=60, D4=62, E4=64, F4=65, G4=67, A4=69, B4=71
+#   - Duration: 1.0 = quarter note, 0.5 = eighth, 2.0 = half, 4.0 = whole
+#   - Velocity: 0-127 (ppp=20, pp=35, p=50, mp=65, mf=80, f=95, ff=110)
+#   - Pitch of -1 denotes a rest
+#
+# Scales used:
+#   D Hirajoshi:  D E F A Bb        (62 64 65 69 70)
+#   D In scale:   D Eb G A Bb       (62 63 67 69 70)
+#   A Yo scale:   A B D E F#        (69 71 74 76 78)
+#   D Kumoi:      D E F A B         (62 64 65 69 71)
+#   D Iwato:      D Eb G Ab C       (62 63 67 68 72)
+#   D natural minor: D E F G A Bb C (62 64 65 67 69 70 72)
+#   G major:      G A B C D E F#    (67 69 71 72 74 76 78)
+#   D major:      D E F# G A B C#   (62 64 66 67 69 71 73)
+# ==========================================================================
+
+themes:
+
+  # -----------------------------------------------------------------------
+  # 1. AOI'S THEME — "The Space Between Heartbeats"
+  #    Key: D natural minor | Tempo: 72 BPM | Time: 4/4
+  #    Solo flute melody. Gentle, searching. The intervals are mostly
+  #    seconds and thirds — close, intimate, like someone speaking softly.
+  #    The melody rises with hope and falls with doubt.
+  # -----------------------------------------------------------------------
+  aoi_theme:
+    motif_id: aoi_theme
+    name: "Aoi's Theme"
+    key_root: 62  # D4
+    scale: natural_minor
+    tempo_bpm: 72
+    time_signature: "4/4"
+    primary_instrument: flute
+    tags: [character, aoi, exploration, contemplative]
+
+    phrases:
+      # Main melody — the searching phrase
+      - phrase_id: aoi_main
+        name: "Aoi's search"
+        tags: [main, melody]
+        notes:
+          #        pitch  dur   vel   | note    description
+          - [62,   1.0,   65]         # D4    - begins on the tonic, grounded
+          - [65,   0.75,  70]         # F4    - minor third, the question
+          - [67,   0.25,  55]         # G4    - passing tone upward
+          - [69,   1.5,   75]         # A4    - fifth, the longing
+          - [-1,   0.5,   0]          # rest  - breath, the first ma
+          - [70,   0.5,   60]         # Bb4   - minor sixth, shadow
+          - [69,   0.75,  70]         # A4    - step back down
+          - [67,   1.25,  65]         # G4    - settling but not resolved
+          - [-1,   1.0,   0]          # rest  - longer pause, listening
+          - [65,   0.5,   60]         # F4    - reaching down
+          - [64,   0.5,   55]         # E4    - second degree, tension
+          - [62,   2.0,   70]         # D4    - return home, but the journey continues
+          - [-1,   1.5,   0]          # rest  - the space after the phrase
+
+      # Ascending hope phrase — used when Aoi gains courage
+      - phrase_id: aoi_hope
+        name: "Aoi's courage"
+        tags: [development, ascending]
+        notes:
+          - [62,   0.75,  70]         # D4    - begins grounded
+          - [64,   0.5,   65]         # E4    - stepping up
+          - [65,   0.5,   70]         # F4    - continuing
+          - [67,   0.75,  75]         # G4    - gaining momentum
+          - [69,   1.0,   80]         # A4    - reaching
+          - [72,   0.5,   85]         # C5    - the seventh, almost there
+          - [74,   2.0,   80]         # D5    - octave! the arrival
+          - [-1,   0.5,   0]          # rest
+          - [72,   0.5,   65]         # C5    - gentle descent begins
+          - [69,   1.0,   60]         # A4    - settling
+          - [67,   1.5,   55]         # G4    - peaceful
+          - [65,   2.0,   50]         # F4    - the minor third, still searching
+          - [-1,   2.0,   0]          # rest  - long exhale
+
+      # Descending doubt phrase — used during difficult moments
+      - phrase_id: aoi_doubt
+        name: "Aoi's doubt"
+        tags: [development, descending, melancholy]
+        notes:
+          - [69,   1.0,   55]         # A4    - starts high, uncertain
+          - [67,   0.75,  50]         # G4    - falling
+          - [-1,   0.75,  0]          # rest  - hesitation
+          - [65,   1.0,   45]         # F4    - further down
+          - [64,   0.5,   40]         # E4    - almost giving up
+          - [62,   1.5,   50]         # D4    - landing on tonic
+          - [60,   0.5,   45]         # C4    - below tonic, deep sadness
+          - [62,   3.0,   40]         # D4    - return, but quietly
+          - [-1,   2.0,   0]          # rest  - the weight of silence
+
+    chord_progression:
+      progression_id: aoi_chords
+      name: "Aoi's harmonic journey"
+      key_root: 62
+      scale: natural_minor
+      tags: [character, emotional]
+      chords:
+        - name: Dm
+          pitches: [50, 57, 62, 65]   # D3 A3 D4 F4
+          duration: 4.0
+          velocity: 55
+          instrument: cello
+        - name: Bb
+          pitches: [46, 53, 58, 62]   # Bb2 F3 Bb3 D4
+          duration: 4.0
+          velocity: 60
+          instrument: cello
+        - name: Gm
+          pitches: [43, 50, 55, 58]   # G2 D3 G3 Bb3
+          duration: 4.0
+          velocity: 55
+          instrument: cello
+        - name: A
+          pitches: [45, 52, 57, 61]   # A2 E3 A3 C#4
+          duration: 4.0
+          velocity: 60
+          instrument: cello
+
+  # -----------------------------------------------------------------------
+  # 2. GRANDMOTHER'S THEME — "What the Garden Remembers"
+  #    Key: G major | Tempo: 66 BPM | Time: 3/4 (waltz)
+  #    Koto melody. Warm and unhurried. The intervals are wider — fourths
+  #    and fifths — the confidence of someone who has lived long and well.
+  #    In 3/4 time, like a gentle dance with memory.
+  # -----------------------------------------------------------------------
+  grandmother_theme:
+    motif_id: grandmother_theme
+    name: "Grandmother's Theme"
+    key_root: 67  # G4
+    scale: major
+    tempo_bpm: 66
+    time_signature: "3/4"
+    primary_instrument: koto
+    tags: [character, grandmother, safe, nostalgic]
+
+    phrases:
+      # Main melody — gentle, knowing
+      - phrase_id: grandmother_main
+        name: "Grandmother's warmth"
+        tags: [main, melody, waltz]
+        notes:
+          - [67,   1.0,   60]         # G4    - home note, steady
+          - [71,   0.5,   65]         # B4    - major third, warmth
+          - [72,   1.5,   60]         # C5    - fourth, openness
+          - [74,   1.0,   70]         # D5    - fifth, strength
+          - [72,   0.5,   55]         # C5    - step back
+          - [71,   1.0,   65]         # B4    - grace note territory
+          - [-1,   1.0,   0]          # rest  - a smile in silence
+          - [74,   0.75,  60]         # D5    - reaching up
+          - [76,   0.75,  65]         # E5    - sixth, tenderness
+          - [74,   1.5,   60]         # D5    - settling
+          - [72,   1.0,   55]         # C5    - descending
+          - [71,   0.5,   50]         # B4    - penultimate
+          - [67,   3.0,   60]         # G4    - home, always home
+          - [-1,   1.5,   0]          # rest  - like tea cooling
+
+      # Koto arpeggiated phrase — used during tea ceremony moments
+      - phrase_id: grandmother_koto_arpeggio
+        name: "Tea ceremony"
+        tags: [arpeggio, peaceful, koto]
+        notes:
+          - [55,   0.5,   50]         # G3    - low root
+          - [59,   0.5,   55]         # B3    - third
+          - [62,   0.5,   50]         # D4    - fifth
+          - [67,   1.0,   60]         # G4    - octave
+          - [71,   0.5,   55]         # B4    - third above
+          - [74,   1.5,   50]         # D5    - fifth above, let ring
+          - [-1,   1.0,   0]          # rest
+          - [72,   0.5,   45]         # C5    - color tone
+          - [67,   0.5,   50]         # G4    - back to root
+          - [62,   0.5,   45]         # D4
+          - [59,   0.5,   40]         # B3
+          - [55,   2.0,   50]         # G3    - deep root, settled
+          - [-1,   1.5,   0]          # rest  - steam rising from the cup
+
+    chord_progression:
+      progression_id: grandmother_chords
+      name: "Grandmother's garden"
+      key_root: 67
+      scale: major
+      tags: [warm, safe]
+      chords:
+        - name: G
+          pitches: [43, 47, 50, 55]   # G2 B2 D3 G3
+          duration: 3.0
+          velocity: 50
+          instrument: piano
+        - name: Em
+          pitches: [40, 47, 52, 55]   # E2 B2 E3 G3
+          duration: 3.0
+          velocity: 45
+          instrument: piano
+        - name: C
+          pitches: [36, 43, 48, 52]   # C2 G2 C3 E3
+          duration: 3.0
+          velocity: 50
+          instrument: piano
+        - name: D
+          pitches: [38, 42, 50, 54]   # D2 F#2 D3 F#3
+          duration: 3.0
+          velocity: 55
+          instrument: piano
+
+  # -----------------------------------------------------------------------
+  # 3. SPIRIT WORLD THEME — "The Other Side of Air"
+  #    Key: D Hirajoshi | Tempo: 54 BPM | Time: free
+  #    Shakuhachi with breath tones. The Hirajoshi scale gives it an
+  #    otherworldly, contemplative quality. Notes are separated by
+  #    long silences. The melody does not follow Western phrasing —
+  #    each note is its own event, connected by the silence between.
+  # -----------------------------------------------------------------------
+  spirit_world_theme:
+    motif_id: spirit_world_theme
+    name: "Spirit World Theme"
+    key_root: 62  # D4
+    scale: hirajoshi
+    tempo_bpm: 54
+    time_signature: "free"
+    primary_instrument: shakuhachi
+    tags: [spirit, otherworldly, contemplative, exploration]
+
+    phrases:
+      # Main spirit melody — free-flowing, breath-driven
+      - phrase_id: spirit_main
+        name: "Beyond the veil"
+        tags: [main, melody, breath]
+        notes:
+          - [-1,   2.0,   0]          # rest  - the spirit world begins with silence
+          - [62,   3.0,   55]         # D4    - root, emerging from nothing
+          - [-1,   1.5,   0]          # rest  - the space holds meaning
+          - [64,   1.0,   50]         # E4    - second of Hirajoshi
+          - [65,   2.5,   60]         # F4    - minor second above, tension
+          - [-1,   2.0,   0]          # rest  - breathing
+          - [69,   2.0,   55]         # A4    - leap to the fifth interval
+          - [70,   1.5,   50]         # Bb4   - the flat sixth, melancholy
+          - [69,   3.0,   45]         # A4    - return, fading
+          - [-1,   3.0,   0]          # rest  - long pause, the world listens
+          - [65,   2.0,   50]         # F4    - descending
+          - [62,   4.0,   40]         # D4    - return to root, very soft
+          - [-1,   4.0,   0]          # rest  - the silence after is part of the music
+
+      # Bells and water phrase — koto arpeggios in Hirajoshi
+      - phrase_id: spirit_bells
+        name: "Spirit bells"
+        tags: [arpeggio, bells, koto]
+        notes:
+          - [74,   0.5,   35]         # D5    - high, bell-like
+          - [-1,   1.0,   0]          # rest
+          - [70,   0.5,   30]         # Bb4
+          - [69,   0.75,  35]         # A4
+          - [-1,   1.5,   0]          # rest
+          - [65,   0.5,   30]         # F4
+          - [64,   0.5,   25]         # E4
+          - [62,   1.0,   35]         # D4
+          - [-1,   2.0,   0]          # rest
+          - [74,   0.75,  40]         # D5    - bell returns
+          - [77,   0.5,   35]         # F5
+          - [81,   2.0,   30]         # A5    - very high, fading like a distant bell
+          - [-1,   3.0,   0]          # rest  - echo into emptiness
+
+      # Deep spirit drone — sho organ chord
+      - phrase_id: spirit_drone
+        name: "Breath of the other world"
+        tags: [drone, sho, sustained]
+        notes:
+          # Sho plays cluster chords — all notes sustained simultaneously
+          # Represented as a sequence for the data format
+          - [50,   8.0,   35]         # D3    - root drone
+          - [57,   8.0,   30]         # A3    - fifth above
+          - [62,   8.0,   35]         # D4    - octave
+          - [65,   8.0,   25]         # F4    - color tone
+          - [69,   8.0,   30]         # A4    - upper fifth
+          - [-1,   4.0,   0]          # rest  - the world exhales
+
+    chord_progression:
+      progression_id: spirit_chords
+      name: "Spirit harmonies"
+      key_root: 62
+      scale: hirajoshi
+      tags: [spirit, modal]
+      chords:
+        - name: D_open
+          pitches: [50, 62, 69]       # D3 D4 A4 — open fifth, vast
+          duration: 8.0
+          velocity: 40
+          instrument: sho
+        - name: F_cluster
+          pitches: [53, 65, 69]       # F3 F4 A4 — suspended
+          duration: 6.0
+          velocity: 35
+          instrument: sho
+        - name: Bb_open
+          pitches: [46, 58, 65]       # Bb2 Bb3 F4 — dark
+          duration: 8.0
+          velocity: 40
+          instrument: sho
+        - name: D_return
+          pitches: [38, 50, 62, 69]   # D2 D3 D4 A4 — deep root
+          duration: 10.0
+          velocity: 35
+          instrument: sho
+
+  # -----------------------------------------------------------------------
+  # 4. MA THEME — "The Weight of Silence"
+  #    Key: D (root and fifth only) | Tempo: 40 BPM | Time: free
+  #    Almost nothing. The ma_scale contains only the root and fifth.
+  #    Each note is an event; each silence is the music. The velocity
+  #    is very low throughout. The space between notes ranges from
+  #    4 to 12 beats (6 to 18 seconds at 40 BPM).
+  # -----------------------------------------------------------------------
+  ma_theme:
+    motif_id: ma_theme
+    name: "Ma Theme"
+    key_root: 62  # D4
+    scale: ma_scale
+    tempo_bpm: 40
+    time_signature: "free"
+    primary_instrument: shakuhachi
+    tags: [ma, silence, profound, vignette]
+
+    phrases:
+      # The ma phrase — more silence than sound
+      - phrase_id: ma_main
+        name: "The space between"
+        tags: [main, silence, breath]
+        notes:
+          - [-1,   6.0,   0]          # rest  - six beats of nothing (9 seconds)
+          - [62,   4.0,   25]         # D4    - one note, barely there
+          - [-1,   8.0,   0]          # rest  - twelve seconds of silence
+          - [69,   3.0,   20]         # A4    - the fifth, even softer
+          - [-1,  10.0,   0]          # rest  - fifteen seconds. listen.
+          - [62,   6.0,   15]         # D4    - root again, dying away
+          - [-1,  12.0,   0]          # rest  - the longest silence. this IS the music.
+          - [50,   8.0,   20]         # D3    - low octave, like a memory
+          - [-1,   8.0,   0]          # rest  - and then nothing
+
+      # Ma response — even sparser, for deepest moments
+      - phrase_id: ma_deep
+        name: "The deepest pause"
+        tags: [deep, almost_nothing]
+        notes:
+          - [-1,  16.0,   0]          # rest  - twenty-four seconds of pure silence
+          - [62,   8.0,   12]         # D4    - barely audible
+          - [-1,  20.0,   0]          # rest  - thirty seconds. the player sits with it.
+          - [57,   6.0,   10]         # A3    - low fifth, like a heartbeat heard through walls
+          - [-1,  16.0,   0]          # rest  - silence has texture here
+
+    chord_progression:
+      progression_id: ma_chords
+      name: "Ma harmony"
+      key_root: 62
+      scale: ma_scale
+      tags: [ma, minimal]
+      chords:
+        - name: D_bare
+          pitches: [50, 62]           # D3 D4 — just the octave
+          duration: 16.0
+          velocity: 20
+          instrument: shakuhachi
+        - name: silence
+          pitches: []                 # Nothing. Silence as a chord.
+          duration: 16.0
+          velocity: 0
+          instrument: silence
+        - name: A_bare
+          pitches: [45, 57]           # A2 A3 — the fifth, an octave below
+          duration: 12.0
+          velocity: 15
+          instrument: shakuhachi
+
+  # -----------------------------------------------------------------------
+  # 5. BATTLE THEME — "The Veil Tears"
+  #    Key: E natural minor (with In scale overlay) | Tempo: 152 BPM | Time: 7/8
+  #    Taiko rhythm with shamisen melody. The 7/8 time signature creates
+  #    urgency — the extra beat is always chasing. The shamisen uses the
+  #    In scale (Miyako-bushi) for its dark, intense character. The taiko
+  #    pattern is traditional matsuri-style but accelerated.
+  # -----------------------------------------------------------------------
+  battle_theme:
+    motif_id: battle_theme
+    name: "Battle Theme"
+    key_root: 64  # E4
+    scale: in_scale
+    tempo_bpm: 152
+    time_signature: "7/8"
+    primary_instrument: shamisen
+    tags: [battle, combat, urgent, fierce]
+
+    phrases:
+      # Main shamisen attack melody
+      - phrase_id: battle_main
+        name: "The veil tears"
+        tags: [main, melody, aggressive]
+        notes:
+          - [64,   0.5,   95]         # E4    - root, strong attack
+          - [65,   0.25,  100]        # F4    - flat second (In scale), dark
+          - [64,   0.25,  90]         # E4    - return
+          - [69,   0.5,   100]        # A4    - fourth, driving
+          - [71,   0.75,  105]        # B4    - fifth, peak
+          - [69,   0.25,  90]         # A4    - pull back
+          - [65,   0.5,   95]         # F4    - the In scale darkness
+          - [64,   0.75,  100]        # E4    - root, grounding the phrase
+          - [-1,   0.25,  0]          # rest  - breath between strikes
+          - [71,   0.5,   105]        # B4    - leap up
+          - [72,   0.25,  100]        # C5    - flat sixth
+          - [71,   0.25,  95]         # B4    - ornament
+          - [69,   0.5,   100]        # A4    - descending
+          - [65,   0.5,   95]         # F4    - dark interval
+          - [64,   1.0,   110]        # E4    - final strike, held
+
+      # Taiko rhythm pattern (using low notes to represent drum hits)
+      # Pitch is approximate — represents don (low) and ka (high) strokes
+      - phrase_id: battle_taiko
+        name: "Taiko pattern"
+        tags: [rhythm, taiko, percussion]
+        notes:
+          # DON don don KA don don KA  (7 beats in 7/8)
+          - [36,   0.5,   110]        # DON   - big strike
+          - [36,   0.5,   80]         # don   - smaller
+          - [36,   0.5,   75]         # don   - smaller
+          - [48,   0.5,   100]        # KA    - rim strike (higher)
+          - [36,   0.5,   85]         # don   - medium
+          - [36,   0.5,   70]         # don   - building
+          - [48,   0.5,   105]        # KA    - rim strike
+          # Second measure — variation
+          - [36,   0.5,   115]        # DON   - strongest
+          - [48,   0.25,  90]         # KA    - quick
+          - [48,   0.25,  85]         # KA    - double
+          - [36,   0.5,   100]        # DON   - anchor
+          - [36,   0.5,   75]         # don   - softer
+          - [48,   0.25,  95]         # KA
+          - [36,   0.25,  80]         # don
+          - [36,   0.5,   110]        # DON   - phrase end
+
+      # Spirit-combat overlay — sho swells during spirit battles
+      - phrase_id: battle_spirit_swell
+        name: "Spirit combat swell"
+        tags: [spirit, combat, sho, overlay]
+        notes:
+          - [52,   3.5,   50]         # E3    - sho drone, building
+          - [59,   3.5,   55]         # B3    - fifth added
+          - [64,   3.5,   60]         # E4    - octave joins
+          - [65,   3.5,   55]         # F4    - dark second, tension
+          - [59,   7.0,   65]         # B3    - sustained peak
+          - [52,   7.0,   45]         # E3    - fade back to root
+
+    chord_progression:
+      progression_id: battle_chords
+      name: "Battle harmonies"
+      key_root: 64
+      scale: in_scale
+      tags: [battle, urgent]
+      chords:
+        - name: Em_power
+          pitches: [40, 52, 64]       # E2 E3 E4 — unison octaves, raw power
+          duration: 3.5
+          velocity: 95
+          instrument: cello
+        - name: F_tension
+          pitches: [41, 53, 65]       # F2 F3 F4 — flat II, maximum tension
+          duration: 3.5
+          velocity: 90
+          instrument: cello
+        - name: Am
+          pitches: [45, 52, 57, 64]   # A2 E3 A3 E4 — iv chord, dark
+          duration: 3.5
+          velocity: 85
+          instrument: cello
+        - name: B_dom
+          pitches: [47, 59, 63, 66]   # B2 B3 Eb4 F#4 — V7, drives back to i
+          duration: 3.5
+          velocity: 100
+          instrument: cello
+
+  # -----------------------------------------------------------------------
+  # 6. LOVE THEME — "Two Strings, One Song"
+  #    Key: D major (violin) / D Kumoi (koto) | Tempo: 60 BPM | Time: 4/4
+  #    A duet. The violin plays in Western D major; the koto answers in
+  #    Japanese Kumoi scale on the same root. They share D, E, and A but
+  #    diverge on the third (F# vs F) and seventh (C# vs B). The moments
+  #    where they agree are the moments of connection. The rests between
+  #    their phrases are the ache of distance.
+  # -----------------------------------------------------------------------
+  love_theme:
+    motif_id: love_theme
+    name: "Love Theme"
+    key_root: 62  # D4
+    scale: major  # blended with kumoi
+    tempo_bpm: 60
+    time_signature: "4/4"
+    primary_instrument: violin
+    tags: [character, love, duet, beautiful]
+
+    phrases:
+      # Violin phrase — Western, yearning
+      - phrase_id: love_violin
+        name: "Violin — the one who reaches"
+        tags: [violin, western, call]
+        instrument: violin
+        notes:
+          - [62,   1.0,   65]         # D4    - shared root, common ground
+          - [66,   1.5,   70]         # F#4   - major third — the Western voice
+          - [69,   1.0,   75]         # A4    - shared fifth, they agree here
+          - [-1,   1.0,   0]          # rest  - waiting for the answer
+          - [71,   0.5,   65]         # B4    - Western sixth
+          - [73,   0.5,   60]         # C#5   - leading tone, longing
+          - [74,   2.0,   75]         # D5    - octave arrival
+          - [-1,   1.5,   0]          # rest  - does the koto answer?
+          - [73,   0.5,   60]         # C#5   - reaching back
+          - [71,   0.5,   55]         # B4    - descending
+          - [69,   1.0,   65]         # A4    - the shared note, a bridge
+          - [66,   1.5,   60]         # F#4   - Western third
+          - [62,   2.0,   55]         # D4    - home, but alone
+          - [-1,   2.0,   0]          # rest  - the distance between them
+
+      # Koto phrase — Japanese Kumoi scale, answering
+      - phrase_id: love_koto
+        name: "Koto — the one who answers"
+        tags: [koto, japanese, response]
+        instrument: koto
+        notes:
+          - [-1,   2.0,   0]          # rest  - listens to the violin first
+          - [62,   1.0,   55]         # D4    - same root, recognition
+          - [64,   0.5,   60]         # E4    - shared second
+          - [65,   1.5,   65]         # F4    - NATURAL third — the Kumoi voice
+          - [69,   1.0,   60]         # A4    - shared fifth, meeting point
+          - [-1,   1.0,   0]          # rest  - a breath of hope
+          - [71,   0.75,  55]         # B4    - Kumoi fifth degree
+          - [69,   0.75,  60]         # A4    - step back
+          - [65,   1.0,   55]         # F4    - the natural third, so different from F#
+          - [62,   2.5,   60]         # D4    - home, but reaching
+          - [-1,   1.5,   0]          # rest  - the space says more than notes
+          - [69,   1.0,   50]         # A4    - one last shared note
+          - [62,   3.0,   45]         # D4    - fading, but present
+          - [-1,   2.0,   0]          # rest  - together in silence
+
+      # Combined moment — when they play the same note
+      - phrase_id: love_unison
+        name: "The moment they meet"
+        tags: [unison, climax, together]
+        notes:
+          # Both instruments play the shared tones: D, E, A
+          - [62,   2.0,   70]         # D4    - together, root
+          - [64,   1.0,   65]         # E4    - together, second
+          - [69,   2.0,   75]         # A4    - together, fifth — the strongest bond
+          - [-1,   1.0,   0]          # rest  - even their silences align
+          - [74,   1.0,   70]         # D5    - together, high root
+          - [76,   1.0,   65]         # E5    - together, high second
+          - [81,   3.0,   60]         # A5    - together, high fifth — soaring
+          - [74,   2.0,   55]         # D5    - descending together
+          - [69,   2.0,   50]         # A4    - settling together
+          - [62,   4.0,   60]         # D4    - home, together at last
+          - [-1,   4.0,   0]          # rest  - the silence that follows is not empty
+
+    chord_progression:
+      progression_id: love_chords
+      name: "Love's harmonic arc"
+      key_root: 62
+      scale: major
+      tags: [love, aching]
+      chords:
+        - name: D
+          pitches: [50, 54, 57, 62]   # D3 F#3 A3 D4
+          duration: 4.0
+          velocity: 50
+          instrument: harp
+        - name: Bm
+          pitches: [47, 54, 59, 62]   # B2 F#3 B3 D4
+          duration: 4.0
+          velocity: 45
+          instrument: harp
+        - name: G
+          pitches: [43, 50, 55, 59]   # G2 D3 G3 B3
+          duration: 4.0
+          velocity: 50
+          instrument: harp
+        - name: A_sus
+          pitches: [45, 52, 57, 62]   # A2 E3 A3 D4 — suspended, unresolved
+          duration: 4.0
+          velocity: 55
+          instrument: harp
+
+  # -----------------------------------------------------------------------
+  # 7. MEMORY THEME — "Heard Through Water"
+  #    Key: G major (filtered) | Tempo: 58 BPM | Time: 3/4
+  #    Music box playing fragments of Grandmother's melody, but
+  #    with notes missing, rhythms shifted, intervals slightly wrong —
+  #    the way memory distorts the things we love most.
+  # -----------------------------------------------------------------------
+  memory_theme:
+    motif_id: memory_theme
+    name: "Memory Theme"
+    key_root: 67  # G4
+    scale: major
+    tempo_bpm: 58
+    time_signature: "3/4"
+    primary_instrument: music_box
+    tags: [memory, nostalgia, distant, blurred]
+
+    phrases:
+      # Fragmented grandmother melody on music box
+      - phrase_id: memory_main
+        name: "A song half-remembered"
+        tags: [main, fragment, music_box]
+        notes:
+          - [79,   1.0,   40]         # G5    - high, tinkling, music box range
+          - [83,   0.5,   35]         # B5    - major third, warm but distant
+          - [-1,   1.0,   0]          # rest  - a gap in the memory
+          - [84,   1.5,   38]         # C6    - the melody continues, but shifted
+          - [-1,   1.5,   0]          # rest  - what came next? she can't remember
+          - [86,   0.75,  35]         # D6    - a fragment surfaces
+          - [84,   0.75,  30]         # C6    - falling back
+          - [-1,   2.0,   0]          # rest  - longer gap, the memory recedes
+          - [83,   0.5,   35]         # B5    - another piece
+          - [79,   2.0,   40]         # G5    - the root, the anchor
+          - [-1,   1.0,   0]          # rest
+          - [76,   0.5,   30]         # E5    - below, underwater
+          - [74,   0.5,   25]         # D5    - sinking
+          - [72,   3.0,   30]         # C5    - resting deep
+          - [-1,   3.0,   0]          # rest  - the memory dissolves
+
+      # Piano echo — like hearing through a wall
+      - phrase_id: memory_echo
+        name: "Through the wall"
+        tags: [echo, piano, distant]
+        notes:
+          - [55,   2.0,   25]         # G3    - very low, filtered
+          - [-1,   1.0,   0]          # rest
+          - [59,   1.5,   20]         # B3    - muffled
+          - [60,   1.5,   22]         # C4    - almost inaudible
+          - [-1,   2.0,   0]          # rest
+          - [62,   2.0,   25]         # D4    - a note remembered
+          - [60,   1.0,   20]         # C4    - fading
+          - [55,   3.0,   18]         # G3    - back to the deep root
+          - [-1,   4.0,   0]          # rest  - silence under water
+
+    chord_progression:
+      progression_id: memory_chords
+      name: "Memory's fading harmonies"
+      key_root: 67
+      scale: major
+      tags: [memory, filtered]
+      chords:
+        - name: G_distant
+          pitches: [43, 55, 59]       # G2 G3 B3 — thin, far away
+          duration: 6.0
+          velocity: 25
+          instrument: piano
+        - name: Em_echo
+          pitches: [40, 52, 55]       # E2 E3 G3 — ghostly
+          duration: 6.0
+          velocity: 20
+          instrument: piano
+        - name: C_submerged
+          pitches: [36, 48, 52]       # C2 C3 E3 — deep underwater
+          duration: 6.0
+          velocity: 22
+          instrument: piano
+        - name: G_return
+          pitches: [31, 43, 55]       # G1 G2 G3 — the lowest, most distant
+          duration: 8.0
+          velocity: 18
+          instrument: piano
+
+  # -----------------------------------------------------------------------
+  # 8. TOKYO THEME — "Ten Million Footsteps"
+  #    Key: Bb major | Tempo: 112 BPM | Time: 4/4
+  #    Piano arpeggios with rhythmic drive. The melody is built from
+  #    ascending patterns — the constant forward motion of the city.
+  #    Bright, major-key, but with occasional minor inflections that
+  #    hint at the spirit world lurking beneath the surface.
+  # -----------------------------------------------------------------------
+  tokyo_theme:
+    motif_id: tokyo_theme
+    name: "Tokyo Theme"
+    key_root: 58  # Bb3
+    scale: major
+    tempo_bpm: 112
+    time_signature: "4/4"
+    primary_instrument: piano
+    tags: [tokyo, city, modern, exploration, bustling]
+
+    phrases:
+      # Piano arpeggio pattern — the rhythm of the city
+      - phrase_id: tokyo_arpeggio
+        name: "City pulse"
+        tags: [main, arpeggio, piano, rhythmic]
+        notes:
+          - [58,   0.25,  75]         # Bb3   - root
+          - [62,   0.25,  70]         # D4    - third
+          - [65,   0.25,  75]         # F4    - fifth
+          - [70,   0.25,  70]         # Bb4   - octave
+          - [65,   0.25,  65]         # F4    - back down
+          - [62,   0.25,  70]         # D4
+          - [58,   0.25,  65]         # Bb3
+          - [62,   0.25,  70]         # D4    - back up, perpetual motion
+          - [60,   0.25,  72]         # C4    - passing to next chord
+          - [63,   0.25,  70]         # Eb4   - IV chord arpeggio
+          - [67,   0.25,  72]         # G4
+          - [70,   0.25,  70]         # Bb4
+          - [67,   0.25,  65]         # G4
+          - [63,   0.25,  70]         # Eb4
+          - [60,   0.25,  65]         # C4
+          - [63,   0.25,  68]         # Eb4   - the city never stops
+
+      # Melodic overlay — violin counter-melody above the arpeggios
+      - phrase_id: tokyo_melody
+        name: "Above the crowd"
+        tags: [melody, violin, soaring]
+        notes:
+          - [70,   1.0,   75]         # Bb4   - singing above the bustle
+          - [72,   0.5,   70]         # C5    - stepping up
+          - [74,   1.0,   80]         # D5    - bright major third
+          - [75,   0.5,   70]         # Eb5   - touching the fourth
+          - [74,   0.5,   75]         # D5    - back
+          - [72,   0.5,   70]         # C5    - descending
+          - [70,   1.0,   75]         # Bb4   - home base
+          - [-1,   0.5,   0]          # rest  - brief breath
+          - [74,   0.5,   80]         # D5    - leaping up
+          - [77,   1.0,   85]         # F5    - high fifth, looking out over the city
+          - [75,   0.5,   75]         # Eb5   - minor touch, a spirit-world hint
+          - [74,   1.5,   70]         # D5    - settling
+          - [70,   2.0,   65]         # Bb4   - return, the city breathes
+          - [-1,   1.0,   0]          # rest
+
+    chord_progression:
+      progression_id: tokyo_chords
+      name: "City harmonies"
+      key_root: 58
+      scale: major
+      tags: [tokyo, bright]
+      chords:
+        - name: Bb
+          pitches: [46, 50, 53, 58]   # Bb2 D3 F3 Bb3
+          duration: 4.0
+          velocity: 65
+          instrument: piano
+        - name: Eb
+          pitches: [39, 46, 51, 55]   # Eb2 Bb2 Eb3 G3
+          duration: 4.0
+          velocity: 60
+          instrument: piano
+        - name: F
+          pitches: [41, 48, 53, 57]   # F2 C3 F3 A3
+          duration: 4.0
+          velocity: 65
+          instrument: piano
+        - name: Gm
+          pitches: [43, 50, 55, 58]   # G2 D3 G3 Bb3
+          duration: 4.0
+          velocity: 60
+          instrument: piano
+
+  # -----------------------------------------------------------------------
+  # 9. MIRAIKAN CORP THEME — "Progress Without Soul"
+  #    Key: Bb minor | Tempo: 100 BPM | Time: 4/4
+  #    Corrupted spirit sounds. The glass harmonica plays a distorted
+  #    version of the Spirit World melody — same intervals, but with
+  #    mechanical precision and no breath tones. Every space is filled.
+  #    There is no ma. That is the horror.
+  # -----------------------------------------------------------------------
+  miraikan_theme:
+    motif_id: miraikan_theme
+    name: "MIRAIKAN Corp Theme"
+    key_root: 58  # Bb3
+    scale: harmonic_minor
+    tempo_bpm: 100
+    time_signature: "4/4"
+    primary_instrument: glass_harmonica
+    tags: [miraikan, antagonist, cold, mechanical, corrupted]
+
+    phrases:
+      # Corrupted spirit melody — same contour, wrong soul
+      - phrase_id: miraikan_main
+        name: "Stolen melody"
+        tags: [main, corrupted, glass_harmonica]
+        notes:
+          # Same intervals as spirit_main but metronomically precise, no rests
+          - [58,   1.0,   65]         # Bb3   - root, cold precision
+          - [60,   1.0,   65]         # C4    - second, no warmth
+          - [61,   1.0,   65]         # Db4   - minor second, clinical
+          - [65,   1.0,   65]         # F4    - fourth, mechanical
+          - [66,   1.0,   65]         # Gb4   - tritone flicker, wrongness
+          - [65,   1.0,   65]         # F4    - no variation in velocity
+          - [61,   1.0,   65]         # Db4   - every note the same volume
+          - [58,   1.0,   65]         # Bb3   - return, but there is no relief
+          # No rests. No space. No ma. MIRAIKAN fills every gap.
+          - [58,   1.0,   65]         # Bb3   - the pattern repeats
+          - [60,   1.0,   65]         # C4    - identical
+          - [61,   1.0,   65]         # Db4   - identical
+          - [65,   1.0,   65]         # F4    - identical
+          - [66,   1.0,   65]         # Gb4   - identical
+          - [65,   1.0,   65]         # F4    - a machine does not tire
+          - [61,   1.0,   65]         # Db4   - a machine does not feel
+          - [58,   1.0,   65]         # Bb3   - a machine does not pause
+
+      # Synth pad drone — oppressive, constant
+      - phrase_id: miraikan_drone
+        name: "Machine breath"
+        tags: [drone, synth, oppressive]
+        notes:
+          - [46,  16.0,   55]         # Bb2   - endless low drone
+          - [46,  16.0,   55]         # Bb2   - it never stops
+          - [46,  16.0,   55]         # Bb2   - it fills every silence
+
+    chord_progression:
+      progression_id: miraikan_chords
+      name: "Corporate harmonies"
+      key_root: 58
+      scale: harmonic_minor
+      tags: [miraikan, cold, mechanical]
+      chords:
+        - name: Bbm
+          pitches: [46, 49, 53, 58]   # Bb2 Db3 F3 Bb3
+          duration: 4.0
+          velocity: 65
+          instrument: synth_pad
+        - name: Gb
+          pitches: [42, 46, 49, 54]   # Gb2 Bb2 Db3 Gb3
+          duration: 4.0
+          velocity: 65
+          instrument: synth_pad
+        - name: Db
+          pitches: [37, 41, 49, 53]   # Db2 F2 Db3 F3
+          duration: 4.0
+          velocity: 65
+          instrument: synth_pad
+        - name: A_dim
+          pitches: [45, 49, 52, 57]   # A2 Db3 E3 A3 — diminished, anxiety
+          duration: 4.0
+          velocity: 70
+          instrument: synth_pad

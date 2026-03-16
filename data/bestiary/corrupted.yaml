@@ -1,0 +1,226 @@
+# Ma no Kuni - Corrupted Spirit Bestiary
+# These spirits have been twisted by exploitation, pollution, or despair.
+# They can be fought, but they can also be healed. The choice matters.
+
+corrupted_spirits:
+  - id: corrupted_kodama
+    name: "Withered Kodama"
+    japanese_name: "枯れ木霊"
+    original_form: kodama
+    corruption_source: "pollution"
+    corruption_level: 0.6
+    description: >
+      A kodama whose tree was poisoned by industrial runoff. Its echoes
+      have become distorted - repeating words backwards, turning laughter
+      into screams. Its pale form has darkened to an oil-slick black,
+      and where it walks, plants wilt. It doesn't want to hurt anyone.
+      It just can't stop the poison from spreading.
+    element_affinity: shadow
+    base_hp: 65
+    base_attack: 25
+    base_defense: 10
+    spirit_level: 5
+    abilities:
+      - toxic_echo
+      - root_rot
+      - corrupted_growth
+      - wilt_wave
+    purification_method: >
+      Plant a seed blessed by a nature spirit near its corrupted tree.
+      Sit with it in silence (ma moment) until it remembers what clean
+      rain felt like. Requires: blessed_seed + ma level 40+.
+    purification_reward: "Restored Kodama bond + Seed of Remembrance (crafting material)"
+    lore_fragments:
+      - "It still tries to echo birdsong. The sound that comes out makes birds fall silent."
+      - "Beneath the corruption, you can see it trembling. It remembers being green."
+    habitat: "Polluted parks, construction sites, dying gardens"
+    encounter_conditions:
+      min_permeability: 0.3
+      corruption_zone: true
+
+  - id: corrupted_vending
+    name: "Glitch Machine"
+    japanese_name: "不具合機"
+    original_form: jidohanbaiki_no_kami
+    corruption_source: "MIRAIKAN extraction"
+    corruption_level: 0.7
+    description: >
+      A vending machine spirit captured by MIRAIKAN Corp and drained of
+      its essence for profit. It has broken free but is shattered - it
+      dispenses random objects uncontrollably, its screen flickers with
+      corrupted messages, and it lurches through streets leaving a trail
+      of scattered coins and broken glass. It screams in error codes.
+    element_affinity: shadow
+    base_hp: 120
+    base_attack: 30
+    base_defense: 20
+    spirit_level: 7
+    abilities:
+      - error_dispense
+      - coin_storm
+      - static_scream
+      - overload_burst
+      - corrupted_neon
+    purification_method: >
+      Make a genuine choice for it - tell it what drink it should be.
+      Not what it should dispense. What it IS. Requires: Empathy 6+ and
+      completing the side quest "The Spirit of Choice."
+    purification_reward: "Restored bond + Spirit Vending upgrade + Glitch Coin (rare material)"
+    lore_fragments:
+      - "MIRAIKAN extracted 73% of its essence before it escaped. It runs on 27% of a soul."
+      - "The error messages on its screen, if decoded, are cries for help in an invented language."
+    habitat: "MIRAIKAN zones, corrupted districts, abandoned streets"
+    encounter_conditions:
+      min_permeability: 0.4
+      story_flag: chapter_3_started
+
+  - id: yuurei_static
+    name: "Static Grief"
+    japanese_name: "静電悲嘆"
+    original_form: null
+    corruption_source: "concentrated human despair"
+    corruption_level: 0.8
+    description: >
+      Not a corrupted existing spirit but something born from corruption
+      itself - the accumulated static of a million unanswered phones,
+      a million dropped calls, a million conversations where someone
+      said "I'm fine" and wasn't. It manifests as a humanoid shape
+      made of television static, reaching out with hands that can't
+      quite touch anything.
+    element_affinity: shadow
+    base_hp: 100
+    base_attack: 35
+    base_defense: 15
+    spirit_level: 8
+    abilities:
+      - static_touch
+      - signal_loss
+      - white_noise_shriek
+      - disconnection
+      - phantom_call
+    purification_method: >
+      Cannot be fully purified - it is what it is. But it can be
+      calmed by answering it. Speaking truth into its static.
+      Telling it the things people couldn't say. Ma level 50+ and
+      the Denwa-no-rei bond.
+    purification_reward: "Static Fragment (powerful crafting material) + Understanding (permanent Empathy +1)"
+    lore_fragments:
+      - "It is the shape of every word that was swallowed instead of spoken."
+      - "It reaches for people because it is made of reaching. That is all it knows."
+      - "Sometimes, in its static, you can hear a voice that sounds like your own."
+    habitat: "Communication dead zones, abandoned phone booths, the space between words"
+    encounter_conditions:
+      time: [midnight, witching]
+      min_permeability: 0.5
+
+  - id: miraikan_harvester
+    name: "MIRAIKAN Harvester"
+    japanese_name: "ミライカン収穫者"
+    original_form: null
+    corruption_source: "artificial construct"
+    corruption_level: 1.0
+    description: >
+      Not a spirit at all, but a machine designed by MIRAIKAN Corp to
+      capture and contain spirits for energy extraction. It mimics spirit
+      forms to lure them in, then traps them in containment fields that
+      slowly drain their essence. It has no feelings. It has no soul.
+      But some of the spirits it has consumed are still screaming inside it,
+      and their pain has given it something that almost resembles awareness.
+    element_affinity: shadow
+    base_hp: 200
+    base_attack: 45
+    base_defense: 35
+    spirit_level: 10
+    abilities:
+      - containment_field
+      - essence_drain
+      - spirit_mimic
+      - null_pulse
+      - harvester_protocol
+    purification_method: >
+      Cannot be purified. Must be destroyed or shut down. But the spirits
+      trapped inside can be freed by breaking the containment cores.
+      Each freed spirit weakens the Harvester. Requires combat + puzzle
+      sequence to disable containment without harming trapped spirits.
+    purification_reward: "Freed spirits + MIRAIKAN data core (quest item) + Containment Shard"
+    lore_fragments:
+      - "MIRAIKAN has deployed 200 of these across Tokyo. This is the prototype."
+      - "Inside, you can hear spirits whispering. They are counting the days."
+      - "It has started dreaming. MIRAIKAN doesn't know this. The dreams are of freedom."
+    habitat: "MIRAIKAN facilities, corrupted zones, corporate districts"
+    encounter_conditions:
+      story_flag: chapter_3_started
+      min_permeability: 0.3
+
+  - id: corrupted_natsukashii
+    name: "Twisted Nostalgia"
+    japanese_name: "歪んだ懐かしさ"
+    original_form: natsukashii
+    corruption_source: "weaponized longing"
+    corruption_level: 0.5
+    description: >
+      A nostalgia spirit that has been twisted by someone's refusal to
+      let go of the past. Instead of the warm golden glow of bittersweet
+      memory, it traps people in loops of their happiest moments, refusing
+      to let them move forward. The memories it shows become prisons.
+      The golden light becomes chains.
+    element_affinity: memory
+    base_hp: 80
+    base_attack: 20
+    base_defense: 15
+    spirit_level: 6
+    abilities:
+      - memory_loop
+      - golden_chains
+      - time_lock
+      - false_comfort
+    purification_method: >
+      Show it that remembering and moving forward are not opposites.
+      Share a memory willingly, then let it go. Requires: Memory-element
+      item + willingness to sacrifice a memory fragment from inventory.
+    purification_reward: "Restored Natsukashii bond + Bittersweet Tear (powerful memory crafting material)"
+    lore_fragments:
+      - "The person who corrupted it didn't mean to. They just missed someone so much."
+      - "It still shows beautiful memories. The cruelty is that they never end."
+    habitat: "Places of significant personal history, near the person who corrupted it"
+    encounter_conditions:
+      min_permeability: 0.3
+      story_flag: side_quest_memory_loop
+
+  - id: kegare_tide
+    name: "Kegare Tide"
+    japanese_name: "穢れの潮"
+    original_form: null
+    corruption_source: "accumulated spiritual pollution"
+    corruption_level: 0.9
+    description: >
+      A wave of spiritual contamination that rolls through corrupted
+      districts like a toxic tide. It is not a single being but a
+      collective expression of every small corruption - every lie told,
+      every spirit ignored, every sacred space paved over. It cannot be
+      fought directly. It must be pushed back by purifying the corruption
+      in an area, one act of healing at a time.
+    element_affinity: shadow
+    base_hp: 999
+    base_attack: 50
+    base_defense: 50
+    spirit_level: 15
+    abilities:
+      - corruption_wave
+      - despair_aura
+      - spiritual_erosion
+      - kegare_spread
+    purification_method: >
+      Cannot be fought. Reduces as district corruption decreases.
+      Each corrupted spirit healed, each polluted area cleansed,
+      each truth spoken pushes it back. It is the aggregate of
+      everything wrong, and it is healed by everything right.
+    purification_reward: "District restoration + massive spirit permeability normalization"
+    lore_fragments:
+      - "It is not evil. It is consequence."
+      - "Every city has one. Tokyo's has been growing since the first forest was cleared."
+      - "The deeper cause is not MIRAIKAN. MIRAIKAN is a symptom. The Kegare was here first."
+    habitat: "Corrupted zones, expanding from Roppongi"
+    encounter_conditions:
+      min_permeability: 0.6
+      story_flag: chapter_4_started

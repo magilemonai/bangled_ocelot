@@ -1,0 +1,484 @@
+# ============================================================================
+# Ma no Kuni - Material Definitions
+#
+# Every material in this world carries something of where it came from.
+# The wood remembers sunlight. The glass remembers the view. The spirit
+# essence remembers what it meant to be whole.
+# ============================================================================
+
+materials:
+
+  # --------------------------------------------------------------------------
+  # NATURAL MATERIALS
+  # --------------------------------------------------------------------------
+
+  - id: hinoki_bark
+    name: "Hinoki Bark"
+    description: "Fragrant cypress bark, peeled carefully from a fallen branch. The scent alone calms troubled spirits."
+    material_type: natural
+    spirit_resonance: 0.4
+    element_affinity: earth
+    rarity: common
+    source_districts: ["Meiji Shrine", "Ueno Park", "Shinjuku Gyoen"]
+    gather_methods: [exploration]
+    base_value: 15
+    lore: "Hinoki has been sacred since before Tokyo had a name. Shrine builders chose it because the spirits already lived there."
+    tags: [wood, aromatic, purifying]
+
+  - id: river_stone
+    name: "Sumida River Stone"
+    description: "A smooth stone from the Sumida River, worn by centuries of current. Cool to the touch even in summer."
+    material_type: natural
+    spirit_resonance: 0.25
+    element_affinity: water
+    rarity: common
+    source_districts: ["Asakusa", "Ryogoku", "Tsukishima"]
+    gather_methods: [exploration]
+    base_value: 8
+    lore: "The Sumida has carried these stones since the Edo period. Each one has felt the footsteps of a thousand bridges above it."
+    tags: [stone, river, grounding]
+
+  - id: sakura_petal
+    name: "Late Sakura Petal"
+    description: "A cherry blossom petal that fell last, after all the others. It carries a particular melancholy."
+    material_type: natural
+    spirit_resonance: 0.55
+    element_affinity: wind
+    rarity: uncommon
+    source_districts: ["Ueno Park", "Meguro River", "Chidorigafuchi"]
+    gather_methods: [exploration, seasonal_event]
+    base_value: 25
+    lore: "The last petal to fall sees all the others go before it. That loneliness gives it a resonance the first petals never have."
+    tags: [flower, seasonal, spring, melancholy]
+
+  - id: morning_dew
+    name: "Shrine Morning Dew"
+    description: "Dew collected at dawn from the stones of a Shinto shrine. It catches light in ways water shouldn't."
+    material_type: natural
+    spirit_resonance: 0.6
+    element_affinity: water
+    rarity: uncommon
+    source_districts: ["Meiji Shrine", "Kanda Myojin", "Nezu Shrine"]
+    gather_methods: [exploration]
+    base_value: 30
+    lore: "Dew that forms on sacred ground has touched both worlds by morning. Handle it before the sun burns the between-ness away."
+    tags: [water, sacred, dawn, purifying]
+
+  - id: camphor_leaf
+    name: "Old Camphor Leaf"
+    description: "A broad leaf from a camphor tree older than living memory. The veins pulse faintly if you watch long enough."
+    material_type: natural
+    spirit_resonance: 0.45
+    element_affinity: earth
+    rarity: common
+    source_districts: ["Meiji Shrine", "Ueno Park", "Yanaka"]
+    gather_methods: [exploration]
+    base_value: 12
+    lore: "Camphor trees in Tokyo's old districts have seen the city burn and rebuild three times. Their patience is supernatural."
+    tags: [leaf, aromatic, ancient]
+
+  - id: wild_mugwort
+    name: "Wild Mugwort"
+    description: "Yomogi growing where no one planted it, pushing through cracks in concrete. Stubbornly alive."
+    material_type: natural
+    spirit_resonance: 0.35
+    element_affinity: earth
+    rarity: common
+    source_districts: ["Yanaka", "Shimokitazawa", "Koenji"]
+    gather_methods: [exploration, purchase]
+    base_value: 10
+    lore: "Mugwort that chooses its own ground has a will the cultivated kind lacks. Grandmother uses it for the strongest teas."
+    tags: [herb, medicinal, resilient, tea_ingredient]
+
+  - id: bamboo_segment
+    name: "Twilight Bamboo"
+    description: "A section of bamboo cut at the exact moment between day and night. It still holds that threshold."
+    material_type: natural
+    spirit_resonance: 0.5
+    element_affinity: void
+    rarity: uncommon
+    source_districts: ["Hokokuji", "Meiji Shrine", "Todoroki Valley"]
+    gather_methods: [exploration]
+    base_value: 35
+    lore: "Bamboo cut at twilight remains a doorway. The hollow center is technically a passage between states of being."
+    tags: [wood, liminal, container]
+
+  - id: moonflower_bud
+    name: "Moonflower Bud"
+    description: "A yugao bud, the flower that only opens at night. Gathered before it blooms, it holds all its potential inside."
+    material_type: natural
+    spirit_resonance: 0.65
+    element_affinity: shadow
+    rarity: rare
+    source_districts: ["Yanaka", "Nezu Shrine", "Koishikawa Korakuen"]
+    gather_methods: [exploration, npc_gift]
+    base_value: 50
+    lore: "The moonflower opens when the spirits are most active. An unopened bud is a promise the night hasn't kept yet."
+    tags: [flower, nocturnal, potent]
+
+  # --------------------------------------------------------------------------
+  # URBAN MATERIALS
+  # --------------------------------------------------------------------------
+
+  - id: train_spark
+    name: "Train Spark"
+    description: "A spark caught from the rails of the Yamanote Line at Shinjuku Station. It buzzes with impatient energy."
+    material_type: urban
+    spirit_resonance: 0.2
+    element_affinity: lightning
+    rarity: uncommon
+    source_districts: ["Shinjuku", "Shibuya", "Ikebukuro", "Tokyo Station"]
+    gather_methods: [exploration]
+    base_value: 20
+    lore: "Millions of journeys compress into each spark. The energy of ten thousand commuters who all need to be somewhere else."
+    tags: [metal, electric, urban_pulse]
+
+  - id: neon_glass
+    name: "Neon Glass Shard"
+    description: "A fragment of broken neon sign from Kabukicho. It still flickers with color that has no source."
+    material_type: urban
+    spirit_resonance: 0.3
+    element_affinity: light
+    rarity: common
+    source_districts: ["Kabukicho", "Shibuya", "Akihabara", "Roppongi"]
+    gather_methods: [exploration, combat_drop]
+    base_value: 12
+    lore: "Neon signs in the entertainment districts burn so brightly and so long that the light becomes a kind of memory. Even broken, they remember how to glow."
+    tags: [glass, light, nightlife]
+
+  - id: vending_coil
+    name: "Vending Machine Coil"
+    description: "A copper coil from a decommissioned vending machine. It has served ten thousand small transactions."
+    material_type: urban
+    spirit_resonance: 0.15
+    element_affinity: lightning
+    rarity: common
+    source_districts: ["Akihabara", "Shinjuku", "Ikebukuro"]
+    gather_methods: [exploration, purchase]
+    base_value: 8
+    lore: "Vending machines in Tokyo outnumber people in some alleys. Their spirits are minor but incredibly numerous - and they remember every customer."
+    tags: [metal, copper, electric, service]
+
+  - id: concrete_dust
+    name: "Old Concrete Dust"
+    description: "Powder from pre-war concrete, scraped from a building that survived the firebombing. Dense with endurance."
+    material_type: urban
+    spirit_resonance: 0.1
+    element_affinity: earth
+    rarity: uncommon
+    source_districts: ["Nihonbashi", "Ginza", "Yanaka"]
+    gather_methods: [exploration]
+    base_value: 18
+    lore: "This concrete has stood through earthquake, fire, and the weight of modernity. It has forgotten how to crumble."
+    tags: [stone, urban, enduring, historical]
+
+  - id: rusty_nail
+    name: "Rusty Shrine Nail"
+    description: "An iron nail fallen from an old shrine gate. Rust has given it a patina of accumulated prayer."
+    material_type: urban
+    spirit_resonance: 0.35
+    element_affinity: earth
+    rarity: uncommon
+    source_districts: ["Kanda Myojin", "Nezu Shrine", "Yanaka"]
+    gather_methods: [exploration]
+    base_value: 22
+    lore: "Iron holds spirits at bay, but iron that has served a shrine for decades learns to hold them gently instead."
+    tags: [metal, iron, sacred, binding]
+
+  - id: taxi_meter_glass
+    name: "Taxi Meter Glass"
+    description: "The glass face of an old analog taxi meter. It has measured distance in a city that never stops moving."
+    material_type: urban
+    spirit_resonance: 0.15
+    element_affinity: wind
+    rarity: uncommon
+    source_districts: ["Ginza", "Roppongi", "Shinjuku"]
+    gather_methods: [purchase, npc_gift]
+    base_value: 20
+    lore: "Every fare was a story. Every meter tick was a heartbeat of the city. This glass watched Tokyo go by, one block at a time."
+    tags: [glass, measurement, journeys]
+
+  - id: payphone_wire
+    name: "Green Payphone Wire"
+    description: "Copper wire from one of Tokyo's vanishing green payphones. It still carries the echo of unanswered calls."
+    material_type: urban
+    spirit_resonance: 0.25
+    element_affinity: void
+    rarity: rare
+    source_districts: ["Yanaka", "Shimokitazawa", "Koenji", "Nihonbashi"]
+    gather_methods: [exploration, quest_reward]
+    base_value: 40
+    lore: "Payphones are disappearing. The ones that remain are haunted by every conversation that almost happened - the calls never made, the words never said."
+    tags: [metal, copper, communication, vanishing]
+
+  - id: alley_moss
+    name: "Back-Alley Moss"
+    description: "Moss growing in a Shimokitazawa alley where sunlight reaches for exactly eleven minutes a day."
+    material_type: urban
+    spirit_resonance: 0.3
+    element_affinity: earth
+    rarity: common
+    source_districts: ["Shimokitazawa", "Koenji", "Yanaka", "Golden Gai"]
+    gather_methods: [exploration]
+    base_value: 10
+    lore: "Nature's quiet rebellion against concrete. This moss thrives on neglect and finds sacred ground in the cracks between buildings."
+    tags: [plant, urban_nature, resilient, liminal]
+
+  # --------------------------------------------------------------------------
+  # SPIRITUAL MATERIALS
+  # --------------------------------------------------------------------------
+
+  - id: spirit_essence
+    name: "Spirit Essence"
+    description: "A shimmer of pure spirit energy, condensed from the air where the veil is thinnest. Warm, translucent, alive."
+    material_type: spiritual
+    spirit_resonance: 0.85
+    element_affinity: void
+    rarity: uncommon
+    source_districts: ["Meiji Shrine", "Asakusa", "Yanaka", "Todoroki Valley"]
+    gather_methods: [combat_drop, spirit_offering, exploration]
+    base_value: 45
+    lore: "Pure spirit energy, shed like skin cells from the other world. It dissipates quickly unless contained in something with resonance."
+    tags: [essence, pure, fundamental]
+
+  - id: dream_fragment
+    name: "Dream Fragment"
+    description: "A shard of someone's dream, crystallized at the moment of waking. It shows a different scene from every angle."
+    material_type: spiritual
+    spirit_resonance: 0.75
+    element_affinity: shadow
+    rarity: rare
+    source_districts: ["Shinjuku", "Shibuya", "Ikebukuro"]
+    gather_methods: [combat_drop, spirit_offering]
+    base_value: 60
+    lore: "Dreams don't disappear when you wake up. They fall into the space between, where spirits collect them like sea glass."
+    tags: [essence, dream, psychic]
+
+  - id: echo_crystal
+    name: "Echo Crystal"
+    description: "A crystal that formed around a sound that refused to fade. Hold it to your ear and hear a moment from the past."
+    material_type: spiritual
+    spirit_resonance: 0.8
+    element_affinity: wind
+    rarity: rare
+    source_districts: ["Tokyo Tower", "Sensoji", "Meiji Shrine", "Ryogoku"]
+    gather_methods: [combat_drop, quest_reward]
+    base_value: 70
+    lore: "Some sounds are too meaningful to dissipate. A child's laugh, a temple bell, a last goodbye - they crystallize in the spirit world."
+    tags: [crystal, sound, memory, resonant]
+
+  - id: memory_thread
+    name: "Memory Thread"
+    description: "A gossamer thread spun from a spirit's memory. It glows with soft light and feels like nostalgia made tangible."
+    material_type: spiritual
+    spirit_resonance: 0.9
+    element_affinity: light
+    rarity: rare
+    source_districts: ["Yanaka", "Asakusa", "Koishikawa Korakuen"]
+    gather_methods: [spirit_offering, npc_gift]
+    base_value: 80
+    lore: "Spirits are made partly of memory. When they share a thread, they are giving you a piece of themselves."
+    tags: [thread, memory, precious, gift]
+
+  - id: void_ink
+    name: "Void Ink"
+    description: "Ink that is not black but absent - it is the color of the space between worlds. Writing with it hurts the eyes."
+    material_type: spiritual
+    spirit_resonance: 0.95
+    element_affinity: void
+    rarity: very_rare
+    source_districts: ["Meiji Shrine", "Sensoji"]
+    gather_methods: [quest_reward, spirit_offering]
+    base_value: 120
+    lore: "To see void ink is to see nothing and everything at once. It exists in the ma between perception and understanding."
+    tags: [ink, void, calligraphy, potent]
+
+  - id: foxfire_ember
+    name: "Foxfire Ember"
+    description: "A blue-white ember of kitsune-bi, fox fire. It gives light without heat and burns without consuming."
+    material_type: spiritual
+    spirit_resonance: 0.7
+    element_affinity: fire
+    rarity: rare
+    source_districts: ["Oji", "Meiji Shrine", "Fushimi"]
+    gather_methods: [combat_drop, spirit_offering]
+    base_value: 65
+    lore: "Fox spirits leave these behind like footprints. Each one is a small deception - light that isn't light, fire that isn't fire."
+    tags: [fire, kitsune, illusion, light]
+
+  - id: regret_dew
+    name: "Dew of Regret"
+    description: "Tears shed by a spirit mourning something lost. They never evaporate and taste of salt and old letters."
+    material_type: spiritual
+    spirit_resonance: 0.65
+    element_affinity: water
+    rarity: uncommon
+    source_districts: ["Yanaka Cemetery", "Zojoji Temple", "Aoyama Cemetery"]
+    gather_methods: [spirit_offering, exploration]
+    base_value: 40
+    lore: "Spirits grieve differently than people. Their tears accumulate in small pools where the living feel inexplicably sad."
+    tags: [water, emotion, grief, potent]
+
+  - id: static_charge
+    name: "Accumulated Static"
+    description: "A ball of static electricity harvested from the gap between a spirit's world and a computer screen. It crackles with confusion."
+    material_type: spiritual
+    spirit_resonance: 0.5
+    element_affinity: lightning
+    rarity: uncommon
+    source_districts: ["Akihabara", "Shibuya", "Shinjuku"]
+    gather_methods: [exploration, combat_drop]
+    base_value: 30
+    lore: "Where spirit energy meets modern electronics, static accumulates. It is the sound of two worlds failing to understand each other."
+    tags: [electric, digital, interference]
+
+  # --------------------------------------------------------------------------
+  # HYBRID MATERIALS
+  # --------------------------------------------------------------------------
+
+  - id: spirit_touched_glass
+    name: "Spirit-Touched Glass"
+    description: "A shard of window glass that a spirit passed through. It is transparent from one side and shows the spirit world from the other."
+    material_type: hybrid
+    spirit_resonance: 0.6
+    element_affinity: light
+    rarity: rare
+    source_districts: ["Shibuya", "Shinjuku", "Asakusa"]
+    gather_methods: [exploration, combat_drop]
+    base_value: 55
+    lore: "When a spirit crosses through glass, it leaves a permanent impression. The glass becomes a one-way window between worlds."
+    tags: [glass, spirit_touched, perception]
+
+  - id: ghost_wire
+    name: "Ghost Wire"
+    description: "Copper wire that was being used to conduct electricity when a spirit possessed the circuit. Now it conducts something else."
+    material_type: hybrid
+    spirit_resonance: 0.55
+    element_affinity: lightning
+    rarity: rare
+    source_districts: ["Akihabara", "Odaiba", "Shinjuku"]
+    gather_methods: [combat_drop, quest_reward]
+    base_value: 50
+    lore: "Electricity and spirit energy are cousins. When they meet in copper, the wire remembers both and serves neither faithfully."
+    tags: [metal, copper, haunted, electric]
+
+  - id: shrine_rust
+    name: "Living Rust"
+    description: "Rust from a shrine gate that has absorbed so many prayers it has become semi-alive. It breathes, very slowly."
+    material_type: hybrid
+    spirit_resonance: 0.5
+    element_affinity: earth
+    rarity: uncommon
+    source_districts: ["Meiji Shrine", "Kanda Myojin", "Nezu Shrine", "Sensoji"]
+    gather_methods: [exploration]
+    base_value: 35
+    lore: "A century of prayers can wake anything. This rust has been listening so long it started to think."
+    tags: [metal, sacred, alive, prayer]
+
+  - id: urbanwood
+    name: "Urbanwood"
+    description: "Wood from a park bench where couples confessed love, children cried, and old men fed pigeons for thirty years. It knows people."
+    material_type: hybrid
+    spirit_resonance: 0.4
+    element_affinity: earth
+    rarity: uncommon
+    source_districts: ["Ueno Park", "Yoyogi Park", "Inokashira Park"]
+    gather_methods: [exploration, quest_reward]
+    base_value: 28
+    lore: "Wood that has been sat upon by thousands of people absorbs their warmth, their weight, and eventually their stories."
+    tags: [wood, human_touched, emotional, stories]
+
+  - id: twilight_water
+    name: "Twilight Water"
+    description: "Water collected from a shrine basin at the exact moment the sky can't decide between day and night."
+    material_type: hybrid
+    spirit_resonance: 0.7
+    element_affinity: void
+    rarity: rare
+    source_districts: ["Meiji Shrine", "Sensoji", "Nezu Shrine"]
+    gather_methods: [exploration]
+    base_value: 55
+    lore: "Water in a temizuya basin at twilight reflects both worlds simultaneously. Scoop it at the right moment and it keeps that duality."
+    tags: [water, sacred, liminal, twilight]
+
+  - id: dream_rust
+    name: "Dream Rust"
+    description: "Rust that formed on a metal surface where a spirit dreamed against it. Iridescent and warm."
+    material_type: hybrid
+    spirit_resonance: 0.55
+    element_affinity: shadow
+    rarity: uncommon
+    source_districts: ["Yanaka", "Shimokitazawa", "Koenji"]
+    gather_methods: [exploration, combat_drop]
+    base_value: 32
+    lore: "When spirits rest against metal, their dreams corrode the surface into something new. The patterns always look like they mean something."
+    tags: [metal, dream, patterns]
+
+  # --------------------------------------------------------------------------
+  # TEA INGREDIENTS (Grandmother's special materials)
+  # --------------------------------------------------------------------------
+
+  - id: roasted_houjicha
+    name: "Grandmother's Houjicha"
+    description: "Roasted green tea from grandmother's personal supply. The tin has her handwriting on it, faded but legible."
+    material_type: natural
+    spirit_resonance: 0.3
+    element_affinity: fire
+    rarity: common
+    source_districts: ["Yanaka"]
+    gather_methods: [npc_gift, purchase]
+    base_value: 15
+    lore: "Grandmother has been buying this houjicha from the same shop in Yanaka for forty years. The shopkeeper saves the best leaves for her."
+    tags: [tea, aromatic, grandmother, comfort]
+
+  - id: first_flush_sencha
+    name: "First Flush Sencha"
+    description: "The earliest spring picking of sencha, bright green and full of optimism. It tastes like new beginnings."
+    material_type: natural
+    spirit_resonance: 0.4
+    element_affinity: wind
+    rarity: uncommon
+    source_districts: ["Yanaka", "Nihonbashi"]
+    gather_methods: [purchase, seasonal_event]
+    base_value: 35
+    lore: "First flush tea carries the urgency of spring itself. Grandmother says it brews best when you're starting something new."
+    tags: [tea, spring, renewal, grandmother]
+
+  - id: aged_pu_erh
+    name: "Aged Pu-erh Cake"
+    description: "A small cake of pu-erh tea aged fifteen years. It smells of earth and patience and the passage of time itself."
+    material_type: natural
+    spirit_resonance: 0.5
+    element_affinity: earth
+    rarity: rare
+    source_districts: ["Yanaka", "Nihonbashi"]
+    gather_methods: [purchase, npc_gift]
+    base_value: 60
+    lore: "Grandmother received this as a gift from a tea merchant who owed her a favor she never explains. She breaks off pieces sparingly."
+    tags: [tea, aged, earthy, grandmother, precious]
+
+  - id: spirit_honey
+    name: "Spirit Honey"
+    description: "Honey from bees that pollinate flowers in both the material and spirit world. It glows faintly amber and never crystallizes."
+    material_type: hybrid
+    spirit_resonance: 0.6
+    element_affinity: light
+    rarity: rare
+    source_districts: ["Meiji Shrine", "Todoroki Valley"]
+    gather_methods: [exploration, spirit_offering]
+    base_value: 55
+    lore: "The bees don't know they cross between worlds. To them, flowers are flowers. Their simplicity makes the honey pure."
+    tags: [sweet, healing, spirit_touched, tea_ingredient]
+
+  - id: dried_chrysanthemum
+    name: "Dried Chrysanthemum"
+    description: "Chrysanthemum flowers dried in autumn sunlight. They unfurl completely when steeped, as if remembering how to bloom."
+    material_type: natural
+    spirit_resonance: 0.35
+    element_affinity: light
+    rarity: common
+    source_districts: ["Yanaka", "Koishikawa Korakuen", "Shinjuku Gyoen"]
+    gather_methods: [exploration, purchase]
+    base_value: 12
+    lore: "The imperial flower. Grandmother says chrysanthemum tea teaches you to open up slowly, the way the petals do in hot water."
+    tags: [flower, tea_ingredient, autumn, grandmother]

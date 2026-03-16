@@ -1,0 +1,808 @@
+# =============================================================================
+# Ma no Kuni - Side Quests
+# 間の国
+#
+# The main story is the trunk. These are the branches.
+# Some bear fruit. Some simply reach toward light.
+# All of them are alive.
+# =============================================================================
+
+quests:
+  # --------------------------------------------------------------------------
+  # Chapter 1 Side Quests
+  # --------------------------------------------------------------------------
+
+  - id: side_1_garden_spirits
+    title: "Small Gods of the Garden"
+    type: side
+    chapter: 1
+    urgency: eternal
+    description: |
+      Grandmother's garden in Kichijoji is small - a few square meters
+      of green wedged between houses. But it is old, and loved, and things
+      that are old and loved accumulate presence. The garden spirits have
+      been here longer than the house. They tend things Haruki cannot see:
+      the health of the soil, the mood of the rain, the angle of light
+      that makes the persimmons ripen at exactly the right moment.
+
+      They would like to be acknowledged. They have been waiting politely.
+    short_description: "The garden is more tended than you knew."
+    required_chapter: 1
+    min_permeability: 0.2
+    objectives:
+      - id: garden_1
+        description: "Notice the garden spirits during morning watering"
+        requires_time: morning
+        requires_location: kichijoji
+        on_complete_text: |
+          The water from the hose catches the light strangely. In the spray,
+          tiny shapes dart and play - smaller than Chairo, quick as fish.
+          They tend the soil with hands like roots. One of them looks up at
+          Aoi and waves with something that might be a leaf, or might be
+          a hand, or might be both.
+      - id: garden_2
+        description: "Learn what the garden spirits need"
+        requires_ma: 10.0
+        on_complete_text: |
+          Communication comes in images: a dry patch of soil, a stone that
+          has shifted, a root being slowly crushed by the foundation. Small
+          things. Vital things. The garden spirits don't want grand gestures.
+          They want someone to move a stone.
+      - id: garden_3
+        description: "Help the garden spirits with their requests"
+        on_complete_text: |
+          Aoi moves the stone. Loosens the soil. Redirects the gutter pipe
+          so rain falls where it's needed. Grandmother watches from the
+          kitchen window. She has been doing these things for years, guided
+          by instinct. Now Aoi understands the instinct had a name. Several
+          small names, made of moss and patience.
+        on_complete_flags:
+          garden_spirits_helped: true
+    rewards:
+      spirit_affinity: garden_spirits
+      ma_bonus: 8.0
+      relationship_changes:
+        haruki: 1
+      narrative_text: |
+        The garden has never been healthier. The persimmons will be
+        extraordinary this year. The spirits are content. Contentment,
+        in the spirit world, glows.
+
+  - id: side_1_neighborhood_cats
+    title: "The Parliament of Cats"
+    type: side
+    chapter: 1
+    urgency: eternal
+    description: |
+      Kichijoji's stray cats are not entirely stray, and not entirely cats.
+      They hold court in the park near Inokashira Pond at midnight -
+      a gathering of feline spirits and spirit-touched felines that has
+      been meeting since the Meiji era. Mikan attends. Mikan holds rank.
+
+      Aoi is not invited. But Aoi can watch.
+    short_description: "Follow Mikan to the secret gathering of cats."
+    required_chapter: 1
+    is_ma_triggered: true
+    requires_ma_to_discover: 15.0
+    objectives:
+      - id: cats_1
+        description: "Follow Mikan at midnight without being noticed"
+        requires_time: midnight
+        on_complete_text: |
+          Mikan slips through the garden gate with purpose. Aoi follows at
+          a distance - too close and the cat will notice, too far and the
+          darkness will swallow them both. Through backstreets, past sleeping
+          houses, to the park. Under the bridge by the pond, in the silver
+          dark, dozens of cats sit in a circle. Some are cats. Some are
+          something that wears a cat's shape like a comfortable coat.
+          Mikan takes a position near the center. The cat is important here.
+      - id: cats_2
+        description: "Witness the parliament without disturbing it"
+        requires_ma: 20.0
+        on_complete_text: |
+          They communicate in a way that is not meowing, not speech, not
+          telepathy - something older, something that predates language.
+          Decisions are made. Territories are confirmed. A young cat-spirit
+          is gently reprimanded. An old one is honored with silence. The
+          whole thing lasts an hour. It is the most solemn and the most
+          absurd thing Aoi has ever witnessed. Cats governing cats. The
+          dignity is real. The ridiculousness is also real. Both are sacred.
+      - id: cats_3
+        description: "Receive Mikan's acknowledgment"
+        optional: true
+        on_complete_text: |
+          Walking home, Mikan falls into step beside Aoi. The cat looks
+          up with an expression that on a human face would be grudging
+          respect. "You saw," the expression says. "You were quiet about
+          it. That is acceptable." Mikan purrs once, briefly, and walks
+          ahead. The audience is over.
+        on_complete_flags:
+          cat_parliament_witnessed: true
+    rewards:
+      relationship_changes:
+        mikan: 2
+      ma_bonus: 12.0
+      flags:
+        cat_parliament_known: true
+      narrative_text: |
+        There are governments beneath governments. Kingdoms beneath
+        kingdoms. Under the bridge, cats decide the fate of the neighborhood
+        with more gravity than any city council. Mikan votes.
+
+  # --------------------------------------------------------------------------
+  # Chapter 2 Side Quests
+  # --------------------------------------------------------------------------
+
+  - id: side_2_social_media_spirits
+    title: "#GhostTokyo"
+    type: side
+    chapter: 2
+    urgency: patient
+    required_chapter: 2
+    description: |
+      The hashtag trends for three days. Blurry phone photos. Breathless
+      Twitter threads. A TikTok of a konbini in Shimokitazawa where the
+      shelves flicker between modern snacks and Edo-period goods. Most
+      comments are jokes. Some are frightened. A few are desperate pleas
+      from people who have been seeing spirits their whole lives and
+      never been believed.
+
+      One of those people is posting from a username that Aoi recognizes.
+      A former classmate. Alone. Scared. Seeing things no one around
+      them can see.
+    short_description: "A former classmate is seeing spirits and terrified."
+    required_chapter: 2
+    objectives:
+      - id: social_1
+        description: "Find the desperate posts online"
+        on_complete_text: |
+          The username is @inari_bells. The posts start rational - "anyone
+          else seeing weird lights?" - and escalate. By the third day:
+          "I can't make them stop. They're in my apartment. They're watching
+          me sleep. Please someone tell me I'm not losing my mind."
+      - id: social_2
+        description: "Reach out to your former classmate"
+        on_complete_text: |
+          The DM takes four drafts. How do you tell someone that the things
+          they're seeing are real, and that it's going to be okay, without
+          sounding like you've also lost your mind? "I see them too," Aoi
+          writes. "You're not crazy. Can we meet?" The reply is almost
+          instant. A single word: "Please."
+      - id: social_3
+        description: "Help them understand what they're experiencing"
+        on_complete_text: |
+          A coffee shop. A conversation that starts in whispers and grows
+          to something like relief. Aoi explains. Not everything - not
+          the crossings, not MIRAIKAN, not the full scope. Just enough.
+          "You can see the spirit world. It's always been there. You've
+          always been able to see it. The difference is that now it's
+          becoming visible enough that you can't ignore it anymore."
+
+          The classmate cries. Not from sadness. From the sheer weight
+          of being believed.
+        on_complete_flags:
+          classmate_helped: true
+    rewards:
+      ma_bonus: 10.0
+      flags:
+        social_media_quest_done: true
+        new_seer_network: true
+      narrative_text: |
+        Being believed is the beginning of everything. Aoi knows this.
+        Aoi was believed by a cat and a kettle spirit before anyone
+        with a human face said "I see them too."
+
+  - id: side_2_lost_shrine
+    title: "The Shrine That Forgot Itself"
+    type: spirit
+    chapter: 2
+    urgency: eternal
+    required_chapter: 2
+    min_permeability: 0.3
+    description: |
+      Between two buildings in Kagurazaka, there is a gap. Not an alley -
+      a gap. Too narrow for a person, filled with decades of detritus.
+      In spirit-sight, the gap glows. There is a shrine in there, buried
+      under layers of urban growth. It has forgotten what it was for.
+      The spirit of the shrine is confused, diminished, repeating the
+      same prayer endlessly without knowing why.
+    short_description: "A forgotten shrine between buildings needs to remember."
+    is_ma_triggered: true
+    requires_ma_to_discover: 25.0
+    objectives:
+      - id: shrine_1
+        description: "Discover the forgotten shrine in Kagurazaka"
+        on_complete_text: |
+          The gap between buildings breathes. Not wind - breath. Aoi presses
+          close and looks in. In the material world: garbage, pipes, rusted
+          metal. In spirit-sight: the remnants of a torii gate, broken but
+          still standing in its memory of standing. The shrine spirit flickers
+          like a candle in wind, cycling through the same motion: bow, clap,
+          bow. It doesn't know who it's praying to anymore.
+      - id: shrine_2
+        description: "Research the shrine's history"
+        hint: "The local library or ward office may have historical records."
+        on_complete_text: |
+          A 1923 map. Before the earthquake. A small Inari shrine, serving
+          the neighborhood's merchants. Fox spirit. Rice. Prosperity. The
+          earthquake didn't destroy it. Rebuilding did. Each decade the
+          buildings grew closer. The shrine shrank. By 1970, it was a
+          crevice. By 1990, it was forgotten. By now, it is a ghost of
+          a ghost, praying to a memory of a god.
+      - id: shrine_3
+        description: "Help the shrine spirit remember"
+        requires_ma: 30.0
+        on_complete_text: |
+          Aoi cannot clear the gap. Cannot rebuild the shrine. But can
+          sit at the edge and, in the spirit-sight, enter the space that
+          was. Can bring an offering - rice, placed at the gap's mouth.
+          Can speak the shrine's name, found in the old records. Can
+          pray, genuinely, at a shrine that hasn't received prayer in
+          decades.
+
+          The spirit stops its loop. Looks at Aoi. Remembers.
+
+          It is still trapped. It is still diminished. But it remembers
+          what it is. And that is not nothing. That is almost everything.
+        on_complete_flags:
+          forgotten_shrine_restored: true
+    rewards:
+      spirit_affinity: kagurazaka_inari
+      ma_bonus: 15.0
+      flags:
+        shrine_memory_restored: true
+      narrative_text: |
+        The shrine will not be rebuilt. The fox spirit will not be freed.
+        But it remembers its name, and someone comes to pray, and in the
+        currency of spirits that is wealth beyond measure.
+
+  - id: side_2_train_spirit
+    title: "The Ghost of the 23:47"
+    type: spirit
+    chapter: 2
+    urgency: eternal
+    required_chapter: 2
+    min_permeability: 0.25
+    description: |
+      The last train on the Chuo line. The 23:47 to Takao. In the final
+      car, there is always an empty seat that feels occupied. The
+      regular commuters know it. They sit elsewhere without knowing why.
+      Something rides that train every night, making the same journey
+      it has made for thirty years.
+    short_description: "Something rides the last train. It has been riding for decades."
+    objectives:
+      - id: train_1
+        description: "Ride the last Chuo line train"
+        requires_time: midnight
+        on_complete_text: |
+          The 23:47. Almost empty. The car smells of exhaustion and cheap
+          beer. And there, in the last seat, a shape that is not quite a
+          person: translucent, male, middle-aged, wearing a suit from the
+          1990s. He stares out the window at stations he will never leave at.
+          The other passengers feel him. They don't see him. They give the
+          seat space the way water parts around a stone.
+      - id: train_2
+        description: "Learn the train spirit's story"
+        requires_ma: 20.0
+        on_complete_text: |
+          Communication comes in fragments. Not words - impressions. A desk.
+          Overtime. A family he stopped seeing. A commute that became his
+          whole life. He died on this train. Heart attack. The 23:47. Nobody
+          noticed until the terminal. He rides because riding is all he
+          remembers how to do. The commute consumed him so completely that
+          it became him.
+      - id: train_3
+        description: "Help the train spirit find peace"
+        on_complete_text: |
+          There is no dramatic exorcism. Aoi sits next to him. Shows him,
+          in spirit-communication, images of rest. A home. An empty desk.
+          A window with a view of something other than passing stations.
+          Slowly, over several rides, the spirit begins to change. He turns
+          from the window. He closes his eyes. He sleeps.
+
+          One night, the seat is empty. Really empty this time. The other
+          passengers spread out into the space without knowing they are
+          doing it. Something that was stuck has come unstuck.
+        on_complete_flags:
+          train_spirit_freed: true
+    rewards:
+      ma_bonus: 12.0
+      flags:
+        train_ghost_resolved: true
+      narrative_text: |
+        Thirty years of commuting, even after death. The cruelest
+        hauntings are the ones we build for ourselves.
+
+  # --------------------------------------------------------------------------
+  # Chapter 3 Side Quests
+  # --------------------------------------------------------------------------
+
+  - id: side_3_miraikan_employee
+    title: "The Whistleblower's Hands"
+    type: side
+    chapter: 3
+    urgency: pressing
+    required_chapter: 3
+    description: |
+      Dr. Sato works in MIRAIKAN's containment division. She is precise,
+      methodical, and increasingly unable to sleep. She designed the
+      containment chambers. She is very good at her job. She is beginning
+      to understand that being good at this particular job is a form of
+      cruelty. Her hands shake when she enters the lab now. She doesn't
+      know who to tell. She doesn't know how to stop.
+    short_description: "A MIRAIKAN scientist wants out. She doesn't know how."
+    prerequisites:
+      - type: flag
+        target: miraikan_investigated
+        operator: eq
+        value: true
+    objectives:
+      - id: whistleblower_1
+        description: "Meet Dr. Sato through Kaito's network"
+        on_complete_text: |
+          She picks a ramen shop in Shinbashi - the kind of place where
+          conversations disappear into steam and noise. She is small,
+          precise, and her eyes have the look of someone who hasn't slept
+          well in months. "I'm not a good person," she says by way of
+          introduction. "But I'm trying to become one, and I need help."
+      - id: whistleblower_2
+        description: "Decide how to help Dr. Sato"
+        on_complete_flags:
+          sato_quest_resolved: true
+    branches:
+      - id: sato_approach
+        description: "How to help the whistleblower"
+        options:
+          - id: leak_data
+            text: "Help her leak MIRAIKAN's research publicly"
+            description: "Exposure. The truth. The consequences."
+            consequence_text: |
+              The data goes public. The reaction is chaos. MIRAIKAN denies.
+              The government investigates. Dr. Sato loses her job. She
+              also loses the weight she's been carrying. Her hands stop
+              shaking on the third day.
+            on_choose_flags:
+              miraikan_exposed: true
+          - id: inside_reform
+            text: "Help her change things from within"
+            description: "Slower. Safer. Less certain."
+            consequence_text: |
+              Sato stays. She argues for humane protocols. She loses most
+              arguments. She wins a few. The spirits in her care suffer
+              less. Not enough. But less. She sleeps a little better.
+              Change from within is ugly work. She does it anyway.
+            on_choose_flags:
+              miraikan_insider: true
+            relationship_changes:
+              kaito: 1
+          - id: help_escape
+            text: "Help her leave MIRAIKAN and find peace"
+            description: "Sometimes the bravest thing is walking away."
+            consequence_text: |
+              Sato resigns. Quietly. She takes nothing with her except
+              the knowledge of what she helped build. She begins volunteering
+              at the Yotsuya shrine. Her hands are steady now. The spirits
+              don't forgive her. They don't need to. She doesn't ask.
+            on_choose_flags:
+              sato_freed: true
+            relationship_changes:
+              ren: 1
+    rewards:
+      ma_bonus: 8.0
+      narrative_text: |
+        Complicity is a habit. Breaking it requires the same kind of
+        courage as stepping between worlds.
+
+  - id: side_3_dangerous_spirit
+    title: "The Fury Under Meguro"
+    type: spirit
+    chapter: 3
+    urgency: urgent
+    required_chapter: 3
+    min_permeability: 0.5
+    description: |
+      Not all spirits are gentle. The thing under Meguro River is ancient,
+      vast, and angry. It remembers when the river ran clean. It remembers
+      the concrete. It remembers every shopping cart thrown into its waters,
+      every pipe draining waste into its veins. It has been patient for
+      a century. It is done being patient.
+
+      MIRAIKAN wants to contain it. Ren wants to appease it.
+      Both approaches have merit. Both might fail.
+    short_description: "A furious river spirit threatens Meguro. It has reasons."
+    prerequisites:
+      - type: flag
+        target: miraikan_known
+        operator: eq
+        value: true
+    objectives:
+      - id: meguro_1
+        description: "Investigate the disturbances along Meguro River"
+        on_complete_text: |
+          The water is wrong. Not polluted - alive, in a way that water
+          shouldn't be. It moves against its current. It rises in the night.
+          Fish leap out and don't come back. The concrete banks crack in
+          patterns that look, to Aoi's spirit-sight, like clenched fists.
+      - id: meguro_2
+        description: "Communicate with the river spirit"
+        requires_ma: 35.0
+        on_complete_text: |
+          The fury hits like a wall. Images of a clean river. Fish. Children
+          swimming. A century of burial. Concrete like a coffin. Pollution
+          like poison. And now - now the walls are thin enough to push
+          through, and the spirit wants to push, wants to tear the banks
+          apart and flow free and if buildings flood and people drown,
+          well, the spirit had a body too, once, and nobody mourned.
+
+          The anger is legitimate. The threat is real.
+      - id: meguro_3
+        description: "Resolve the Meguro River crisis"
+        on_complete_flags:
+          meguro_resolved: true
+    branches:
+      - id: meguro_approach
+        description: "How to address the river's rage"
+        options:
+          - id: contain_river
+            text: "Support MIRAIKAN's containment of the river spirit"
+            description: "Safety first. The spirit is too dangerous to reason with."
+            consequence_text: |
+              MIRAIKAN deploys. The river spirit screams - a sound like
+              breaking concrete - and is forced into containment. The
+              neighborhood is safe. The river runs quiet and dead. Aoi
+              feels the absence like a missing tooth.
+            on_choose_flags:
+              meguro_contained: true
+            relationship_changes:
+              ren: -2
+              kaito: 1
+          - id: appease_river
+            text: "Attempt to negotiate with the river spirit"
+            description: |
+              Dangerous. But the spirit's anger has reasons. Those reasons
+              deserve to be heard.
+            consequence_text: |
+              Days of sitting by the river. Of listening. Of absorbing fury
+              without flinching. Slowly - painfully slowly - the spirit's
+              rage shifts into grief. What it really wants is not destruction.
+              It wants to be a river again. Aoi cannot give it that. But Aoi
+              can promise to try. The spirit settles. Not content. But willing
+              to wait a little longer.
+            on_choose_flags:
+              meguro_appeased: true
+            relationship_changes:
+              ren: 2
+            requires_ma: 40.0
+          - id: partial_free
+            text: "Help the river reclaim part of its course"
+            description: |
+              Not all of it. But a stretch. A park section where the
+              concrete can be removed. A small freedom. Real.
+            consequence_text: |
+              It takes weeks. Permits, activism, Ren's connections, Kaito's
+              engineering knowledge. A hundred meters of concrete is removed.
+              The river touches earth for the first time in decades. The
+              spirit weeps - water rising in a surge that is not anger
+              but relief. A hundred meters. Not enough. A start.
+            on_choose_flags:
+              meguro_partially_freed: true
+            relationship_changes:
+              ren: 1
+              kaito: 1
+    rewards:
+      ma_bonus: 15.0
+      narrative_text: |
+        A river's rage is a patient thing. It carved these valleys, once.
+        It can wait. But it should not have to.
+
+  - id: side_3_protest_march
+    title: "The Living and the Dead March Together"
+    type: side
+    chapter: 3
+    urgency: pressing
+    required_chapter: 3
+    description: |
+      A protest march through Shibuya. Humans and spirits, walking
+      together for the first time. The signs are in two languages -
+      one that eyes can read and one that only spirit-sight reveals.
+      "We Were Here First." "Coexistence Not Containment." "We Breathe
+      The Same Air." A spirit carries a sign that says simply: "I Am."
+    short_description: "Join or observe the first human-spirit protest march."
+    min_permeability: 0.4
+    objectives:
+      - id: protest_1
+        description: "Attend the protest march"
+        requires_location: shibuya
+        on_complete_text: |
+          The crowd is strange and beautiful. Humans with hand-painted signs.
+          Spirits who have taken their most visible forms - luminous, varied,
+          some terrifying in their otherness, some heartbreakingly familiar.
+          A woman holds hands with a spirit that looks like her dead mother.
+          A child rides on the shoulders of a mountain spirit three meters
+          tall. The police don't know what to do. Nobody knows what to do.
+          They march anyway.
+      - id: protest_2
+        description: "Choose how to participate"
+        on_complete_flags:
+          protest_attended: true
+    branches:
+      - id: protest_role
+        description: "What role to play in the march"
+        options:
+          - id: march
+            text: "March with them"
+            description: "Stand and be counted. Walk and be seen."
+            on_choose_flags:
+              marched_with_spirits: true
+          - id: mediate
+            text: "Help translate between human protesters and spirit ones"
+            description: "Bridge the communication gap. As always."
+            on_choose_flags:
+              protest_mediator: true
+            relationship_changes:
+              ren: 1
+          - id: observe
+            text: "Watch. Bear witness. Remember."
+            description: |
+              Witnessing is its own form of participation.
+              The world needs people who remember what happened.
+            on_choose_flags:
+              protest_witness: true
+            requires_ma: 20.0
+    rewards:
+      ma_bonus: 10.0
+
+  # --------------------------------------------------------------------------
+  # Chapter 4-5 Side Quests
+  # --------------------------------------------------------------------------
+
+  - id: side_4_buried_river
+    title: "The Rivers Remember"
+    type: spirit
+    chapter: 4
+    urgency: eternal
+    required_chapter: 4
+    description: |
+      In the spirit world, Tokyo's buried rivers still flow. The Shibuya
+      River. The Shibuyagawa. The dozens of waterways that were paved over,
+      piped underground, erased from maps but not from memory. In the
+      spirit-side, they run free - silver and cold, carrying memories
+      of the city that was. Walking along them is walking through time.
+    short_description: "Follow the ghost rivers of Tokyo through the spirit world."
+    min_permeability: 0.5
+    objectives:
+      - id: river_1
+        description: "Find a buried river entrance in the spirit world"
+        on_complete_text: |
+          Under the Shibuya shopping district, visible only in crossing-sight:
+          a river. It surfaces through the floor of a basement izakaya, flows
+          through walls, carries leaves from trees that were cut down in 1964.
+          The water is cold and perfectly clear and when Aoi cups it in their
+          hands, they see the city as it was: green, watered, alive with
+          fish and insects and the spirits of moving water.
+      - id: river_2
+        description: "Follow the river to its spirit-world source"
+        on_complete_text: |
+          The source is a spring in what is now the basement of a department
+          store. In the spirit world, it is a sacred pool, guarded by spirits
+          so old they have forgotten their own forms and exist as pure water-
+          feeling: cold, clean, patient. They welcome Aoi with a coolness
+          on the skin that is not temperature but gratitude.
+      - id: river_3
+        description: "Map three buried rivers in the spirit world"
+        optional: true
+        on_complete_flags:
+          spirit_rivers_mapped: true
+    rewards:
+      unlock_area: spirit_waterways
+      ma_bonus: 12.0
+      narrative_text: |
+        Beneath the concrete, the water remembers. It has been remembering
+        for decades. Given half a chance, it would sing.
+
+  - id: side_5_family_album
+    title: "What the Photographs Hold"
+    type: relationship
+    chapter: 5
+    urgency: eternal
+    required_chapter: 5
+    description: |
+      In the locked room, among Haruki's things, a family album. The
+      photographs span decades. Some are ordinary. Some, to Aoi's
+      spirit-sight, contain more than what the camera captured. Old
+      photographs, it turns out, can hold ghosts. Not of people. Of
+      moments. The spirit of a moment preserved in silver halide and
+      light, waiting for someone with the sight to release them.
+    short_description: "The family album holds memories that are alive."
+    prerequisites:
+      - type: flag
+        target: haruki_photos_found
+        operator: eq
+        value: true
+    objectives:
+      - id: album_1
+        description: "Look through the album with spirit-sight"
+        requires_ma: 30.0
+        on_complete_text: |
+          The photos bloom. Each one holds a pressed moment, preserved like
+          a flower between pages. Haruki's wedding - the shrine spirits
+          visible in the background, celebrating alongside the family.
+          Kaito as a child, reaching toward something only they could see.
+          A holiday. A garden. A table set for tea with one too many cups.
+          Every photo a door. Every door ajar.
+      - id: album_2
+        description: "Show grandmother the album"
+        on_complete_text: |
+          Haruki holds the album like something fragile and precious.
+          She turns pages slowly. At some photos she pauses, and the
+          pauses are stories in themselves. At one - herself, young,
+          standing with a man Aoi doesn't recognize, both of them
+          surrounded by light - she closes the album.
+
+          "Not yet," she says. "But soon."
+
+          The 'soon' is a promise. Aoi holds it carefully.
+      - id: album_3
+        description: "Discover the photograph with the spirit gate"
+        hidden: true
+        conditions_to_reveal:
+          - type: flag
+            target: haruki_tragedy_known
+            operator: eq
+            value: true
+        on_complete_text: |
+          It falls from between the pages. A photograph that was hidden,
+          not filed. Haruki at twenty, standing before a spirit gate that
+          burns with white fire. Beside her, a man - the same man from
+          the earlier photo. His face is turned toward the gate. His
+          expression is wonder. His hand is reaching.
+
+          This is the moment before the tragedy. The last photograph
+          of something that was about to break.
+        on_complete_flags:
+          spirit_gate_photo_found: true
+    rewards:
+      relationship_changes:
+        haruki: 2
+      ma_bonus: 15.0
+      narrative_text: |
+        Photographs are not memories. They are the ghosts of moments,
+        preserved in light. Some ghosts are gentle. Some are not.
+
+  # --------------------------------------------------------------------------
+  # Hidden / Ma-Triggered Quests
+  # --------------------------------------------------------------------------
+
+  - id: hidden_offering_stones
+    title: "The Ones Who Leave Offerings"
+    type: hidden
+    urgency: eternal
+    is_ma_triggered: true
+    requires_ma_to_discover: 45.0
+    description: |
+      Throughout Tokyo, small offerings appear at unremarkable spots:
+      a coin on a particular storm drain, a flower at the base of a
+      utility pole, a cup of sake on a park bench. Always the same
+      spots. Always fresh. Someone is tending invisible shrines -
+      places where spirits gather that have no official recognition.
+      Someone has been doing this for a very long time.
+    short_description: "Who leaves offerings at places no one else can see?"
+    objectives:
+      - id: offering_1
+        description: "Notice the pattern of small offerings across Tokyo"
+        requires_ma: 45.0
+        on_complete_text: |
+          Once you see it, you see it everywhere. A tangerine placed
+          precisely on a cracked step in Jimbocho. A paper crane tucked
+          into a chain-link fence in Ota. Always at spots where, in
+          spirit-sight, the air shimmers faintly. Dozens of these spots.
+          Hundreds, maybe. Someone has mapped the city's invisible
+          sacred places.
+      - id: offering_2
+        description: "Find the person who tends the offerings"
+        hint: "Early morning. The offerings are always fresh by dawn."
+        on_complete_text: |
+          An elderly man. Unremarkable. A coat too large, shoes worn smooth.
+          He moves through the city before dawn with a small bag, stopping
+          at each spot with the practiced ease of a postman on his route.
+          He cannot see spirits. He has never been able to. But his mother
+          could, and she taught him the routes, and he has walked them
+          for forty years. Every morning. Rain or shine. Tending things
+          he cannot see because someone he loved told him they mattered.
+        on_complete_flags:
+          offering_keeper_found: true
+      - id: offering_3
+        description: "Decide what to tell the offering keeper"
+        on_complete_flags:
+          offering_quest_done: true
+    branches:
+      - id: offering_choice
+        description: "What to say to this man"
+        options:
+          - id: tell_truth
+            text: "Tell him the spirits are real. Show him what his work means."
+            description: "He has earned the truth."
+            consequence_text: |
+              He listens. He nods. He does not cry. "I know," he says.
+              "I've always known. Not because I can see them. Because the
+              flowers are always gone by evening. Something takes them.
+              Something is grateful." He smiles. It is the smile of a man
+              whose faith has been confirmed. "I'll keep going."
+            on_choose_flags:
+              offering_keeper_told: true
+          - id: say_nothing
+            text: "Say nothing. Walk his route with him in silence."
+            description: |
+              Sometimes the kindest thing is companionship without explanation.
+            consequence_text: |
+              They walk together. An hour. Two. The man talks about his
+              mother, about the route, about how the city changes but the
+              spots never do. At the end, he offers Aoi a tangerine from
+              his bag. "For the road," he says. It is the most sacred
+              tangerine Aoi has ever held.
+            on_choose_flags:
+              offering_keeper_companioned: true
+            requires_ma: 50.0
+    rewards:
+      ma_bonus: 25.0
+      narrative_text: |
+        Faith does not require sight. It requires only the willingness
+        to leave a tangerine on a step every morning for forty years
+        because your mother told you it mattered. It does. It always has.
+
+  - id: hidden_station_melody
+    title: "The Song Between Platforms"
+    type: hidden
+    urgency: eternal
+    is_ma_triggered: true
+    requires_ma_to_discover: 55.0
+    min_permeability: 0.4
+    description: |
+      Every Tokyo train station has a departure melody - a few seconds
+      of music that play when the doors close. At certain stations,
+      at certain times, if the permeability is right and the listener
+      is still enough, the melodies harmonize with something else.
+      A frequency beneath the jingle. A second song, ancient and wordless,
+      woven into the electronic notes. The stations are singing to each
+      other. They have been singing since the lines were built, since
+      steel was laid over paths that spirits walked for centuries.
+    short_description: "The train stations are singing a song only the still can hear."
+    objectives:
+      - id: melody_1
+        description: "Hear the second melody at a station"
+        requires_ma: 55.0
+        on_complete_text: |
+          Shinjuku Station. The departure melody plays - the familiar
+          four-note chime. And beneath it, through it, around it: a
+          thread of something older. Not electronic. Not instrumental.
+          A hum that resonates in bone and ma and the thin wall between
+          worlds. It is beautiful. It is barely there. It is the most
+          important sound Aoi has ever heard.
+      - id: melody_2
+        description: "Follow the melody to three different stations"
+        on_complete_text: |
+          Each station sings differently. Ikebukuro's undersong is deep,
+          resonant, like a bell struck underground. Tokyo Station's is a
+          chorus - layers upon layers, the busiest node singing the most
+          complex harmony. Kichijoji's is simple. Sweet. Like a lullaby.
+          Like a grandmother humming while she makes tea.
+      - id: melody_3
+        description: "Understand what the stations are singing"
+        requires_ma: 60.0
+        on_complete_text: |
+          It is a map. The songs are directions. The train lines, laid
+          over ancient spirit paths, are carrying messages along them -
+          the way copper wire carries electricity, the way rivers carry
+          salmon home. The stations are nodes in a communication network
+          older than the city. The departure melodies accidentally
+          resonated with it. Nobody planned it. Nobody needed to. The
+          city built itself into alignment without knowing why.
+        on_complete_flags:
+          station_song_understood: true
+    rewards:
+      ma_bonus: 20.0
+      unlock_ability: spirit_navigation
+      narrative_text: |
+        The city is a song the city doesn't know it's singing.
+        The trains carry the melody. The passengers carry the silence.
+        Together, without knowing it, they make music.
