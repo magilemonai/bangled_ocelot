@@ -115,6 +115,26 @@ def create_tile_cache(
     return cache
 
 
+def _find_cjk_font() -> Optional[str]:
+    """Find a system font that supports CJK (Japanese/Chinese/Korean) characters."""
+    candidates = [
+        "yugothic", "yu gothic", "msgothic", "ms gothic",
+        "meiryo", "hiragino sans", "hiragino kaku gothic pro",
+        "noto sans cjk", "noto sans jp", "arial unicode ms",
+    ]
+    available = pygame.font.get_fonts()
+    for candidate in candidates:
+        normalized = candidate.replace(" ", "").lower()
+        for avail in available:
+            if normalized in avail.lower():
+                return avail
+    return None
+
+
+_cjk_font_name: Optional[str] = None
+_cjk_font_searched: bool = False
+
+
 def draw_text(
     surface: pygame.Surface,
     text: str,
@@ -140,7 +160,12 @@ def draw_text(
     Returns:
         The bounding ``pygame.Rect`` of the rendered text.
     """
-    font = pygame.font.SysFont(font_name, size)
+    global _cjk_font_name, _cjk_font_searched
+    if font_name is None and not _cjk_font_searched:
+        _cjk_font_name = _find_cjk_font()
+        _cjk_font_searched = True
+    effective_font = font_name if font_name is not None else _cjk_font_name
+    font = pygame.font.SysFont(effective_font, size)
     rgb = color[:3]
     alpha = color[3] if len(color) > 3 else 255
     text_surface = font.render(text, antialias, rgb)
