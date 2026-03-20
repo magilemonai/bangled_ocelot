@@ -77,11 +77,11 @@ class TitleScreen:
 
     def __init__(self):
         self.phase: float = 0.0
-        self.title_opacity: float = 0.0
+        self.title_opacity: float = 1.0
         self.subtitle_opacity: float = 0.0
         self.menu_opacity: float = 0.0
         self.blossom_particles: list = []
-        self.state: str = "intro"  # intro, title_reveal, menu_ready
+        self.state: str = "title_reveal"  # intro, title_reveal, menu_ready
 
         self.menu = MenuState(
             menu_type=MenuType.MAIN_MENU,

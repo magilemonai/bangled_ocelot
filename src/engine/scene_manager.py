@@ -189,12 +189,16 @@ class ExplorationScene(Scene):
 
         movement = self.game.systems.get("movement")
 
-        # Directional movement
+        # Directional movement (accept both cardinal and screen-relative names)
         direction_map = {
             "move_north": "NORTH",
             "move_south": "SOUTH",
             "move_east": "EAST",
             "move_west": "WEST",
+            "move_up": "NORTH",
+            "move_down": "SOUTH",
+            "move_left": "WEST",
+            "move_right": "EAST",
         }
         if action in direction_map and movement is not None:
             from src.exploration.movement import Direction
