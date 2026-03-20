@@ -136,6 +136,7 @@ class ExplorationScene(Scene):
         self._idle_ma_threshold: float = 3.0  # seconds still before ma accrues
         self._encounter_cooldown: float = 0.0
         self._input_buffer: dict[str, bool] = {}
+        self._last_toast: Optional[str] = None
 
     # -- lifecycle --
 
@@ -285,14 +286,17 @@ class ExplorationScene(Scene):
                 movement.facing,
             )
 
-        npc_registry = self.game.systems.get("npc_registry")
-        if hasattr(renderer, "render_npcs") and npc_registry is not None:
-            renderer.render_npcs(npc_registry.npcs_at_location(
-                self.game.current_district
-            ))
+        # Interaction labels for nearby objects
+        if hasattr(renderer, "render_interaction_labels") and tile_map is not None:
+            renderer.render_interaction_labels(tile_map, movement)
 
         if hasattr(renderer, "render_hud"):
             renderer.render_hud(self.game)
+
+        # Show toast for recent interactions
+        if self._last_toast and hasattr(renderer, "_toasts"):
+            renderer._toasts.append((self._last_toast, renderer._elapsed_ms + 2500))
+            self._last_toast = None
 
     # -- internal helpers --
 
@@ -341,6 +345,15 @@ class ExplorationScene(Scene):
             InteractionType.USE,
             InteractionType.OPEN,
         ):
+            name = action.target_tile.metadata.get("name", "")
+            verbs = {
+                InteractionType.EXAMINE: "examine",
+                InteractionType.PICK_UP: "pick up",
+                InteractionType.USE: "use",
+                InteractionType.OPEN: "open",
+            }
+            verb = verbs.get(action.interaction_type, "interact with")
+            self._last_toast = f"You {verb} {name}."
             self.event_bus.emit(GameEvent(
                 event_type=EventType.PLAYER_INTERACT,
                 data={
@@ -357,7 +370,16 @@ class ExplorationScene(Scene):
             InteractionType.LISTEN,
             InteractionType.SIT,
         ):
+            # Show feedback toast
+            name = action.target_tile.metadata.get("name", "")
+            verbs = {
+                InteractionType.PRAY: "prayed at",
+                InteractionType.LISTEN: "listened to",
+                InteractionType.SIT: "sat on",
+            }
+            verb = verbs.get(action.interaction_type, "interacted with")
             if action.ma_gain > 0.0:
+                self._last_toast = f"You {verb} {name}. Ma +{action.ma_gain:.0f}"
                 thresholds = self.game.ma.accumulate(
                     action.ma_gain, context=action.interaction_type.value
                 )
@@ -367,6 +389,9 @@ class ExplorationScene(Scene):
                         data={"threshold": t},
                         source="exploration_scene",
                     ))
+            else:
+                self._last_toast = f"You {verb} {name}."
+
 
     def _check_npc_proximity(self) -> None:
         """Emit events when NPCs are nearby for contextual awareness."""
@@ -1167,6 +1192,111 @@ class VignetteScene(Scene):
 
 
 # ---------------------------------------------------------------------------
+# Intro scene - opening narrative before exploration
+# ---------------------------------------------------------------------------
+
+class IntroScene(Scene):
+    """
+    A brief narrative intro that gives the player context before
+    dropping them into exploration. Shows text passages that the
+    player advances with confirm/any key.
+    """
+
+    _PASSAGES = [
+        (
+            "Something has changed in Tokyo.",
+            "The veil between the material world and the spirit world\n"
+            "has begun to thin. Most people don't notice.\n"
+            "You are not most people.",
+        ),
+        (
+            "Your name is Aoi.",
+            "You live with your grandmother in Kichijoji, a quiet\n"
+            "neighborhood where the old shrines still remember their\n"
+            "purpose. Lately, you've been seeing things at the edges\n"
+            "of your vision — shapes that flicker and vanish.",
+        ),
+        (
+            "This morning, you woke to silence.",
+            "Grandmother is in the garden, as always.\n"
+            "The cat, Mikan, watches from the engawa.\n"
+            "The air hums with something that isn't quite wind.\n\n"
+            "Perhaps you should go speak with grandmother.",
+        ),
+    ]
+
+    def __init__(self, game: Game, event_bus: EventBus) -> None:
+        super().__init__(game, event_bus)
+        self.transparent = False
+        self._passage_index: int = 0
+        self._char_index: int = 0
+        self._char_timer: float = 0.0
+        self._chars_per_second: float = 30.0
+        self._fully_revealed: bool = False
+        self._fade_alpha: float = 0.0
+
+    def enter(self) -> None:
+        super().enter()
+        self._passage_index = 0
+        self._char_index = 0
+        self._fully_revealed = False
+        self._fade_alpha = 0.0
+
+    def update(self, delta: float) -> None:
+        # Fade in
+        if self._fade_alpha < 1.0:
+            self._fade_alpha = min(1.0, self._fade_alpha + delta * 2.0)
+
+        if not self._fully_revealed:
+            self._char_timer += delta
+            heading, body = self._PASSAGES[self._passage_index]
+            total_chars = len(heading) + len(body)
+            chars_to_show = int(self._char_timer * self._chars_per_second)
+            if chars_to_show >= total_chars:
+                self._fully_revealed = True
+                self._char_index = total_chars
+            else:
+                self._char_index = chars_to_show
+
+    def handle_input(self, action: str, pressed: bool) -> None:
+        if not pressed:
+            return
+        if action not in ("confirm", "cancel", "interact"):
+            return
+
+        if not self._fully_revealed:
+            # Skip text reveal
+            heading, body = self._PASSAGES[self._passage_index]
+            self._char_index = len(heading) + len(body)
+            self._fully_revealed = True
+            return
+
+        # Advance to next passage
+        self._passage_index += 1
+        if self._passage_index >= len(self._PASSAGES):
+            # Done — transition to exploration
+            self.event_bus.emit(GameEvent(
+                event_type=EventType.STATE_CHANGE,
+                data={"target_state": "start_exploration"},
+                source="intro_scene",
+            ))
+            return
+
+        self._char_index = 0
+        self._char_timer = 0.0
+        self._fully_revealed = False
+
+    def render(self, renderer: Any) -> None:
+        if hasattr(renderer, "render_intro"):
+            heading, body = self._PASSAGES[self._passage_index]
+            renderer.render_intro(
+                heading, body,
+                self._char_index, self._fade_alpha,
+                self._fully_revealed,
+            )
+
+
+# ---------------------------------------------------------------------------
 # Title scene
 # ---------------------------------------------------------------------------
 
@@ -1480,41 +1610,55 @@ class SceneManager:
     def _on_dialogue_start(self, event: GameEvent) -> None:
         """Push a dialogue scene when a conversation begins."""
         dialogue = DialogueScene(self.game, self.event_bus)
-        dialogue.configure(
-            npc_id=event.data.get("npc_id", ""),
-            tree_id=event.data.get("tree_id", ""),
-        )
-        # Try to start the conversation via DialogueManager
-        dialogue_mgr = self.game.systems.get("dialogue_manager")
-        if dialogue_mgr is not None:
-            tree_id = event.data.get("tree_id", "")
-            npc_id = event.data.get("npc_id", "")
-            if not tree_id and npc_id:
-                # Find the best available tree for this NPC
-                from src.characters.dialogue import DialogueContext
-                context = self._build_dialogue_context(npc_id)
-                trees = dialogue_mgr.get_available_trees(npc_id, context)
-                if trees:
-                    tree_id = trees[0].id
-
-            if tree_id:
-                context = self._build_dialogue_context(
-                    event.data.get("npc_id", "")
-                )
-                conversation = dialogue_mgr.start_conversation(tree_id, context)
-                if conversation is None:
-                    logger.warning(
-                        "Failed to start conversation: tree=%s, npc=%s",
-                        tree_id, npc_id,
-                    )
-                    return
+        npc_id = event.data.get("npc_id", "")
+        tree_id = event.data.get("tree_id", "")
+        dialogue.configure(npc_id=npc_id, tree_id=tree_id)
 
         # Create a dialogue box for the scene
         try:
             from src.ui.menus import DialogueBox
-            dialogue.set_dialogue_box(DialogueBox())
+            dlg_box = DialogueBox()
+            dialogue.set_dialogue_box(dlg_box)
         except ImportError:
-            pass
+            dlg_box = None
+
+        # Try to start the conversation via DialogueManager
+        conversation_started = False
+        dialogue_mgr = self.game.systems.get("dialogue_manager")
+        if dialogue_mgr is not None:
+            if not tree_id and npc_id:
+                try:
+                    context = self._build_dialogue_context(npc_id)
+                    trees = dialogue_mgr.get_available_trees(npc_id, context)
+                    if trees:
+                        tree_id = trees[0].id
+                except Exception as e:
+                    logger.warning("Failed to find dialogue tree: %s", e)
+
+            if tree_id:
+                try:
+                    context = self._build_dialogue_context(npc_id)
+                    conversation = dialogue_mgr.start_conversation(tree_id, context)
+                    if conversation is not None:
+                        conversation_started = True
+                except Exception as e:
+                    logger.warning("Failed to start conversation: %s", e)
+
+        # If no conversation could be started, show fallback text
+        if not conversation_started and dlg_box is not None:
+            # Look up a friendly name from the tile metadata
+            tile_map = self.game.current_map
+            name = npc_id.replace("_", " ").title()
+            if hasattr(tile_map, "tiles"):
+                for tile in tile_map.tiles.values():
+                    if (tile.interaction_id == npc_id
+                            and tile.metadata.get("name")):
+                        name = tile.metadata["name"]
+                        break
+            dlg_box.set_text(
+                speaker=name,
+                text="...",
+            )
 
         self._schedule("push", dialogue)
 
@@ -1548,6 +1692,10 @@ class SceneManager:
             self._schedule("clear_to", title)
 
         elif target == "new_game":
+            intro = IntroScene(self.game, self.event_bus)
+            self._schedule("clear_to", intro)
+
+        elif target == "start_exploration":
             exploration = ExplorationScene(self.game, self.event_bus)
             self._schedule("clear_to", exploration)
 
@@ -1572,11 +1720,7 @@ class SceneManager:
         if player is not None:
             context.ma_level = self.game.ma.current_ma
             context.time_of_day = self.game.clock.time_of_day.value
-            context.stats = {
-                st.value: player.stats.get(st).effective
-                for st in type(player.stats.empathy).__mro__[0].__class__.__mro__
-            } if False else {}
-            # Build stats dict properly
+
             try:
                 from src.characters.player import StatType
                 context.stats = {
@@ -1584,19 +1728,37 @@ class SceneManager:
                     for st in StatType
                 }
             except (ImportError, AttributeError):
-                pass
+                context.stats = {}
 
-            context.inventory_ids = set(player.inventory.items.keys())
-            context.emotional_state = player.emotional_state.primary.value
-            context.memory_ids = set(player.memories.memories.keys())
-            context.spirit_sight_level = player.spirit_sight.level.value
-            context.spirit_sight_active = player.spirit_sight.active
+            try:
+                context.inventory_ids = set(player.inventory.items.keys())
+            except AttributeError:
+                context.inventory_ids = set()
+
+            try:
+                context.emotional_state = player.emotional_state.primary.value
+            except AttributeError:
+                context.emotional_state = "neutral"
+
+            try:
+                context.memory_ids = set(player.memories.memories.keys())
+            except AttributeError:
+                context.memory_ids = set()
+
+            try:
+                context.spirit_sight_level = player.spirit_sight.level.value
+                context.spirit_sight_active = player.spirit_sight.active
+            except AttributeError:
+                pass
 
         # NPC mood
         npc_registry = self.game.systems.get("npc_registry")
         if npc_registry is not None:
-            npc = npc_registry.get(npc_id)
-            if npc is not None:
-                context.npc_mood = npc.state.mood
+            try:
+                npc = npc_registry.get(npc_id)
+                if npc is not None:
+                    context.npc_mood = npc.state.mood
+            except (AttributeError, TypeError):
+                pass
 
         return context

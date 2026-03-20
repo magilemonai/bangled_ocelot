@@ -12,8 +12,8 @@ from dataclasses import dataclass
 class DisplayConfig:
     """Screen and rendering configuration."""
     WINDOW_TITLE: str = "間の国 — Ma no Kuni"
-    SCREEN_WIDTH: int = 640
-    SCREEN_HEIGHT: int = 480
+    SCREEN_WIDTH: int = 800
+    SCREEN_HEIGHT: int = 600
     TILE_SIZE: int = 32
     SPRITE_SIZE_SMALL: int = 32
     SPRITE_SIZE_MEDIUM: int = 64

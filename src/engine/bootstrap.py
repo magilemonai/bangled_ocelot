@@ -424,6 +424,26 @@ class GameBootstrap:
             },
         ))
 
+        # -- NPCs on the map --
+        # Grandmother Haruki in the garden
+        kichijoji.set_tile(9, 4, Tile(
+            tile_type=TileType.NPC,
+            walkable=False,
+            interaction=InteractionType.TALK,
+            interaction_id="obaa_chan",
+            spirit_energy=0.3,
+            metadata={"name": "Grandmother Haruki", "npc_id": "obaa_chan"},
+        ))
+        # Mikan the cat on the engawa (porch)
+        kichijoji.set_tile(6, 5, Tile(
+            tile_type=TileType.NPC,
+            walkable=False,
+            interaction=InteractionType.TALK,
+            interaction_id="mikan",
+            spirit_energy=0.2,
+            metadata={"name": "Mikan", "npc_id": "mikan"},
+        ))
+
         # -- Path from house to garden and down to the gate --
         for x in range(4, 14):
             kichijoji.set_tile(x, 7, Tile(

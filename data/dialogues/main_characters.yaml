@@ -701,6 +701,193 @@ dialogue_trees:
         is_terminal: true
 
   # ===========================================================================
+  # MIKAN - The Cat Who Sees
+  # ===========================================================================
+
+  - id: mikan_interact
+    npc_id: mikan
+    title: "Mikan"
+    description: >
+      Mikan the cat sits on the engawa, watching things that may or may
+      not be there. Cats have always seen both worlds.
+    entry_node: mikan_start
+    priority: 5
+    one_shot: false
+    tags: [pet, home, spirit]
+
+    nodes:
+      - id: mikan_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Mikan looks up at you with those enormous amber eyes.
+              He purrs — a deep, resonant sound that seems to vibrate
+              in frequencies you can almost see.
+            tone: gentle
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              His gaze drifts to something just past your shoulder.
+              Something you can't quite see. Then he yawns, stretches,
+              and settles back down.
+            tone: mysterious
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Cats have always lived between worlds. Mikan more than most.
+            tone: contemplative
+        is_terminal: true
+        effects:
+          - type: ma
+            amount: 2.0
+
+  # ===========================================================================
+  # OBAA-CHAN (Grandmother Haruki) - Garden Morning
+  # ===========================================================================
+
+  - id: obaa_chan_garden
+    npc_id: obaa_chan
+    title: "Morning in the Garden"
+    description: >
+      The first conversation with grandmother. She is tending the garden
+      and notices that something has changed about Aoi.
+    entry_node: garden_start
+    priority: 10
+    one_shot: false
+    tags: [family, home, garden, introduction]
+
+    nodes:
+      - id: garden_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Grandmother is kneeling among the flowers, her hands
+              dark with earth. She looks up as you approach — and
+              something in her expression shifts. As if she can see
+              something new in you.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Ah, Aoi. You're up early. Come, sit with me a moment."
+            tone: warm
+        choices:
+          - id: ask_about_seeing
+            text: "Obaa-chan... I've been seeing things. Strange shapes."
+            tone: vulnerable
+            next_node: seeing_things
+          - id: ask_about_garden
+            text: "The garden looks different today."
+            tone: curious
+            next_node: garden_different
+          - id: morning_silence
+            text: ""
+            display_text: "[Sit beside her in silence.]"
+            tone: silence
+            next_node: sit_in_silence
+
+      - id: seeing_things
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Seeing things?"
+            tone: careful
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              She pauses. Her hands still in the earth. For a long moment
+              she is very quiet, and in that quiet you feel something
+              vast and patient, like the garden itself is listening.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "The world has many layers, Aoi. Like soil.
+              Most people only see the surface. But some of us...
+              we see deeper."
+            tone: knowing
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Don't be afraid of what you see. The spirits have
+              always been here. They're just... closer now."
+            tone: warm
+        is_terminal: true
+        effects:
+          - type: flag
+            flag: grandmother_told_about_spirits
+            value: true
+          - type: ma
+            amount: 5.0
+
+      - id: garden_different
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Does it? Perhaps it does."
+            tone: amused
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              She brushes earth from a small stone at the garden's edge.
+              For just a moment — less than a heartbeat — you think you
+              see the stone glow with a faint, warm light.
+            tone: mysterious
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "The garden has always been special. Your grandfather
+              knew that. I think... you're beginning to understand it too."
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Why don't you explore a little? Walk the path to the
+              arcade gate. But pay attention, Aoi. Really pay attention."
+            tone: encouraging
+        is_terminal: true
+        effects:
+          - type: flag
+            flag: grandmother_suggested_explore
+            value: true
+
+      - id: sit_in_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You sit beside her. The garden breathes. Somewhere a
+              bird calls and is answered by something that is almost,
+              but not quite, a bird. Grandmother's hands move through
+              the earth with the patience of seasons.
+            tone: contemplative
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              After a while, she speaks without looking up.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "You feel it too, don't you? The humming."
+            tone: quiet
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You do. You always have. But today, for the first time,
+              you understand that it isn't just the wind.
+            tone: revelation
+        is_terminal: true
+        effects:
+          - type: ma
+            amount: 8.0
+          - type: flag
+            flag: shared_silence_grandmother
+            value: true
+
+  # ===========================================================================
   # REN - First Meeting at the Shrine
   # ===========================================================================
 

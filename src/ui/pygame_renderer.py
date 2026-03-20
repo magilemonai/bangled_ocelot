@@ -1600,27 +1600,115 @@ class PygameRenderer:
         self.screen.blit(self._material_layer, (0, 0))
 
     def _make_fallback_tile(self, tile_type_name: str) -> pygame.Surface:
-        """Create a simple colored tile as fallback when no sprite exists."""
-        colors = {
-            "FLOOR": (80, 70, 60),
-            "WALL": (50, 45, 55),
-            "WATER": (40, 60, 120),
-            "DOOR": (120, 80, 40),
-            "STAIRS": (100, 90, 70),
-            "SPIRIT_FLOOR": (60, 50, 90),
-            "SPIRIT_WALL": (40, 30, 70),
-            "INTERACTIVE": (90, 80, 50),
-            "NPC": (80, 70, 60),
-            "HAZARD": (120, 40, 40),
-            "TORII_GATE": (180, 50, 30),
-            "SAVE_POINT": (100, 100, 120),
-        }
-        color = colors.get(tile_type_name, (60, 60, 60))
-        surf = pygame.Surface((self.TILE_SIZE, self.TILE_SIZE))
-        surf.fill(color)
-        # Draw subtle grid line
-        pygame.draw.rect(surf, (color[0] + 15, color[1] + 15, color[2] + 15),
-                         (0, 0, self.TILE_SIZE, self.TILE_SIZE), 1)
+        """Create a detailed tile surface with patterns for visual distinction."""
+        ts = self.TILE_SIZE
+        surf = pygame.Surface((ts, ts), pygame.SRCALPHA)
+
+        if tile_type_name == "FLOOR":
+            # Earthy ground with subtle texture
+            surf.fill((95, 82, 68))
+            for i in range(0, ts, 4):
+                c = 90 + (i * 7 % 15)
+                pygame.draw.line(surf, (c, c - 8, c - 15), (0, i), (ts, i))
+            # Subtle stone dots
+            for dx in (4, 12):
+                for dy in (4, 12):
+                    if (dx + dy) % 8 == 0:
+                        pygame.draw.circle(surf, (80, 72, 58), (dx, dy), 1)
+
+        elif tile_type_name == "WALL":
+            # Dark brick-like wall
+            surf.fill((55, 48, 58))
+            for row in range(0, ts, 4):
+                offset = 4 if (row // 4) % 2 else 0
+                for col in range(offset, ts, 8):
+                    w = min(7, ts - col)
+                    pygame.draw.rect(surf, (62, 55, 65), (col, row, w, 3))
+                    pygame.draw.rect(surf, (48, 42, 50), (col, row, w, 3), 1)
+
+        elif tile_type_name == "DOOR":
+            # Wooden door with frame
+            surf.fill((95, 82, 68))
+            pygame.draw.rect(surf, (140, 95, 50), (2, 0, ts - 4, ts))
+            pygame.draw.rect(surf, (110, 75, 40), (2, 0, ts - 4, ts), 1)
+            # Wood grain
+            for i in range(3, ts - 3, 3):
+                pygame.draw.line(surf, (125, 85, 45), (4, i), (ts - 4, i))
+            # Handle
+            pygame.draw.circle(surf, (180, 160, 80), (ts - 5, ts // 2), 2)
+
+        elif tile_type_name == "INTERACTIVE":
+            # Glowing ochre with sparkle
+            surf.fill((100, 88, 55))
+            pygame.draw.rect(surf, (120, 105, 65), (1, 1, ts - 2, ts - 2))
+            # Sparkle indicator
+            cx, cy = ts // 2, ts // 2
+            for angle_offset in range(4):
+                dx = [0, 3, 0, -3][angle_offset]
+                dy = [-3, 0, 3, 0][angle_offset]
+                pygame.draw.line(surf, (200, 180, 120),
+                                 (cx, cy), (cx + dx, cy + dy))
+
+        elif tile_type_name == "NPC":
+            # Character tile - person-shaped on ground
+            surf.fill((95, 82, 68))
+            cx, cy = ts // 2, ts // 2
+            # Head
+            pygame.draw.circle(surf, (200, 160, 130), (cx, cy - 3), 3)
+            # Body
+            pygame.draw.rect(surf, (140, 100, 80), (cx - 3, cy, 6, 5))
+            # Feet
+            pygame.draw.rect(surf, (80, 60, 50), (cx - 3, cy + 5, 2, 2))
+            pygame.draw.rect(surf, (80, 60, 50), (cx + 1, cy + 5, 2, 2))
+
+        elif tile_type_name == "SAVE_POINT":
+            # Stone jizo statue
+            surf.fill((95, 82, 68))
+            cx = ts // 2
+            # Base
+            pygame.draw.rect(surf, (130, 130, 140), (cx - 4, ts - 4, 8, 4))
+            # Body
+            pygame.draw.rect(surf, (150, 150, 160), (cx - 3, ts - 10, 6, 6))
+            # Head
+            pygame.draw.circle(surf, (160, 160, 170), (cx, ts - 12), 3)
+            # Soft glow
+            glow = pygame.Surface((ts, ts), pygame.SRCALPHA)
+            pygame.draw.circle(glow, (140, 120, 180, 40), (cx, ts - 8), 7)
+            surf.blit(glow, (0, 0))
+
+        elif tile_type_name == "WATER":
+            surf.fill((35, 55, 110))
+            # Wave pattern
+            for i in range(0, ts, 3):
+                y_off = 1 if i % 6 < 3 else 0
+                pygame.draw.line(surf, (50, 75, 140),
+                                 (0, i + y_off), (ts, i + y_off))
+
+        elif tile_type_name == "SPIRIT_FLOOR":
+            surf.fill((50, 40, 80))
+            # Ethereal shimmer dots
+            for dx in range(2, ts, 5):
+                for dy in range(2, ts, 5):
+                    pygame.draw.circle(surf, (100, 80, 160, 100), (dx, dy), 1)
+
+        elif tile_type_name == "TORII_GATE":
+            surf.fill((95, 82, 68))
+            # Red torii columns and beam
+            pygame.draw.rect(surf, (180, 40, 30), (2, 2, 3, ts - 2))
+            pygame.draw.rect(surf, (180, 40, 30), (ts - 5, 2, 3, ts - 2))
+            pygame.draw.rect(surf, (180, 40, 30), (0, 2, ts, 3))
+            pygame.draw.rect(surf, (180, 40, 30), (1, 6, ts - 2, 2))
+
+        elif tile_type_name == "HAZARD":
+            surf.fill((100, 35, 35))
+            # Warning pattern
+            pygame.draw.line(surf, (140, 50, 50), (0, 0), (ts, ts))
+            pygame.draw.line(surf, (140, 50, 50), (ts, 0), (0, ts))
+
+        else:
+            surf.fill((60, 60, 60))
+            pygame.draw.rect(surf, (70, 70, 70), (0, 0, ts, ts), 1)
+
         self._tile_cache[tile_type_name + "_fallback"] = surf
         return surf
 
@@ -1849,3 +1937,144 @@ class PygameRenderer:
         text = getattr(beat, "text", "...")
         draw_text(self.screen, text, 40, self.SCREEN_H // 3,
                   (180, 170, 200, 255), size=18)
+
+    def render_intro(
+        self,
+        heading: str,
+        body: str,
+        char_index: int,
+        fade_alpha: float,
+        fully_revealed: bool,
+    ) -> None:
+        """Render the opening narrative intro screen."""
+        self.screen.fill((12, 10, 18))
+
+        alpha = int(255 * fade_alpha)
+
+        # Heading (always fully visible once we start)
+        heading_len = len(heading)
+        visible_heading = heading[:min(char_index, heading_len)]
+        if visible_heading:
+            draw_text(
+                self.screen, visible_heading,
+                self.SCREEN_W // 2 - len(heading) * 5,
+                self.SCREEN_H // 3 - 40,
+                (220, 200, 240, alpha),
+                size=24,
+            )
+
+        # Body text (revealed character by character)
+        body_chars = max(0, char_index - heading_len)
+        visible_body = body[:body_chars]
+        if visible_body:
+            lines = visible_body.split("\n")
+            for i, line in enumerate(lines):
+                if line:
+                    draw_text(
+                        self.screen, line,
+                        self.SCREEN_W // 2 - 180,
+                        self.SCREEN_H // 3 + 10 + i * 22,
+                        (180, 170, 195, alpha),
+                        size=16,
+                    )
+
+        # "Press Z to continue" prompt when fully revealed
+        if fully_revealed:
+            pulse = int(120 + 80 * math.sin(time.time() * 3.0))
+            draw_text(
+                self.screen, "[ Z / Enter ]",
+                self.SCREEN_W // 2 - 45,
+                self.SCREEN_H - 60,
+                (pulse, pulse - 20, pulse + 20, 200),
+                size=14,
+            )
+
+        # Decorative side particles
+        t = time.time()
+        for i in range(8):
+            px = int(self.SCREEN_W * 0.1 + math.sin(t * 0.2 + i * 0.8) * 30)
+            py = int(self.SCREEN_H * 0.2 + i * self.SCREEN_H * 0.08)
+            pa = int(30 + 20 * math.sin(t * 0.4 + i))
+            pygame.draw.circle(self.screen, (120, 100, 160, pa), (px, py), 2)
+            # Mirror on right side
+            px2 = self.SCREEN_W - px
+            pygame.draw.circle(self.screen, (120, 100, 160, pa), (px2, py), 2)
+
+    def render_interaction_labels(self, tile_map: Any, movement: Any) -> None:
+        """Draw floating labels above interactive tiles near the player."""
+        if movement is None or tile_map is None:
+            return
+
+        ts = self.TILE_SIZE
+        cam_x = self.camera.x
+        cam_y = self.camera.y
+        zoom = self.camera.zoom
+        shake_x, shake_y = self.camera.get_shake_offset()
+
+        player_x = movement.position.x
+        player_y = movement.position.y
+
+        tiles = getattr(tile_map, "tiles", {})
+        facing = movement.facing
+
+        for (tx, ty), tile in tiles.items():
+            if tile.interaction is None:
+                continue
+
+            # Only show labels for tiles within 3 tiles of the player
+            dist = abs(tx - player_x) + abs(ty - player_y)
+            if dist > 3:
+                continue
+
+            name = tile.metadata.get("name", "")
+            if not name:
+                continue
+
+            screen_x = int((tx * ts - cam_x) * zoom + shake_x)
+            screen_y = int((ty * ts - cam_y) * zoom + shake_y)
+
+            tile_center_x = screen_x + int(ts * zoom) // 2
+            label_y = screen_y - 12
+
+            # Highlight if player is facing this tile
+            facing_target = movement.position.offset(facing)
+            is_facing = (tx == facing_target.x and ty == facing_target.y)
+
+            if is_facing:
+                color = (255, 240, 200, 255)
+                # Show action hint
+                action_hint = self._interaction_hint(tile.interaction)
+                draw_text(
+                    self.screen, f"[Z] {action_hint}",
+                    tile_center_x - len(action_hint) * 3 - 8,
+                    label_y - 14,
+                    (255, 220, 140, 220),
+                    size=11,
+                )
+            else:
+                color = (180, 170, 190, 160)
+
+            # Draw name label
+            draw_text(
+                self.screen, name,
+                tile_center_x - len(name) * 3,
+                label_y,
+                color,
+                size=11,
+            )
+
+    @staticmethod
+    def _interaction_hint(interaction_type: Any) -> str:
+        """Get a short action hint for an interaction type."""
+        name = interaction_type.name if hasattr(interaction_type, "name") else str(interaction_type)
+        hints = {
+            "TALK": "Talk",
+            "EXAMINE": "Examine",
+            "OPEN": "Open",
+            "PRAY": "Pray",
+            "SIT": "Sit",
+            "LISTEN": "Listen",
+            "PICK_UP": "Pick up",
+            "USE": "Use",
+        }
+        return hints.get(name, "Interact")
