@@ -1,0 +1,1059 @@
+# =============================================================================
+# Ma no Kuni (間の国) - Master Sprite Definitions
+# =============================================================================
+#
+# All sprite data for the game's visual system.
+#
+# Conventions:
+#   - dimensions: [width, height] in pixels
+#   - palette_mode: material | spirit | both
+#   - animation_speed: base multiplier (1.0 = normal)
+#   - frame_count: total frames in the animation
+#   - frame_duration_ms: per-frame display time
+#   - pixel_data: 2D array of palette indices (row-major, [y][x])
+#                 Only provided for base/idle frames of key sprites.
+#                 Index 0 is always transparent.
+#
+# Size tiers:
+#   - 32x32: environment tiles, small effects
+#   - 64x64: characters, NPCs, medium spirits
+#   - 128x128: bosses, important spirits, large set pieces
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# PLAYER CHARACTER
+# ---------------------------------------------------------------------------
+aoi:
+  display_name: "Aoi (葵)"
+  category: player
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 10
+  origin: [32, 56]
+  tags: [protagonist, human, spirit_sensitive]
+
+  animations:
+    idle_down:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+
+    idle_up:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+
+    idle_left:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+
+    idle_right:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+
+    walk_down:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+
+    walk_up:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+
+    walk_left:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+
+    walk_right:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+
+    spirit_sight_active:
+      frame_count: 6
+      frame_duration_ms: 250
+      playback: loop
+      animation_speed: 0.8
+      notes: "Eyes glow faintly blue-indigo. Hair lifts slightly. Uses BOTH palette."
+      palette_override: both
+
+    crafting:
+      frame_count: 8
+      frame_duration_ms: 300
+      playback: loop
+      animation_speed: 1.0
+      notes: "Seated, hands working with materials. Subtle particle effects."
+
+    meditating:
+      frame_count: 4
+      frame_duration_ms: 800
+      playback: ping_pong
+      animation_speed: 0.5
+      notes: "Cross-legged, breathing animation. Ma glow builds around her."
+      palette_override: both
+
+    emotion_happy:
+      frame_count: 2
+      frame_duration_ms: 400
+      playback: once
+      animation_speed: 1.0
+
+    emotion_sad:
+      frame_count: 2
+      frame_duration_ms: 600
+      playback: once
+      animation_speed: 1.0
+
+    emotion_surprised:
+      frame_count: 3
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.2
+
+    emotion_determined:
+      frame_count: 2
+      frame_duration_ms: 500
+      playback: once
+      animation_speed: 1.0
+
+    emotion_compassionate:
+      frame_count: 2
+      frame_duration_ms: 500
+      playback: once
+      animation_speed: 0.9
+
+  # Base frame pixel data (front-facing idle) - 64x64
+  # Uses material palette indices:
+  #   0=transparent, 22=skin_light, 23=skin_mid, 24=skin_shadow,
+  #   25=cloth_white, 26=cloth_red, 27=cloth_indigo, 28=cloth_black,
+  #   12=wood_dark, 34=black, 35=white
+  pixel_data_base:
+    description: "Front-facing idle. Dark-haired girl in school uniform with red scarf."
+    palette_ref: material_base
+    data:
+      # Row 0-4: empty
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 5-9: hair top
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 10-14: hair with face
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 15-19: eyes, nose, mouth
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,34,34,34,22,22,22,22,22,22,22,22,34,34,34,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,34,35,34,22,22,22,22,22,22,22,22,34,35,34,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,22,23,23,23,23,22,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,26,26,26,26,26,26,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 20-25: chin, neck, scarf
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,28,28,28,23,23,23,23,23,23,23,23,23,23,23,23,23,23,28,28,28,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,22,23,23,23,23,22,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 26-35: torso (white shirt)
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,23,23,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,23,23,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,23,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,23,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 36-48: belt + skirt
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 49-54: legs
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,23,23,23,23,23,23,23,0,0,23,23,23,23,23,23,23,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,22,22,22,22,22,0,0,22,22,22,22,22,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,22,22,22,22,22,0,0,22,22,22,22,22,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,22,22,22,22,22,0,0,22,22,22,22,22,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,22,22,22,22,22,22,22,0,0,22,22,22,22,22,22,22,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,23,23,23,23,23,23,23,0,0,23,23,23,23,23,23,23,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 55-58: shoes
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,12,12,12,12,12,12,12,12,0,0,12,12,12,12,12,12,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,12,12,12,12,12,12,12,12,0,0,12,12,12,12,12,12,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,34,34,34,34,34,34,34,34,34,34,0,0,34,34,34,34,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      # Row 59-63: empty
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+# ---------------------------------------------------------------------------
+# GRANDMOTHER HARUKI
+# ---------------------------------------------------------------------------
+grandmother_haruki:
+  display_name: "Grandmother Haruki (春樹)"
+  category: npc
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 8
+  origin: [32, 56]
+  tags: [npc, elder, mentor, spirit_sensitive]
+
+  animations:
+    sitting:
+      frame_count: 2
+      frame_duration_ms: 1000
+      playback: ping_pong
+      animation_speed: 0.5
+      notes: "Seated on zabuton cushion, gentle breathing movement."
+
+    gardening:
+      frame_count: 6
+      frame_duration_ms: 400
+      playback: loop
+      animation_speed: 0.8
+      notes: "Kneeling, tending plants. Hands move between soil and tools."
+
+    tea_ceremony:
+      frame_count: 8
+      frame_duration_ms: 600
+      playback: once
+      animation_speed: 0.6
+      notes: "Formal tea preparation. Deliberate, graceful movements."
+
+    sleeping:
+      frame_count: 2
+      frame_duration_ms: 2000
+      playback: ping_pong
+      animation_speed: 0.3
+      notes: "Lying on futon, breathing animation."
+
+    remembering:
+      frame_count: 4
+      frame_duration_ms: 800
+      playback: ping_pong
+      animation_speed: 0.5
+      palette_override: both
+      notes: "Eyes distant, faint spirit-layer memory fragments float around her."
+
+# ---------------------------------------------------------------------------
+# MIKAN THE CAT
+# ---------------------------------------------------------------------------
+mikan:
+  display_name: "Mikan (蜜柑)"
+  category: npc
+  dimensions: [32, 32]
+  palette_mode: material
+  z_order: 9
+  origin: [16, 28]
+  tags: [npc, animal, cat, spirit_sensitive]
+
+  animations:
+    sitting:
+      frame_count: 2
+      frame_duration_ms: 800
+      playback: ping_pong
+      animation_speed: 0.6
+      notes: "Sitting upright, tail swishing. Orange tabby."
+
+    grooming:
+      frame_count: 4
+      frame_duration_ms: 300
+      playback: loop
+      animation_speed: 1.0
+      notes: "Licking paw, cleaning face."
+
+    alert:
+      frame_count: 2
+      frame_duration_ms: 200
+      playback: ping_pong
+      animation_speed: 1.5
+      notes: "Ears pricked, eyes wide. Detects spirits before Aoi can."
+
+    chasing_spirit:
+      frame_count: 4
+      frame_duration_ms: 150
+      playback: loop
+      animation_speed: 1.2
+      notes: "Pouncing at invisible (to humans) spirits."
+
+    sleeping:
+      frame_count: 2
+      frame_duration_ms: 2000
+      playback: ping_pong
+      animation_speed: 0.3
+      notes: "Curled up, breathing gently."
+
+    purring:
+      frame_count: 2
+      frame_duration_ms: 400
+      playback: loop
+      animation_speed: 0.8
+      notes: "Like sitting but with subtle vibration effect on outline."
+
+# ---------------------------------------------------------------------------
+# KEY NPCs
+# ---------------------------------------------------------------------------
+ren:
+  display_name: "Ren (蓮)"
+  category: npc
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 8
+  origin: [32, 56]
+  tags: [npc, human, friend, skeptic]
+
+  animations:
+    idle_down:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+    walk_down:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+    talking:
+      frame_count: 4
+      frame_duration_ms: 250
+      playback: loop
+      animation_speed: 1.0
+    thinking:
+      frame_count: 2
+      frame_duration_ms: 600
+      playback: ping_pong
+      animation_speed: 0.8
+    laughing:
+      frame_count: 3
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.2
+
+yuki:
+  display_name: "Yuki (雪)"
+  category: npc
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 8
+  origin: [32, 56]
+  tags: [npc, human, friend, artist]
+
+  animations:
+    idle_down:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+    walk_down:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+    drawing:
+      frame_count: 6
+      frame_duration_ms: 400
+      playback: loop
+      animation_speed: 0.8
+      notes: "Sketching in notebook. Can sometimes draw spirit-realm things she shouldn't be able to see."
+    startled:
+      frame_count: 2
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.5
+
+kaito:
+  display_name: "Kaito (海斗)"
+  category: npc
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 8
+  origin: [32, 56]
+  tags: [npc, human, friend, tech_savvy]
+
+  animations:
+    idle_down:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+    walk_down:
+      frame_count: 4
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+    phone_checking:
+      frame_count: 3
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 0.7
+      notes: "Glancing at phone. Phone screen sometimes shows spirit interference."
+    excited:
+      frame_count: 3
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.3
+
+hinata:
+  display_name: "Hinata (陽向)"
+  category: npc
+  dimensions: [64, 64]
+  palette_mode: material
+  z_order: 8
+  origin: [32, 56]
+  tags: [npc, human, friend, athletic]
+
+  animations:
+    idle_down:
+      frame_count: 1
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 1.0
+    walk_down:
+      frame_count: 4
+      frame_duration_ms: 180
+      playback: loop
+      animation_speed: 1.1
+      notes: "Slightly faster gait than others."
+    stretching:
+      frame_count: 4
+      frame_duration_ms: 400
+      playback: once
+      animation_speed: 0.9
+    determined:
+      frame_count: 2
+      frame_duration_ms: 400
+      playback: once
+      animation_speed: 1.0
+
+# ---------------------------------------------------------------------------
+# SPIRITS
+# ---------------------------------------------------------------------------
+kasa_obake:
+  display_name: "Kasa-obake (傘おばけ)"
+  category: spirit
+  dimensions: [64, 64]
+  palette_mode: spirit
+  z_order: 9
+  origin: [32, 56]
+  tags: [spirit, tsukumogami, umbrella, playful]
+
+  breathing:
+    alpha_min: 170
+    alpha_max: 245
+    offset_min: -1.0
+    offset_max: 1.0
+    cycle_ms: 2200
+
+  animations:
+    idle:
+      frame_count: 4
+      frame_duration_ms: 300
+      playback: loop
+      animation_speed: 1.0
+      notes: "Hopping on single foot, umbrella canopy bobbing. One large eye blinks."
+    hopping:
+      frame_count: 6
+      frame_duration_ms: 150
+      playback: loop
+      animation_speed: 1.2
+      notes: "Bouncy hop movement. Tongue lolling playfully."
+    spinning:
+      frame_count: 8
+      frame_duration_ms: 100
+      playback: loop
+      animation_speed: 1.5
+      notes: "Umbrella canopy spins rapidly."
+    startled:
+      frame_count: 2
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.0
+
+kodama:
+  display_name: "Kodama (木霊)"
+  category: spirit
+  dimensions: [32, 32]
+  palette_mode: spirit
+  z_order: 8
+  origin: [16, 28]
+  tags: [spirit, nature, tree, gentle]
+
+  breathing:
+    alpha_min: 160
+    alpha_max: 240
+    offset_min: -0.5
+    offset_max: 0.5
+    cycle_ms: 2500
+
+  animations:
+    idle:
+      frame_count: 2
+      frame_duration_ms: 600
+      playback: ping_pong
+      animation_speed: 0.8
+      notes: "Gentle swaying. Inner foxfire glow pulses."
+    rattling:
+      frame_count: 4
+      frame_duration_ms: 150
+      playback: loop
+      animation_speed: 1.2
+      notes: "Head tilts and clicks, the characteristic kodama rattle."
+    fading:
+      frame_count: 6
+      frame_duration_ms: 400
+      playback: once
+      animation_speed: 0.6
+      notes: "Slowly becomes transparent and disappears."
+
+  pixel_data_base:
+    description: "Small ghostly white figure with dark eye-holes and inner foxfire glow."
+    palette_ref: spirit_base
+    data:
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,6,6,5,5,5,5,5,5,5,5,6,6,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,6,5,5,5,5,5,5,5,5,5,5,5,5,6,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,1,1,1,5,5,5,5,1,1,1,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,1,1,1,5,5,5,5,1,1,1,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,1,1,1,1,1,1,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,7,7,7,7,7,7,7,7,7,7,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,7,7,7,7,7,7,7,7,7,7,7,7,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,8,8,7,7,7,7,7,7,7,7,8,8,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,7,7,7,7,7,7,7,7,7,7,7,7,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,7,7,7,7,7,7,7,7,7,7,7,7,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,5,5,5,5,7,7,7,7,7,7,7,7,7,7,5,5,5,5,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,6,6,5,5,5,5,5,5,5,5,5,5,6,6,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,6,6,6,0,0,0,0,6,6,6,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      - [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+kappa:
+  display_name: "Kappa (河童)"
+  category: spirit
+  dimensions: [64, 64]
+  palette_mode: spirit
+  z_order: 9
+  origin: [32, 56]
+  tags: [spirit, water, trickster, traditional]
+
+  breathing:
+    alpha_min: 180
+    alpha_max: 250
+    offset_min: -0.5
+    offset_max: 0.5
+    cycle_ms: 1800
+
+  animations:
+    idle:
+      frame_count: 4
+      frame_duration_ms: 400
+      playback: loop
+      animation_speed: 0.9
+      notes: "Standing in water, head-dish shimmering. Slight bobbing."
+    swimming:
+      frame_count: 6
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.0
+      notes: "Smooth swimming motion, half-submerged."
+    bowing:
+      frame_count: 4
+      frame_duration_ms: 500
+      playback: once
+      animation_speed: 0.7
+      notes: "Formal bow - water spills from head-dish! Vulnerability moment."
+    mischief:
+      frame_count: 6
+      frame_duration_ms: 200
+      playback: loop
+      animation_speed: 1.3
+      notes: "Gleeful expression, hands reaching for cucumber."
+
+tea_kettle_spirit:
+  display_name: "Chagama (茶釜の精)"
+  category: spirit
+  dimensions: [32, 32]
+  palette_mode: spirit
+  z_order: 8
+  origin: [16, 28]
+  tags: [spirit, tsukumogami, household, warm]
+
+  breathing:
+    alpha_min: 190
+    alpha_max: 250
+    offset_min: -0.3
+    offset_max: 0.3
+    cycle_ms: 3000
+
+  animations:
+    idle:
+      frame_count: 2
+      frame_duration_ms: 800
+      playback: ping_pong
+      animation_speed: 0.6
+      notes: "Steaming gently. Memory-gold wisps rise from spout."
+    steaming:
+      frame_count: 4
+      frame_duration_ms: 300
+      playback: loop
+      animation_speed: 1.0
+      notes: "Active steaming, rattling lid."
+    pouring:
+      frame_count: 6
+      frame_duration_ms: 400
+      playback: once
+      animation_speed: 0.8
+      notes: "Tips to pour ethereal tea. A kindness ritual."
+    sleeping:
+      frame_count: 2
+      frame_duration_ms: 2000
+      playback: ping_pong
+      animation_speed: 0.3
+      notes: "Completely still, residual warmth glow."
+
+vending_machine_spirit:
+  display_name: "Jidohanbaiki no Rei (自販機の霊)"
+  category: spirit
+  dimensions: [64, 64]
+  palette_mode: both
+  z_order: 9
+  origin: [32, 56]
+  tags: [spirit, tsukumogami, modern, urban, lonely]
+
+  breathing:
+    alpha_min: 200
+    alpha_max: 255
+    offset_min: 0.0
+    offset_max: 0.0
+    cycle_ms: 4000
+
+  animations:
+    idle:
+      frame_count: 4
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 0.7
+      notes: "Flickering neon glow. Display cycles through ghostly product images."
+    dispensing:
+      frame_count: 6
+      frame_duration_ms: 300
+      playback: once
+      animation_speed: 1.0
+      notes: "Dispenses a can of memory-flavoured drink. Clunk sound."
+    glitching:
+      frame_count: 8
+      frame_duration_ms: 100
+      playback: loop
+      animation_speed: 1.5
+      notes: "Spirit distress. Screen shows static, spirit energy leaks."
+    lonely:
+      frame_count: 2
+      frame_duration_ms: 1200
+      playback: ping_pong
+      animation_speed: 0.4
+      notes: "Dim glow, slight flicker. Nobody has bought anything in decades."
+
+train_spirit:
+  display_name: "Densha no Tamashii (電車の魂)"
+  category: spirit
+  dimensions: [128, 128]
+  palette_mode: both
+  z_order: 12
+  origin: [64, 120]
+  tags: [spirit, tsukumogami, transport, massive, melancholy]
+
+  breathing:
+    alpha_min: 180
+    alpha_max: 240
+    offset_min: -1.0
+    offset_max: 1.0
+    cycle_ms: 5000
+
+  animations:
+    idle:
+      frame_count: 4
+      frame_duration_ms: 600
+      playback: loop
+      animation_speed: 0.5
+      notes: "Ghostly train car, windows glow with memory-gold. Slight rocking."
+    arriving:
+      frame_count: 8
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.0
+      notes: "Slides in from edge of screen. Doors open with spectral light."
+    departing:
+      frame_count: 8
+      frame_duration_ms: 200
+      playback: once
+      animation_speed: 1.0
+      notes: "Doors close, slides away. Leaves trailing spirit particles."
+    phantom_run:
+      frame_count: 6
+      frame_duration_ms: 150
+      playback: loop
+      animation_speed: 1.5
+      notes: "Rushing through at high speed. Only seen in spirit vision."
+
+archivist:
+  display_name: "The Archivist (記録者)"
+  category: spirit
+  dimensions: [128, 128]
+  palette_mode: spirit
+  z_order: 15
+  origin: [64, 120]
+  tags: [spirit, ancient, boss, knowledge, memory]
+
+  breathing:
+    alpha_min: 150
+    alpha_max: 220
+    offset_min: -2.0
+    offset_max: 2.0
+    cycle_ms: 6000
+
+  animations:
+    idle:
+      frame_count: 6
+      frame_duration_ms: 500
+      playback: loop
+      animation_speed: 0.5
+      notes: "Towering figure wreathed in floating scroll-fragments. Eyes are deep indigo voids."
+    reading:
+      frame_count: 8
+      frame_duration_ms: 400
+      playback: loop
+      animation_speed: 0.6
+      notes: "Examining a memory fragment, turning it in spectral hands."
+    speaking:
+      frame_count: 4
+      frame_duration_ms: 300
+      playback: loop
+      animation_speed: 0.8
+      notes: "Ancient voice. Memory-gold particles form words in the air."
+    judging:
+      frame_count: 6
+      frame_duration_ms: 600
+      playback: once
+      animation_speed: 0.4
+      notes: "Assessing the player. All scroll-fragments orient toward Aoi."
+    dissolution:
+      frame_count: 12
+      frame_duration_ms: 300
+      playback: once_and_hide
+      animation_speed: 0.7
+      notes: "If balance breaks, the Archivist unravels into loose memories."
+
+# ---------------------------------------------------------------------------
+# ENVIRONMENT TILES (32x32)
+# ---------------------------------------------------------------------------
+tiles:
+  road:
+    display_name: "Asphalt Road"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, urban]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - road_straight
+      - road_corner
+      - road_intersection
+      - road_crosswalk
+
+  shrine:
+    display_name: "Shrine Paving"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, sacred]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - shrine_stone
+      - shrine_gravel
+      - shrine_moss
+      - shrine_torii_base
+
+  park:
+    display_name: "Park Grass"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, nature]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - park_grass
+      - park_path
+      - park_flower_bed
+      - park_bench_area
+
+  train_station:
+    display_name: "Train Station Platform"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, urban, transport]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - platform_edge
+      - platform_center
+      - platform_bench
+      - platform_sign
+      - yellow_line
+
+  konbini:
+    display_name: "Convenience Store"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, interior, urban, commercial]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+      fluorescent_flicker:
+        frame_count: 4
+        frame_duration_ms: 2000
+        playback: loop
+        animation_speed: 0.3
+        notes: "Occasional subtle flicker of fluorescent lighting."
+    variants:
+      - konbini_floor
+      - konbini_shelf
+      - konbini_counter
+      - konbini_window
+
+  rooftop:
+    display_name: "Building Rooftop"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, urban, elevated]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - rooftop_concrete
+      - rooftop_railing
+      - rooftop_hvac
+      - rooftop_garden_pot
+
+  garden:
+    display_name: "Traditional Garden"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, ground, nature, sacred]
+    animations:
+      static:
+        frame_count: 1
+        frame_duration_ms: 0
+        playback: loop
+        animation_speed: 1.0
+    variants:
+      - garden_raked_sand
+      - garden_stepping_stone
+      - garden_bamboo
+      - garden_pond_edge
+      - garden_lantern_base
+
+  river:
+    display_name: "River"
+    category: environment
+    dimensions: [32, 32]
+    palette_mode: material
+    z_order: 0
+    tags: [tile, water, nature]
+    animations:
+      flowing:
+        frame_count: 4
+        frame_duration_ms: 300
+        playback: loop
+        animation_speed: 0.8
+        notes: "Gentle flowing water animation, horizontal scroll."
+    variants:
+      - river_center
+      - river_bank_north
+      - river_bank_south
+      - river_shallow
+      - river_bridge
+
+# ---------------------------------------------------------------------------
+# VISUAL EFFECTS
+# ---------------------------------------------------------------------------
+effects:
+  spirit_shimmer:
+    display_name: "Spirit Shimmer"
+    category: effect
+    dimensions: [32, 32]
+    palette_mode: spirit
+    z_order: 20
+    tags: [effect, ambient, spirit_realm]
+    animation:
+      frame_count: 8
+      frame_duration_ms: 150
+      playback: loop
+      animation_speed: 0.8
+      notes: "Scrolling horizontal luminance bands. Applied over spirit entities."
+    parameters:
+      band_height: 3
+      scroll_speed: 20.0
+      intensity: 80
+      color: "#FFFFFF40"
+
+  veil_tear:
+    display_name: "Veil Tear"
+    category: effect
+    dimensions: [64, 64]
+    palette_mode: both
+    z_order: 25
+    tags: [effect, transition, dramatic]
+    animation:
+      frame_count: 12
+      frame_duration_ms: 125
+      playback: once
+      animation_speed: 1.0
+      notes: "Expanding elliptical tear from center. Magenta-white edge glow."
+    parameters:
+      tear_color: "#FF00FF80"
+      veil_color: "#FFFFFF20"
+      transition_ms: 1500
+
+  ma_glow:
+    display_name: "Ma Energy Glow"
+    category: effect
+    dimensions: [48, 48]
+    palette_mode: spirit
+    z_order: 18
+    tags: [effect, ambient, ma_energy]
+    animation:
+      frame_count: 1
+      frame_duration_ms: 0
+      playback: loop
+      animation_speed: 1.0
+      notes: "Procedurally animated. Pulse period varies: 400ms (low ma) to 4000ms (high ma)."
+    parameters:
+      color_low: "#6644AA60"
+      color_mid: "#8866CCAA"
+      color_high: "#AA88EEDD"
+      color_critical: "#CC99FFFF"
+      radius: 24
+      pulse_min_period_ms: 400
+      pulse_max_period_ms: 4000
+
+  memory_fragment:
+    display_name: "Memory Fragment Particles"
+    category: effect
+    dimensions: [64, 64]
+    palette_mode: spirit
+    z_order: 22
+    tags: [effect, particle, memory]
+    animation:
+      frame_count: 1
+      frame_duration_ms: 0
+      playback: loop
+      animation_speed: 1.0
+      notes: "Procedural particle system. Gold motes drift upward and fade."
+    parameters:
+      particle_count: 12
+      spawn_radius: 16.0
+      particle_life_ms: 2000.0
+      color: "#FFD700"
+
+  corruption_spread:
+    display_name: "Corruption Spread"
+    category: effect
+    dimensions: [32, 32]
+    palette_mode: both
+    z_order: 5
+    tags: [effect, corruption, danger]
+    animation:
+      frame_count: 1
+      frame_duration_ms: 0
+      playback: loop
+      animation_speed: 1.0
+      notes: "Procedural tile-based spread. Oil-slick visual with iridescent sheen."
+    parameters:
+      spread_threshold: 0.5
+      growth_rate: 0.002
+      color_base: "#0D0D0D"
+      color_iridescent: "#4A0040"
+      tile_size: 32

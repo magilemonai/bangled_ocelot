@@ -1,0 +1,1281 @@
+# =============================================================================
+# Ma no Kuni - Vignettes
+# 間の国
+#
+# The heart of the game lives here.
+#
+# These are not cutscenes. They are not rewards. They are moments.
+# The kind that lodge in the chest and stay there for years.
+# Small. Quiet. Devastating in their gentleness.
+#
+# A vignette does not advance the plot. A vignette is the plot.
+# The plot is: what does it feel like to be alive in a world
+# that is more than you thought it was?
+#
+# It feels like this.
+# =============================================================================
+
+vignettes:
+
+  # --------------------------------------------------------------------------
+  # 1. Evening Tea
+  # --------------------------------------------------------------------------
+
+  - id: vig_evening_tea
+    title: "Evening Tea"
+    category: domestic
+    mood: tender
+    input_mode: gentle
+    description: |
+      Aoi and grandmother share tea in silence. The garden spirits
+      gather at the window. The kettle spirit hums. The cat sleeps.
+      Nothing happens. Everything happens.
+    journal_entry: |
+      We drank tea tonight. Grandmother and I. The garden was full
+      of small lights I used to think were fireflies. The tea was
+      good. We didn't say anything. We didn't need to.
+    conditions:
+      location: kichijoji
+      times_of_day: ["evening", "midnight"]
+      required_flags:
+        seen_first_spirit: true
+      not_seen_in_days: 3
+    ambient_sound: evening_crickets_kettle
+    music_track: home_evening
+    time_scale: 0.2
+    ma_reward: 8.0
+    relationship_rewards:
+      haruki: 1
+    flags_on_complete:
+      evening_tea_shared: true
+    priority: 5
+    weight: 2.0
+    beats:
+      - id: tea_1
+        content_type: visual
+        visual_direction: |
+          The kitchen. Golden light from a single lamp. The kettle on the
+          stove, steam rising in slow curls. Two cups on the table.
+          Grandmother's hands around one, warming.
+        lighting: warm_gold_lamp
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 1.5
+
+      - id: tea_2
+        content_type: text
+        text: |
+          Grandmother pours. The tea is green and hot and smells like
+          the garden after rain. She pours Aoi's cup first, then her own,
+          then - without looking - a small saucer that she sets beside
+          the kettle. The steam from all three rises and mingles.
+        ma_accumulation: 2.0
+
+      - id: tea_3
+        content_type: sound
+        sound: cat_settling_purr
+        visual_direction: |
+          Mikan enters the kitchen, considers the available laps, and
+          chooses Aoi's. The cat turns three times and settles with the
+          gravity of something that has decided. The purring begins.
+        duration: 2.0
+        auto_advance: true
+        ma_accumulation: 1.5
+
+      - id: tea_4
+        content_type: silence
+        visual_direction: |
+          Through the kitchen window, the garden. The last light of day
+          catching on things that are not leaves. Small shapes drift
+          between the plants - garden spirits, drawn by the warmth,
+          the tea, the peace. They gather at the glass like children
+          at a shop window.
+        duration: 4.0
+        auto_advance: true
+        ma_accumulation: 3.0
+
+      - id: tea_5
+        content_type: text
+        text: |
+          Chairo emerges from the kettle's steam. The small spirit
+          perches on the lid and watches the garden spirits with the
+          proprietary air of a host. This is Chairo's kitchen. These
+          are Chairo's people. The spirit glows softly - the warm amber
+          of tea held up to lamplight.
+        condition_flag: chairo_named
+        ma_accumulation: 2.0
+
+      - id: tea_6
+        content_type: choice
+        text: |
+          The silence holds. It is not empty. It is a room with all
+          the furniture exactly where it should be.
+        choices:
+          - id: sip_tea
+            text: "Drink the tea. Let the warmth travel through you."
+            next_beat: tea_7a
+            ma_bonus: 2.0
+          - id: watch_garden
+            text: "Watch the garden spirits. Learn their shapes."
+            next_beat: tea_7b
+            ma_bonus: 2.0
+          - id: hold_silence
+            text: "..."
+            next_beat: tea_7c
+            ma_bonus: 5.0
+            is_silence: true
+
+      - id: tea_7a
+        content_type: text
+        text: |
+          The tea is perfect. Not because of the temperature or the
+          steeping time or the leaves. Because of the company. Because
+          the person who poured it has been pouring tea for fifty years
+          and every cup carries that practice. The warmth settles in
+          Aoi's chest like a held breath releasing.
+        ma_accumulation: 2.0
+
+      - id: tea_7b
+        content_type: text
+        text: |
+          A moss spirit, no larger than a thumb. A spirit made of shed
+          petals, reconstituted into something new. Something that might
+          be a very small fox, if foxes were made of moonlight and
+          patience. They tend the garden with the same quiet devotion
+          that grandmother tends this kitchen. Parallel care. Parallel love.
+        ma_accumulation: 2.5
+
+      - id: tea_7c
+        content_type: silence
+        visual_direction: |
+          Nothing changes. Nothing needs to. The kitchen holds them all -
+          grandmother, grandchild, cat, spirits, silence. The clock ticks.
+          The steam rises. Outside, the city hums its distant hum. In here,
+          the world is the size of a kitchen table and it is enough. It has
+          always been enough.
+        duration: 5.0
+        auto_advance: true
+        ma_accumulation: 5.0
+
+      - id: tea_8
+        content_type: text
+        speaker: haruki
+        text: "More tea?"
+        ma_accumulation: 1.0
+
+      - id: tea_9
+        content_type: text
+        text: |
+          That is the whole conversation. Two words. A question that is
+          also a declaration: I am here. You are here. This is enough.
+        ma_accumulation: 3.0
+
+  # --------------------------------------------------------------------------
+  # 2. The Last Train
+  # --------------------------------------------------------------------------
+
+  - id: vig_last_train
+    title: "The Last Train"
+    category: liminal
+    mood: melancholy
+    input_mode: observe
+    description: |
+      The 23:47. Almost empty. The world between departure and arrival.
+      A tired salaryman sits next to a tired spirit. Neither speaks.
+      Neither needs to. Exhaustion is a universal language.
+    journal_entry: |
+      Took the last train home. A man sat next to something that
+      wasn't there - or was only there if you knew how to look.
+      They both looked so tired. They both looked so lonely.
+      They both looked less lonely together.
+    conditions:
+      times_of_day: ["midnight"]
+      min_permeability: 0.2
+      required_chapter: 2
+      not_seen_in_days: 5
+    ambient_sound: late_train_hum
+    music_track: null
+    time_scale: 0.25
+    ma_reward: 10.0
+    priority: 3
+    beats:
+      - id: train_1
+        content_type: visual
+        visual_direction: |
+          The last car of the last train. Fluorescent light buzzing faintly.
+          Empty seats stretching away. The window reflects the car's interior
+          over the dark city streaming past.
+        lighting: fluorescent_late
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 1.0
+
+      - id: train_2
+        content_type: text
+        text: |
+          A salaryman gets on at Ogikubo. His suit is wrinkled. His tie is
+          loose. He carries exhaustion the way other people carry briefcases -
+          openly, as a matter of course. He sits in the middle of the car,
+          precisely between the doors, and closes his eyes.
+        ma_accumulation: 1.5
+
+      - id: train_3
+        content_type: text
+        text: |
+          A spirit gets on at Nishi-Ogikubo. It is shaped like a person
+          but made of something else - dusk, maybe, or the particular
+          tiredness that comes from existing too long without being seen.
+          It sits next to the salaryman. Not by chance. By recognition.
+          One tired thing finding another.
+        ma_accumulation: 2.0
+
+      - id: train_4
+        content_type: silence
+        visual_direction: |
+          They sit together. The train rocks gently. The city passes
+          outside the window in ribbons of light. Neither moves.
+          Neither speaks. The spirit's form flickers faintly, in time
+          with the salaryman's breathing. They have synchronized
+          without meaning to.
+        duration: 5.0
+        auto_advance: true
+        ma_accumulation: 4.0
+
+      - id: train_5
+        content_type: text
+        text: |
+          The salaryman shifts. His head tilts. Slowly, with the
+          careful inevitability of a tree falling, he leans. His head
+          comes to rest against the spirit's shoulder. The spirit does
+          not move. The spirit does not have a shoulder, exactly, but
+          it makes one. For this. For him.
+        ma_accumulation: 3.0
+
+      - id: train_6
+        content_type: text
+        inner_thought: true
+        text: |
+          He cannot see it. He must feel something - warmth, perhaps,
+          or the particular comfort of not being alone. The spirit
+          cannot feel tired. It must remember tiredness, from whoever
+          it was before it was this. They are comforting each other
+          with the ghosts of feelings. It is enough.
+        ma_accumulation: 3.0
+
+      - id: train_7
+        content_type: visual
+        visual_direction: |
+          Kichijoji Station. The train slows. The salaryman startles
+          awake. The spirit beside him dissipates like breath on glass -
+          gentle, gradual, already gone. The man looks at the empty seat
+          next to him. Touches his shoulder. Something was there. Something
+          warm. He cannot name it. He does not try. He exits the train
+          walking a little lighter than he boarded.
+        duration: 4.0
+        auto_advance: true
+        ma_accumulation: 3.0
+
+      - id: train_8
+        content_type: text
+        text: |
+          The doors close. The train pulls away. In the empty car,
+          the seat where they sat together holds a warmth that the
+          fluorescent lights cannot explain.
+        ma_accumulation: 2.0
+
+  # --------------------------------------------------------------------------
+  # 3. Rain on the Shrine Steps
+  # --------------------------------------------------------------------------
+
+  - id: vig_rain_shrine
+    title: "Rain on the Shrine Steps"
+    category: memory
+    mood: aching
+    input_mode: contemplative
+    description: |
+      Aoi sits in rain at a shrine. The stone is cold. The rain is
+      gentle. Memories of childhood visits with parents surface like
+      fish in dark water - glimpses, then gone, then back again.
+      A small spirit holds a leaf over Aoi's head. It doesn't help
+      much. The gesture is everything.
+    journal_entry: |
+      Sat in the rain today. Remembered things I thought I'd forgotten.
+      A spirit tried to keep me dry with a leaf. It didn't work.
+      I stayed anyway.
+    conditions:
+      times_of_day: ["evening", "dusk"]
+      required_chapter: 2
+      min_ma: 15.0
+      not_seen_in_days: 7
+      max_times_seen: 3
+    ambient_sound: rain_on_stone
+    music_track: memory_rain
+    weather_override: rain
+    time_scale: 0.2
+    ma_reward: 12.0
+    relationship_rewards:
+      kaito: 1
+    flags_on_complete:
+      rain_memory_experienced: true
+    priority: 4
+    beats:
+      - id: rain_1
+        content_type: visual
+        visual_direction: |
+          Shrine steps. Rain falling steady and silver. The stone
+          darkens in uneven patches. Water runs in the grooves worn
+          by a thousand years of footsteps. Aoi sits on the middle
+          step, neither at the top nor the bottom. Between.
+        lighting: overcast_grey_rain
+        sound: rain_stone_steady
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: rain_2
+        content_type: text
+        inner_thought: true
+        text: |
+          The stone is cold through Aoi's clothes. The rain finds the
+          gap between collar and neck. It should be uncomfortable.
+          It is, in the way that true things are: undeniable, present,
+          real. The shrine above is empty. The god is listening anyway.
+        ma_accumulation: 2.0
+
+      - id: rain_3
+        content_type: text
+        inner_thought: true
+        text: |
+          A memory surfaces: small hands in larger ones. Kaito's hands.
+          These same steps, or steps like them. "Hold on tight going up.
+          Let go going down." A child's logic: why? "Because going up
+          you need help. Going down you need to learn to be brave."
+        ma_accumulation: 2.5
+
+      - id: rain_4
+        content_type: choice
+        text: |
+          The memory stings. Sweetly. Like pressing a bruise to confirm
+          it's there.
+        choices:
+          - id: stay_with_memory
+            text: "Stay with the memory. Let it come fully."
+            next_beat: rain_5a
+            ma_bonus: 3.0
+            relationship_changes:
+              kaito: 1
+          - id: let_go
+            text: "Let the rain wash it away. Not yet."
+            next_beat: rain_5b
+            ma_bonus: 1.0
+          - id: silence_rain
+            text: "..."
+            next_beat: rain_5c
+            ma_bonus: 4.0
+            is_silence: true
+
+      - id: rain_5a
+        content_type: text
+        inner_thought: true
+        text: |
+          More comes. Festival days. Cotton candy. The shrine lit with
+          paper lanterns. Kaito lifting Aoi onto shoulders to see the
+          dancers. The smell of incense and grilled corn. A family that
+          was whole, once, in the way a cup is whole before it breaks -
+          you don't notice the wholeness until it's gone.
+
+          When did it break? Not a single moment. A series of cracks.
+          The silence spreading like water finding the cracks. Silence
+          filling up where voice used to be.
+        ma_accumulation: 3.0
+
+      - id: rain_5b
+        content_type: text
+        text: |
+          The rain is enough. The present is enough. Aoi breathes, and
+          the breath mixes with rain and becomes mist and rises.
+        ma_accumulation: 1.5
+
+      - id: rain_5c
+        content_type: silence
+        visual_direction: |
+          Rain on stone. The sound fills the world entirely.
+          There is nothing to say. There is everything to feel.
+          Aoi sits with it - the rain, the memory, the ache -
+          the way you sit with someone who is grieving. Present.
+          Still. Not trying to fix.
+        duration: 6.0
+        auto_advance: true
+        ma_accumulation: 5.0
+
+      - id: rain_6
+        content_type: text
+        text: |
+          A touch on Aoi's shoulder. Not rain. Something lighter, warmer,
+          more intentional. A small spirit - round, soft, the color of
+          moss - holds a leaf over Aoi's head with the desperate
+          earnestness of someone helping in the only way they can. The
+          leaf is small. The rain falls around it unchanged. The spirit
+          holds it like it matters.
+        ma_accumulation: 3.0
+
+      - id: rain_7
+        content_type: text
+        text: |
+          It doesn't help. The rain falls anyway. Aoi is already soaked.
+          The spirit knows this. It holds the leaf anyway. Because the
+          gesture is the point. Because care does not need to be effective
+          to be real. Because sometimes the smallest, most useless act
+          of kindness is the one that breaks you open.
+        ma_accumulation: 4.0
+
+      - id: rain_8
+        content_type: text
+        inner_thought: true
+        text: |
+          Aoi cries. Or maybe it's the rain. On a face already wet
+          there is no difference. The spirit holds its leaf. The shrine
+          waits. The rain continues. This is not a breakdown. It is an
+          opening. Something that was locked, unlocking. Something that
+          was held, letting go.
+        ma_accumulation: 3.0
+
+  # --------------------------------------------------------------------------
+  # 4. Mikan's Vigil
+  # --------------------------------------------------------------------------
+
+  - id: vig_mikans_vigil
+    title: "Mikan's Vigil"
+    category: spiritual
+    mood: luminous
+    input_mode: observe
+    description: |
+      Shot from Mikan's perspective. The living room at night. In human
+      eyes: a sleeping house. In cat eyes: a room full of gentle spirits,
+      drifting through walls, checking on the people they have adopted.
+      Mikan watches them all. Mikan has always watched them all.
+    journal_entry: |
+      I woke last night and found Mikan on the windowsill, watching
+      the room like a sentinel. In the half-light between sleep and
+      waking, I saw what the cat sees. The room was full of light.
+      Gentle, golden, moving light.
+    conditions:
+      location: kichijoji
+      times_of_day: ["witching"]
+      min_permeability: 0.3
+      not_seen_in_days: 10
+      max_times_seen: 2
+    ambient_sound: house_night_creaks
+    music_track: mikans_watch
+    time_scale: 0.15
+    ma_reward: 10.0
+    relationship_rewards:
+      mikan: 1
+    priority: 6
+    beats:
+      - id: vigil_1
+        content_type: visual
+        visual_direction: |
+          Perspective shift. Low to the ground. The world through
+          cat-height eyes. Colors shifted: blues deeper, movements
+          sharper, and layered over everything, a second sight that
+          cats have never lost. The living room pulses with life
+          invisible to human eyes.
+        lighting: cat_vision_silver_gold
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: vigil_2
+        content_type: text
+        text: |
+          Through Mikan's eyes, the room is crowded. A house spirit
+          drifts through the wall where the family photos hang, pausing
+          at each one, touching the frames with fingers made of dust
+          and devotion. It has been tending these photographs since
+          the frames were hung. It will tend them until the house falls.
+        ma_accumulation: 2.0
+
+      - id: vigil_3
+        content_type: text
+        text: |
+          Chairo sleeps on the stove, curled in the residual warmth
+          of dinner's cooking. In cat-sight, the kettle spirit glows
+          like an ember - a small sun in the kitchen, radiating the
+          particular warmth of a thing that is loved and knows it.
+          Mikan's gaze lingers. Even guardians have fondness.
+        condition_flag: chairo_named
+        ma_accumulation: 2.0
+
+      - id: vigil_4
+        content_type: visual
+        visual_direction: |
+          Down the hallway. Grandmother's bedroom door, slightly ajar.
+          In cat-sight, a soft light leaks through the gap - Haruki's
+          own spiritual presence, dimmed by years of suppression but
+          still glowing. Still powerful. The light of someone who
+          chose to stop shining but couldn't quite manage to go dark.
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 3.0
+
+      - id: vigil_5
+        content_type: text
+        text: |
+          Aoi's room. The door is open. The cat's eyes adjust. Aoi
+          sleeps on their side, face half-buried in the pillow, one
+          hand dangling off the bed. And around Aoi - circling slowly,
+          drawn to something they can sense even in sleep - spirits.
+          Small ones. Curious ones. The kind that gather around light.
+          Aoi is a light. Even sleeping. Even unaware. The spirits
+          orbit gently, not touching, not intruding. Witnessing.
+          Something new has entered their world. Something that sees them.
+          They have not been seen in so long.
+        ma_accumulation: 3.0
+
+      - id: vigil_6
+        content_type: text
+        text: |
+          Mikan enters the room. The spirits part - not in fear, in
+          deference. The cat claims the bed in a single leap, turns
+          twice, and settles against Aoi's chest. The purring begins.
+          It is a frequency. A ward. A lullaby that operates on a
+          level deeper than sound. The spirits draw back to the room's
+          edges, content to watch from a respectful distance. The
+          guardian is here. All is well.
+        ma_accumulation: 3.0
+
+      - id: vigil_7
+        content_type: silence
+        visual_direction: |
+          The room settles. Cat and human, breathing together. The
+          spirits keep their gentle vigil. The house creaks its old
+          house sounds. The night passes. It is the most ordinary thing
+          in the world. It is the most extraordinary thing in the world.
+          The difference between the two is a matter of sight.
+        duration: 5.0
+        auto_advance: true
+        ma_accumulation: 4.0
+
+  # --------------------------------------------------------------------------
+  # 5. The Photograph
+  # --------------------------------------------------------------------------
+
+  - id: vig_photograph
+    title: "The Photograph"
+    category: memory
+    mood: bittersweet
+    input_mode: contemplative
+    description: |
+      Aoi finds an old photograph of grandmother as a young woman,
+      standing at a spirit gate. In spirit-sight, the photograph moves.
+      The moment preserved in silver and light unfolds. Haruki was
+      beautiful. Haruki was powerful. Haruki was not yet broken.
+    journal_entry: |
+      Found a photo of grandmother, young. I didn't recognize her
+      at first. She was standing somewhere impossible. She was smiling
+      in a way I've never seen her smile. She looked like she could
+      do anything. What happened?
+    conditions:
+      location: kichijoji
+      required_chapter: 3
+      required_flags:
+        chapter_3_started: true
+      not_seen_in_days: 14
+      max_times_seen: 1
+    ambient_sound: old_paper_silence
+    music_track: memory_waltz
+    time_scale: 0.2
+    ma_reward: 15.0
+    relationship_rewards:
+      haruki: 2
+    flags_on_complete:
+      photograph_vignette_seen: true
+    priority: 7
+    beats:
+      - id: photo_1
+        content_type: visual
+        visual_direction: |
+          A drawer in the study that sticks. Always has. Inside, beneath
+          letters and receipts and the small debris of a life, a
+          photograph face-down. Old paper, foxed at the edges. The back
+          reads, in faded ink: "Haruki-chan. Kamakura. Summer, 1971."
+        duration: 2.0
+        auto_advance: true
+        ma_accumulation: 1.0
+
+      - id: photo_2
+        content_type: text
+        text: |
+          Aoi turns it over.
+
+          A young woman. Twenty, maybe. Hair long and black and catching
+          light. She stands before a torii gate that blazes - not red,
+          not painted, but luminous, burning with spiritual fire visible
+          even in a photograph. Her hands are raised. Her face is turned
+          half toward the camera, half toward the gate. She is smiling.
+          Not grandmother's careful, contained smile. A smile of absolute
+          certainty. Of power held lightly. Of joy.
+        ma_accumulation: 3.0
+
+      - id: photo_3
+        content_type: text
+        inner_thought: true
+        text: |
+          This is grandmother. This is Haruki. The same hands that tremble
+          when they pour tea, steady and raised in invocation. The same
+          eyes that watch Aoi with careful restraint, wide open and
+          blazing. The same woman, fifty years younger, standing at the
+          door between worlds and laughing because the door was easy,
+          the door was nothing, the door was hers.
+
+          What happened to this person?
+        ma_accumulation: 3.0
+
+      - id: photo_4
+        content_type: visual
+        visual_direction: |
+          Spirit-sight activates involuntarily. The photograph shivers.
+          The image deepens. The static moment begins to breathe.
+        lighting: memory_sepia_glow
+        duration: 2.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: photo_5
+        content_type: text
+        text: |
+          The photograph's spirit - the spirit of the moment itself -
+          unfolds like a flower pressed in a book finally given water.
+          The gate burns. Haruki's hair moves in a wind that smells
+          of salt and cedar. Somewhere off-frame, someone laughs. A
+          man's voice. The person taking the photograph. His shadow
+          falls across the lower edge of the image.
+
+          Haruki turns fully toward the gate. Steps forward. The light
+          takes her and she goes willingly, joyfully, the way you step
+          into a warm sea. The photograph cannot follow her. The moment
+          ends where the camera's memory ends.
+        ma_accumulation: 4.0
+
+      - id: photo_6
+        content_type: choice
+        text: |
+          The photograph is still again. But Aoi's hands are shaking.
+        choices:
+          - id: ask_grandmother
+            text: "Take the photograph to grandmother."
+            next_beat: photo_7a
+            ma_bonus: 2.0
+            relationship_changes:
+              haruki: 1
+          - id: keep_secret
+            text: "Put it back. This is not yours to reveal."
+            next_beat: photo_7b
+            ma_bonus: 3.0
+            flags_set:
+              photograph_kept_secret: true
+          - id: hold_it
+            text: "Hold the photograph. Just hold it. Let it be warm."
+            next_beat: photo_7c
+            ma_bonus: 4.0
+            is_silence: true
+
+      - id: photo_7a
+        content_type: text
+        text: |
+          Grandmother looks at the photograph for a long time. Her face
+          does something complicated - a smile that is also a wound
+          reopening, a tenderness that is also a flinch. She touches the
+          image of her younger self with one fingertip.
+
+          "She was very foolish," Haruki says. "And very brave. I miss her."
+
+          She is talking about herself. The person she used to be.
+          The person the world needed her to stop being.
+        ma_accumulation: 3.0
+
+      - id: photo_7b
+        content_type: text
+        text: |
+          The photograph goes back in the drawer. Face down, as it was.
+          But the moment Aoi saw is not face down. It is upright and
+          vivid and burning in Aoi's memory: grandmother, young,
+          powerful, stepping into the light between worlds with the
+          confidence of someone who belonged there.
+
+          Some things should be returned to where they were found.
+          Some things, once seen, cannot be unseen.
+        ma_accumulation: 3.0
+
+      - id: photo_7c
+        content_type: silence
+        visual_direction: |
+          Aoi holds the photograph. The paper is warm - not from hands,
+          from the moment trapped inside, still burning after fifty
+          years. Faintly, the scent of salt air and cedar. The ghost
+          of a man's laugh. Grandmother, young and whole and walking
+          toward the impossible.
+
+          The photograph gives up nothing more. But what it gave was enough.
+        duration: 5.0
+        auto_advance: true
+        ma_accumulation: 5.0
+
+  # --------------------------------------------------------------------------
+  # 6. Morning in the Garden
+  # --------------------------------------------------------------------------
+
+  - id: vig_morning_garden
+    title: "Morning in the Garden"
+    category: domestic
+    mood: peaceful
+    input_mode: interactive
+    description: |
+      Early morning. Grandmother is in the garden before anyone else,
+      as she is every morning. She waters the plants and speaks to
+      them. She has always spoken to them. Now Aoi understands she
+      was never talking to the plants.
+    journal_entry: |
+      Watched grandmother in the garden this morning. She talks to
+      the plants. She's always talked to the plants. I realize now
+      the plants were never the ones listening.
+    conditions:
+      location: kichijoji
+      times_of_day: ["dawn", "morning"]
+      required_flags:
+        garden_spirits_helped: true
+      not_seen_in_days: 5
+    ambient_sound: morning_birds_water
+    music_track: garden_dawn
+    time_scale: 0.3
+    ma_reward: 6.0
+    relationship_rewards:
+      haruki: 1
+    priority: 2
+    beats:
+      - id: garden_1
+        content_type: visual
+        visual_direction: |
+          Dawn light. The garden in dew. Everything edged with silver.
+          Grandmother, in her gardening apron, hose in hand, moving
+          between the beds with the unhurried purpose of ritual.
+        lighting: dawn_silver_gold
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: garden_2
+        content_type: text
+        speaker: haruki
+        text: |
+          "The tomatoes want more sun. I know, I know. I'll move the
+          bamboo screen. Stop complaining."
+        ma_accumulation: 1.0
+
+      - id: garden_3
+        content_type: text
+        text: |
+          She is talking to a garden spirit the size of a radish. The
+          spirit gestures emphatically at the tomato plants, which are
+          indeed slightly shaded by the bamboo screen. Grandmother
+          adjusts the screen. The spirit inspects her work. Approves.
+          Pats the nearest tomato with something like pride.
+
+          Grandmother has been taking gardening advice from spirits
+          for decades. This explains the persimmons.
+        ma_accumulation: 2.0
+
+      - id: garden_4
+        content_type: text
+        text: |
+          Aoi watches from the kitchen door. There is something
+          profoundly ordinary about this scene - a woman in her garden,
+          talking to things other people can't see. It is the most
+          normal thing in the world. It is magic. It is both.
+          It has always been both.
+        ma_accumulation: 2.0
+
+      - id: garden_5
+        content_type: text
+        speaker: haruki
+        text: "Are you going to help, or just stand there watching?"
+        ma_accumulation: 1.0
+
+      - id: garden_6
+        content_type: text
+        text: |
+          She hasn't turned around. She always knows.
+        ma_accumulation: 1.0
+
+  # --------------------------------------------------------------------------
+  # 7. The Rooftop at Dawn
+  # --------------------------------------------------------------------------
+
+  - id: vig_rooftop_dawn
+    title: "Tokyo Wakes Up"
+    category: urban
+    mood: luminous
+    input_mode: observe
+    description: |
+      A rooftop in Shinjuku. Dawn. The city transitions from one kind
+      of life to another. In spirit-sight, the transition is visible:
+      night spirits retreating like tide, dawn spirits emerging, and
+      for one held breath, the city belongs to neither world. It
+      belongs to the space between. It belongs to ma.
+    journal_entry: |
+      Watched the city wake up from a rooftop. There's a moment - just
+      a moment - when Tokyo is neither night nor day, neither material
+      nor spirit. It's just... itself. All of itself. I want to live
+      in that moment.
+    conditions:
+      times_of_day: ["dawn"]
+      required_chapter: 2
+      min_permeability: 0.25
+      min_ma: 20.0
+      not_seen_in_days: 10
+    ambient_sound: city_dawn_transition
+    music_track: null
+    time_scale: 0.15
+    ma_reward: 12.0
+    priority: 4
+    beats:
+      - id: dawn_1
+        content_type: visual
+        visual_direction: |
+          High angle. A rooftop, anonymous, somewhere in the west Shinjuku
+          towers. The sky is the color of a bruise healing - purple fading
+          to blue fading to rose. The city stretches in every direction,
+          electric and ancient and layered.
+        lighting: pre_dawn_deep_blue
+        duration: 4.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: dawn_2
+        content_type: text
+        text: |
+          In spirit-sight, the night city burns. Midnight spirits fill
+          the streets like luminous fog - the revelers, the lost, the old
+          ones who remember when this was forest. They drift and glow and
+          move with the slow confidence of things that own the darkness.
+        ma_accumulation: 2.0
+
+      - id: dawn_3
+        content_type: text
+        text: |
+          The sun touches the top of Tokyo Tower. A line of gold, cutting
+          across the city. Where the light falls, the night spirits
+          fade - not flee, fade, gracefully, like actors exiting a stage.
+          Gently. Without hurry. Their time is ending and they go
+          with dignity.
+        ma_accumulation: 2.5
+
+      - id: dawn_4
+        content_type: silence
+        visual_direction: |
+          For one breath - one held, luminous breath - the city is empty
+          of spirits. Night has gone. Dawn has not yet arrived. The space
+          between is absolute. The city, stripped of everything invisible,
+          is just glass and concrete and sleeping people, and it looks
+          naked, and it looks lonely, and it looks like it is waiting
+          for something to fill it again.
+        duration: 5.0
+        auto_advance: true
+        ma_accumulation: 5.0
+
+      - id: dawn_5
+        content_type: text
+        text: |
+          Then: dawn. Not the sun - the spirits. They rise from gardens,
+          parks, the cracks in pavement where green persists. Dawn spirits:
+          dew-bodied, light-winged, tasting of cold air and new starts.
+          They fill the city the way water fills a glass - completely,
+          naturally, as if they were always there and the emptiness was
+          the anomaly.
+        ma_accumulation: 3.0
+
+      - id: dawn_6
+        content_type: text
+        inner_thought: true
+        text: |
+          That moment. That single breath between night spirits and dawn
+          spirits, when the city was bare and waiting. That is ma.
+          That is the space between. Not empty. Expectant. Full of
+          potential the way silence before music is full of every
+          possible note.
+
+          Aoi wants to live in that breath. Aoi is beginning to
+          understand that this is the whole point.
+        ma_accumulation: 4.0
+
+  # --------------------------------------------------------------------------
+  # 8. Grandmother's Hands
+  # --------------------------------------------------------------------------
+
+  - id: vig_grandmothers_hands
+    title: "Grandmother's Hands"
+    category: relationship
+    mood: aching
+    input_mode: observe
+    description: |
+      A close study of grandmother's hands as she works in the kitchen.
+      They tremble now. They didn't always. In spirit-sight, the
+      faintest light leaks from her fingertips - the last embers of
+      a fire she banked thirty years ago. She was so powerful, once.
+      The power is still there. She just won't use it.
+    journal_entry: |
+      Grandmother's hands shake when she chops vegetables now. I
+      watched them today and I realized the shaking isn't age. It's
+      restraint. She's holding something back. She's been holding
+      something back for longer than I've been alive.
+    conditions:
+      location: kichijoji
+      required_chapter: 3
+      required_flags:
+        haruki_signals_noticed: true
+      not_seen_in_days: 7
+      max_times_seen: 2
+    ambient_sound: kitchen_chopping_quiet
+    music_track: harukis_theme_minor
+    time_scale: 0.2
+    ma_reward: 10.0
+    relationship_rewards:
+      haruki: 1
+    priority: 5
+    beats:
+      - id: hands_1
+        content_type: visual
+        visual_direction: |
+          Close-up. Grandmother's hands on the cutting board. Radish.
+          The knife moves in the steady rhythm of decades of practice.
+          The hands are thin, mapped with veins, strong in the way
+          that old wood is strong. And they tremble.
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: hands_2
+        content_type: text
+        text: |
+          The trembling is subtle. Invisible to anyone not looking. Aoi
+          is looking. The knife adjusts with each slight shake - micro-
+          corrections made by muscle memory so deep it doesn't need
+          steadiness to be precise. The radish falls in perfect coins.
+          The hands shake. The cuts are perfect. Practice has outpaced
+          the body's betrayal.
+        ma_accumulation: 2.0
+
+      - id: hands_3
+        content_type: text
+        text: |
+          In spirit-sight, Aoi sees it: light at grandmother's fingertips.
+          Not bright. Not deliberate. Leaking. The way light escapes
+          through a door that doesn't quite close. Thirty years of
+          suppression, and the power still seeps out, golden and warm,
+          touching the knife, the radish, the cutting board. Everything
+          grandmother touches is blessed by accident.
+        ma_accumulation: 3.0
+
+      - id: hands_4
+        content_type: text
+        inner_thought: true
+        text: |
+          How much does it cost to hold this back? Every day, every hour,
+          a constant pressure - like holding your breath, except it's
+          been thirty years and the breath is your truest self. How tired
+          must she be? How brave must she be? To carry this, silently,
+          in her hands, while chopping radishes and pouring tea and
+          living a life that is half the life she could have lived?
+        ma_accumulation: 3.0
+
+      - id: hands_5
+        content_type: silence
+        visual_direction: |
+          The hands pause. Grandmother sets down the knife. She looks
+          at her own hands as if they belong to someone else. The
+          trembling intensifies for a moment. Then she curls her
+          fingers into fists. The light vanishes. The fists relax.
+          She picks up the knife. The chopping resumes. The radish
+          coins are still perfect.
+        duration: 4.0
+        auto_advance: true
+        ma_accumulation: 4.0
+
+      - id: hands_6
+        content_type: text
+        text: |
+          One day, Aoi thinks. One day those hands will open. One day
+          the light will come out, not as leaking but as choosing.
+          One day grandmother will stop holding her breath.
+
+          Not today. Today there is dinner to make. Today the radishes
+          need cutting. Today is enough.
+        ma_accumulation: 2.0
+
+  # --------------------------------------------------------------------------
+  # 9. Konbini at 3 AM
+  # --------------------------------------------------------------------------
+
+  - id: vig_konbini_3am
+    title: "The Konbini at the Edge of Sleep"
+    category: liminal
+    mood: uncanny
+    input_mode: observe
+    description: |
+      A convenience store at 3 AM. The fluorescent lights hum at a
+      frequency that things from the spirit world can hear. The clerk
+      is half asleep. The shelves stock ordinary things and, tonight,
+      some things that are not ordinary at all. A spirit browses the
+      magazine rack, reading periodicals that don't exist.
+    journal_entry: |
+      Went to the konbini at 3 AM. Couldn't sleep. The store was
+      different at that hour - the light was wrong, or the shelves
+      were wrong, or I was wrong. A spirit was reading magazines.
+      It looked content. I bought onigiri. We ignored each other
+      politely. It was the most Tokyo thing I've ever experienced.
+    conditions:
+      times_of_day: ["witching"]
+      min_permeability: 0.3
+      required_chapter: 2
+      not_seen_in_days: 14
+    ambient_sound: konbini_hum_night
+    music_track: null
+    time_scale: 0.3
+    ma_reward: 8.0
+    priority: 2
+    beats:
+      - id: konbini_1
+        content_type: visual
+        visual_direction: |
+          The fluorescent cube of a Family Mart, glowing in the dark
+          street like an aquarium. Inside, everything is too bright,
+          too present. The shelves are aggressively normal. The Muzak
+          plays a song that sounds like a lullaby tranquilized.
+        lighting: fluorescent_harsh_3am
+        duration: 2.0
+        auto_advance: true
+        ma_accumulation: 1.0
+
+      - id: konbini_2
+        content_type: text
+        text: |
+          The clerk nods without looking up. At this hour, everyone
+          is a ghost. The distinction between customer and spirit
+          is academic. The konbini serves all with equal indifference.
+        ma_accumulation: 1.0
+
+      - id: konbini_3
+        content_type: text
+        text: |
+          By the magazine rack, something browses. It is tall, thin,
+          wearing a shape that approximates "person reading magazines"
+          without quite achieving it. Too long in the limbs. Too smooth
+          in the face. It holds a magazine that, in Aoi's spirit-sight,
+          is blank - or rather, printed in a language that has no human
+          equivalent. The spirit reads intently. It turns pages. It is
+          absorbed. It is, against all reason, having a perfectly
+          pleasant 3 AM konbini experience.
+        ma_accumulation: 2.5
+
+      - id: konbini_4
+        content_type: text
+        text: |
+          Aoi selects onigiri. The spirit selects nothing, because
+          spirits do not eat onigiri, but it stands in the snack aisle
+          with the contemplative air of someone deciding between flavors.
+          They avoid each other's eyes. This is Tokyo. You do not
+          acknowledge strangers in the konbini at 3 AM. The protocol
+          applies to all beings, corporeal or otherwise.
+        ma_accumulation: 2.0
+
+      - id: konbini_5
+        content_type: text
+        text: |
+          At the register, the clerk rings up the onigiri. Behind Aoi,
+          the spirit approaches with its non-existent magazine. The clerk
+          will not see it. The clerk is not paid enough to see it. But
+          the spirit waits its turn, politely, because this is a
+          convenience store and there are rules and the rules exist
+          for everyone.
+        ma_accumulation: 2.0
+
+      - id: konbini_6
+        content_type: text
+        text: |
+          Outside, the night air is cold and real. Aoi unwraps the onigiri.
+          The spirit exits too, its non-magazine under one long arm. For
+          a moment they stand in the same cone of fluorescent light,
+          two beings from different worlds, sharing the specific peace
+          of a 3 AM konbini run.
+
+          The spirit nods. Aoi nods. They go their separate ways.
+
+          It is the most civilized interaction Aoi has ever had with
+          the invisible world.
+        ma_accumulation: 3.0
+
+  # --------------------------------------------------------------------------
+  # 10. Before the Storm
+  # --------------------------------------------------------------------------
+
+  - id: vig_before_the_storm
+    title: "The Night Before"
+    category: relationship
+    mood: hushed
+    input_mode: gentle
+    description: |
+      The night before the convergence. Everyone is in grandmother's
+      house. Ren, Kaito, Haruki, Mikan. The air is heavy with what
+      is coming. Nobody talks about tomorrow. They eat together.
+      They are careful with each other. The silences between sentences
+      hold more than the sentences.
+    journal_entry: |
+      The night before. We all ate together. Nobody said the word
+      tomorrow. The food was good. Grandmother made too much, the way
+      she does when she's worried. Everyone ate too much, the way
+      you do when you're scared. Mikan sat in the exact center of
+      the group and purred.
+    conditions:
+      location: kichijoji
+      required_chapter: 6
+      required_flags:
+        convergence_approaching: true
+      max_times_seen: 1
+    ambient_sound: quiet_dinner_house
+    music_track: the_night_before
+    time_scale: 0.2
+    ma_reward: 20.0
+    relationship_rewards:
+      haruki: 2
+      ren: 2
+      kaito: 2
+      mikan: 1
+    flags_on_complete:
+      last_supper_witnessed: true
+    priority: 10
+    beats:
+      - id: storm_1
+        content_type: visual
+        visual_direction: |
+          Grandmother's kitchen table. Expanded with a folding leaf
+          that hasn't been used in years. Five places set. The food
+          is excessive - tempura, miso, rice, pickles, grilled fish,
+          three kinds of side dish. Haruki has been cooking since noon.
+        lighting: warm_kitchen_evening
+        duration: 3.0
+        auto_advance: true
+        ma_accumulation: 2.0
+
+      - id: storm_2
+        content_type: text
+        text: |
+          They gather. It is awkward the way family dinners are awkward
+          when the family has been apart too long and the reason for
+          gathering is something no one wants to name. Kaito sits where
+          a guest sits, not where family sits. Ren sits with the
+          alertness of someone in an unfamiliar home. Grandmother sits
+          at the head. She has always sat at the head. The table is hers.
+        ma_accumulation: 2.0
+
+      - id: storm_3
+        content_type: text
+        speaker: haruki
+        text: "Eat. It's getting cold."
+        ma_accumulation: 1.0
+
+      - id: storm_4
+        content_type: text
+        text: |
+          They eat. For a while, the only sounds are chopsticks and
+          polite requests to pass dishes. Kaito compliments the tempura.
+          Grandmother says it's nothing. It is not nothing. It is the
+          distillation of fifty years of feeding the people she loves.
+          Every piece of shrimp is a prayer.
+        ma_accumulation: 2.0
+
+      - id: storm_5
+        content_type: text
+        text: |
+          Mikan appears from nowhere, as cats do, and positions themselves
+          in the exact center of the group. Equidistant from all four
+          humans. The cat begins to purr. It is the loudest sound in
+          the room. It is the most reassuring sound in any room.
+        ma_accumulation: 2.0
+
+      - id: storm_6
+        content_type: text
+        text: |
+          Kaito reaches for the pickles at the same time as Aoi. Their
+          hands almost touch. Do not touch. Withdraw. The space between
+          their fingers is charged with years of unspoken things.
+        ma_accumulation: 2.0
+
+      - id: storm_7
+        content_type: choice
+        text: |
+          The silence stretches. Someone should say something.
+        choices:
+          - id: break_silence
+            text: "Thank you. For being here."
+            next_beat: storm_8a
+            ma_bonus: 3.0
+            relationship_changes:
+              haruki: 1
+              ren: 1
+              kaito: 1
+          - id: let_silence_hold
+            text: "..."
+            next_beat: storm_8b
+            ma_bonus: 5.0
+            is_silence: true
+
+      - id: storm_8a
+        content_type: text
+        text: |
+          The words land softly. Ren smiles. Kaito looks down at
+          their rice. Grandmother reaches across the table and
+          places another piece of tempura on Aoi's plate.
+
+          "Eat," she says again. It means: I love you. It means:
+          I'm afraid. It means: tomorrow we may lose everything and
+          tonight I can still feed you, so let me feed you, so eat.
+        ma_accumulation: 4.0
+
+      - id: storm_8b
+        content_type: silence
+        visual_direction: |
+          The silence is not empty. It is the fullest silence of the
+          game. Five people and a cat, sitting in a small kitchen,
+          not speaking, not needing to speak. The food cools. The
+          night deepens. The spirits gather at the windows, watching,
+          because even the spirit world knows that something is ending
+          and something is beginning and the breath between is sacred.
+
+          Grandmother covers Aoi's hand with her own. Aoi covers
+          Kaito's hand with the other. Ren places a hand on the table,
+          palm up. Kaito, after a moment that stretches like taffy,
+          takes it.
+
+          They sit like that. Connected. A circuit completed.
+          Mikan purrs louder.
+
+          Tomorrow, the world changes. Tonight, the world is this
+          kitchen table and it is enough.
+        duration: 8.0
+        auto_advance: true
+        ma_accumulation: 8.0
+
+      - id: storm_9
+        content_type: text
+        speaker: haruki
+        text: "There's dessert."
+        ma_accumulation: 2.0
+
+      - id: storm_10
+        content_type: text
+        text: |
+          There is always dessert. This is how grandmother says:
+          the world is not ending yet. There is still mochi.
+          There is still time.
+        ma_accumulation: 3.0

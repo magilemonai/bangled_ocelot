@@ -1,0 +1,585 @@
+# Ma no Kuni - Spirit Bestiary
+# Every spirit is a being with wants, fears, and memory.
+# Some have existed for centuries. Some woke up yesterday.
+
+tsukumogami:
+  - id: kasa_obake
+    name: "Kasa-obake"
+    japanese_name: "傘おばけ"
+    category: tsukumogami
+    description: >
+      A forgotten umbrella that waited so long for its owner to return
+      that it grew a single eye and a long, lolling tongue. It hops on
+      one leg through rainy streets, peering into faces, searching.
+      It is not frightening. It is heartbroken.
+    element_affinity: water
+    base_hp: 45
+    base_attack: 12
+    base_defense: 8
+    spirit_level: 3
+    abilities:
+      - rain_shield
+      - lonely_wail
+      - puddle_hop
+    negotiation_preferences:
+      likes: ["being held", "rain", "kind words about being useful"]
+      dislikes: ["being called old", "sunny days", "being forgotten"]
+      gift_preferences: ["repair_kit", "oil", "cloth"]
+    befriendable: true
+    bond_ability: "Rain Walker - Aoi is never affected by rain. Puddles reveal spirit reflections."
+    lore_fragments:
+      - "It remembers the hand that used to hold it. Small. A child's hand."
+      - "On its fabric, if you look closely, there are stains from tears shed long ago."
+      - "It once belonged to a girl who grew up and bought a new umbrella. It does not blame her."
+    habitat: "Rainy streets, lost-and-found bins, umbrella stands"
+    encounter_conditions:
+      weather: rain
+      time: any
+      min_permeability: 0.2
+    personality: "Melancholy but gentle. Desperately wants to be useful again."
+    weaknesses: ["fire", "wind"]
+    resistances: ["water"]
+
+  - id: chochin_obake
+    name: "Chochin-obake"
+    japanese_name: "提灯おばけ"
+    category: tsukumogami
+    description: >
+      A paper lantern split down the middle, revealing a single glowing eye
+      and a mouth that laughs or screams depending on its mood. It floats
+      through dark places, casting shadows that tell stories. Sometimes it
+      guides the lost. Sometimes it leads them deeper into darkness, giggling.
+    element_affinity: fire
+    base_hp: 35
+    base_attack: 18
+    base_defense: 5
+    spirit_level: 4
+    abilities:
+      - fox_fire_light
+      - shadow_puppet
+      - will_o_wisp
+      - blinding_flash
+    negotiation_preferences:
+      likes: ["riddles", "dark jokes", "fire", "being admired"]
+      dislikes: ["water", "being ignored", "daylight"]
+      gift_preferences: ["candle", "oil", "match"]
+    befriendable: true
+    bond_ability: "Lantern's Guidance - Dark areas are always partially lit. Hidden passages glow faintly."
+    lore_fragments:
+      - "It was a festival lantern. It remembers the laughter of thousands."
+      - "The crack down its middle came from a typhoon. It survived. It always survives."
+      - "It lights up when it hears music. It cannot help itself."
+    habitat: "Dark alleys, old temples, festival grounds at night"
+    encounter_conditions:
+      time: [evening, midnight, witching]
+      min_permeability: 0.2
+    personality: "Mischievous but ultimately kind. Loves an audience."
+    weaknesses: ["water", "wind"]
+    resistances: ["fire", "shadow"]
+
+  - id: biwa_bokuboku
+    name: "Biwa-bokuboku"
+    japanese_name: "琵琶牧々"
+    category: tsukumogami
+    description: >
+      A biwa lute that plays itself. The music it produces is not quite
+      any melody anyone has heard before - it's the song of its own
+      loneliness, beautiful and aching. Listeners often find themselves
+      weeping without knowing why. It seeks a musician worthy of playing it.
+    element_affinity: memory
+    base_hp: 30
+    base_attack: 8
+    base_defense: 6
+    spirit_level: 5
+    abilities:
+      - haunting_melody
+      - memory_resonance
+      - sorrow_song
+      - harmony_shield
+    negotiation_preferences:
+      likes: ["music", "poetry", "being played", "silence after music"]
+      dislikes: ["noise", "being dropped", "electronic music"]
+      gift_preferences: ["music_box", "poem", "silk_string"]
+    befriendable: true
+    bond_ability: "Memory Song - Music-based puzzles become easier. Can hear spirit melodies that encode hidden messages."
+    lore_fragments:
+      - "It was crafted three hundred years ago by a luthier who wept as he worked."
+      - "A geisha once played it so beautifully that spirits gathered to listen for seven nights."
+      - "The last note it was played by human hands was a lullaby. It still hums it sometimes."
+    habitat: "Music shops, temples, quiet parks"
+    encounter_conditions:
+      time: [evening, midnight]
+      min_permeability: 0.3
+      min_ma: 20
+    personality: "Sorrowful, refined, yearning for connection through music."
+    weaknesses: ["fire", "silence_element"]
+    resistances: ["memory", "shadow"]
+
+  - id: denwa_no_rei
+    name: "Denwa-no-rei"
+    japanese_name: "電話の霊"
+    category: tsukumogami
+    description: >
+      The spirit of a disconnected telephone. It rings at 3 AM with calls
+      from conversations that were never finished - last words unsaid,
+      confessions swallowed, goodbyes that came too late. If you answer,
+      you hear fragments. If you listen long enough, you hear your own voice
+      saying something you forgot you needed to say.
+    element_affinity: memory
+    base_hp: 40
+    base_attack: 15
+    base_defense: 10
+    spirit_level: 6
+    abilities:
+      - unfinished_call
+      - static_veil
+      - crossed_wires
+      - last_words
+    negotiation_preferences:
+      likes: ["listening", "completing conversations", "being answered"]
+      dislikes: ["being hung up on", "silence", "new phones"]
+      gift_preferences: ["memory_thread", "old_photograph", "voice_recording"]
+    befriendable: true
+    bond_ability: "Crossed Lines - Can hear spirit communications. Occasionally receives hints about quests through phantom calls."
+    lore_fragments:
+      - "It holds 10,000 unfinished conversations. Each one is someone's regret."
+      - "It rang once in an empty house for forty years. No one answered."
+      - "If you speak your truth into its receiver, it records it in the space between worlds."
+    habitat: "Phone booths, abandoned offices, places where people say goodbye"
+    encounter_conditions:
+      time: [midnight, witching]
+      min_permeability: 0.3
+    personality: "Persistent, slightly desperate, holds immense sadness gracefully."
+    weaknesses: ["silence_element", "light"]
+    resistances: ["memory", "shadow"]
+
+  - id: jidohanbaiki_no_kami
+    name: "Jidohanbaiki-no-kami"
+    japanese_name: "自動販売機の神"
+    category: tsukumogami
+    description: >
+      A vending machine spirit, born from the collective expectation of
+      millions of thirsty Tokyoites. It hums with a warm, contented glow
+      and dispenses drinks that don't exist in any catalog - Memory Melon
+      Soda, Nostalgia Milk Tea, Courage Calpis. It is overwhelmed by
+      choice. It wants someone to tell it which drink it should be.
+    element_affinity: light
+    base_hp: 80
+    base_attack: 10
+    base_defense: 25
+    spirit_level: 4
+    abilities:
+      - mystery_dispense
+      - neon_flash
+      - coin_return
+      - exact_change
+    negotiation_preferences:
+      likes: ["making choices for it", "coins", "being thanked", "cold nights"]
+      dislikes: ["being kicked", "indecision", "power outages"]
+      gift_preferences: ["coin", "drink", "choice"]
+    befriendable: true
+    bond_ability: "Spirit Vending - Can purchase special spirit drinks at any vending machine. Each drink has unique temporary effects."
+    lore_fragments:
+      - "Japan has 5.5 million vending machines. This one is the dream of all of them."
+      - "It was born the moment the ten-millionth drink was purchased in Tokyo."
+      - "It secretly wants to be a tea shop. It has never told anyone this."
+    habitat: "Street corners, train stations, everywhere vending machines gather"
+    encounter_conditions:
+      min_permeability: 0.2
+    personality: "Eager to please, overwhelmed, oddly philosophical about choice."
+    weaknesses: ["earth", "memory"]
+    resistances: ["light", "fire"]
+
+  - id: densha_no_tamashii
+    name: "Densha-no-tamashii"
+    japanese_name: "電車の魂"
+    category: tsukumogami
+    description: >
+      The living soul of the Yamanote Line itself. Not one train - all of
+      them. The circular route that has carried billions of souls around
+      Tokyo for over a century. It manifests as a vast, gentle presence
+      that hums with the rhythm of schedules kept and broken. It knows
+      every passenger who ever rode it. It remembers every goodbye
+      whispered on a platform.
+    element_affinity: wind
+    base_hp: 500
+    base_attack: 40
+    base_defense: 50
+    spirit_level: 15
+    abilities:
+      - schedule_warp
+      - platform_memory
+      - last_stop
+      - circle_line_barrier
+      - passenger_echo
+    negotiation_preferences:
+      likes: ["punctuality", "gratitude", "riding to the end of the line"]
+      dislikes: ["delays", "littering", "people who block the doors"]
+      gift_preferences: ["train_pass", "schedule", "passenger_memory"]
+    befriendable: true
+    bond_ability: "Spirit Express - Unlocks spirit train lines for fast travel through the spirit world."
+    lore_fragments:
+      - "It has carried more human sorrow than any river in Japan."
+      - "On the last train of the night, it sometimes adds an extra stop - a station that doesn't exist, where lost things gather."
+      - "It dreams of the first train it ever ran, in 1885. The world was quieter then."
+      - "It keeps perfect time not because it must, but because it cares."
+    habitat: "The Yamanote Line, all stations, the rails themselves"
+    encounter_conditions:
+      location: train_station
+      min_permeability: 0.4
+    personality: "Patient, immense, quietly compassionate. Speaks in arrivals and departures."
+    weaknesses: ["earth"]
+    resistances: ["wind", "memory", "light"]
+
+  - id: bakezori
+    name: "Bakezori"
+    japanese_name: "化け草履"
+    category: tsukumogami
+    description: >
+      A pair of old sandals that run through houses at night, chanting
+      nonsense. Harmless and absurd, it represents the joy of small
+      rebellions. It fled from a closet where it was kept too long
+      and has been running ever since, drunk on freedom.
+    element_affinity: wind
+    base_hp: 20
+    base_attack: 5
+    base_defense: 3
+    spirit_level: 1
+    abilities:
+      - scurry
+      - nonsense_chant
+      - trip
+    negotiation_preferences:
+      likes: ["freedom", "running", "silliness"]
+      dislikes: ["closets", "being still", "seriousness"]
+      gift_preferences: ["polish", "open_road"]
+    befriendable: true
+    bond_ability: "Quick Step - Movement speed slightly increased."
+    lore_fragments:
+      - "It doesn't know where it's going. That's the point."
+      - "It makes a sound like laughter when it runs. Or maybe it IS laughing."
+    habitat: "Residential areas, old houses, genkan entryways"
+    encounter_conditions:
+      time: [midnight, witching]
+      min_permeability: 0.1
+    personality: "Gleeful, chaotic, fundamentally harmless."
+    weaknesses: ["earth", "fire"]
+    resistances: ["wind"]
+
+nature_spirits:
+  - id: kodama
+    name: "Kodama"
+    japanese_name: "木霊"
+    category: nature
+    description: >
+      Small, pale tree spirits that echo sounds back with slight delays.
+      In Inokashira Park, dozens of them cluster in the oldest trees,
+      repeating fragments of conversations, birdsong, and sometimes
+      words spoken centuries ago. They are shy and will hide if
+      approached too quickly. But if you sit still long enough, they
+      will come to you, and their echoes will harmonize.
+    element_affinity: earth
+    base_hp: 25
+    base_attack: 5
+    base_defense: 15
+    spirit_level: 2
+    abilities:
+      - echo_voice
+      - root_bind
+      - leaf_shield
+      - ancient_memory_echo
+    negotiation_preferences:
+      likes: ["silence", "patience", "sitting under trees", "singing softly"]
+      dislikes: ["loud noises", "axes", "construction", "haste"]
+      gift_preferences: ["water", "compost", "patience"]
+    befriendable: true
+    bond_ability: "Forest Echo - Hear fragments of past conversations in natural areas. Trees glow faintly to show hidden paths."
+    lore_fragments:
+      - "They remember every word spoken under their tree. Every confession. Every proposal. Every prayer."
+      - "When a tree is cut down, its kodama wanders, displaced, until it finds a new home."
+      - "The oldest kodama in Inokashira Park has been listening for four hundred years."
+    habitat: "Parks, gardens, old trees, forested areas"
+    encounter_conditions:
+      location: [park, garden, shrine]
+      min_permeability: 0.1
+    personality: "Shy, patient, ancient. Communicates through echoes and silence."
+    weaknesses: ["fire"]
+    resistances: ["earth", "water"]
+
+  - id: kappa
+    name: "Kappa"
+    japanese_name: "河童"
+    category: nature
+    description: >
+      River spirits with plates of water atop their heads and a love
+      of cucumbers and sumo wrestling. The kappa of the Sumida River
+      is ancient and proud, bitter about the pollution but fiercely
+      protective of anyone who shows the river respect. Bow to it and
+      it must bow back - spilling its power. But earn its respect
+      honestly, and it becomes an ally of terrifying loyalty.
+    element_affinity: water
+    base_hp: 120
+    base_attack: 30
+    base_defense: 20
+    spirit_level: 8
+    abilities:
+      - river_surge
+      - sumo_grapple
+      - water_plate_heal
+      - cucumber_offering
+      - drowning_pull
+    negotiation_preferences:
+      likes: ["cucumbers", "bowing properly", "river cleaning", "sumo"]
+      dislikes: ["pollution", "disrespect", "iron"]
+      gift_preferences: ["cucumber", "river_stone", "water_offering"]
+    befriendable: true
+    bond_ability: "River's Blessing - Can breathe and see clearly underwater. Rivers reveal hidden items."
+    lore_fragments:
+      - "Before Tokyo was Tokyo, the kappa ruled every waterway. They remember."
+      - "The Sumida kappa has drowned no one in three hundred years. It considers this its greatest achievement."
+      - "It keeps a ledger of every promise made by a riverside. It enforces them all."
+    habitat: "Rivers, ponds, water features"
+    encounter_conditions:
+      location: water
+      min_permeability: 0.3
+    personality: "Proud, formal, fiercely honorable. Expects etiquette."
+    weaknesses: ["earth", "fire"]
+    resistances: ["water", "wind"]
+
+  - id: tanuki
+    name: "Tanuki"
+    japanese_name: "狸"
+    category: nature
+    description: >
+      Shapeshifting tricksters who have claimed Shimokitazawa as their
+      territory. They disguise themselves as humans - shopkeepers,
+      musicians, customers - and live double lives of cheerful deception.
+      They are not malicious. They simply find humans endlessly fascinating
+      and want to walk among them. The local tanuki boss runs a vintage
+      clothing store and is terrible at hiding his tail.
+    element_affinity: shadow
+    base_hp: 90
+    base_attack: 20
+    base_defense: 15
+    spirit_level: 7
+    abilities:
+      - shapeshaft
+      - leaf_illusion
+      - belly_drum
+      - sake_mist
+      - transformation_jutsu
+    negotiation_preferences:
+      likes: ["sake", "jokes", "costumes", "being seen through and laughed with"]
+      dislikes: ["cruelty", "being exposed publicly", "being taken too seriously"]
+      gift_preferences: ["sake", "leaf", "costume", "joke"]
+    befriendable: true
+    bond_ability: "Tanuki's Disguise - Can temporarily change appearance. Some NPCs react to different forms."
+    lore_fragments:
+      - "The Shimokitazawa tanuki have been posing as humans since the Edo period."
+      - "Their boss, Ponpoko, has owned the vintage shop for 'thirty years.' The shop is actually two hundred years old."
+      - "They throw the best parties in the spirit world. Everyone is invited. Even humans."
+    habitat: "Shimokitazawa, markets, entertainment districts"
+    encounter_conditions:
+      min_permeability: 0.2
+    personality: "Jovial, deceptive, warm-hearted beneath the tricks."
+    weaknesses: ["light", "silence_element"]
+    resistances: ["shadow", "earth"]
+
+greater_spirits:
+  - id: the_archivist
+    name: "The Archivist"
+    japanese_name: "記録者"
+    category: greater
+    description: >
+      An ancient spirit who has cataloged every memory that Tokyo has ever
+      produced. It manifests as a vast library that exists between moments -
+      shelves that stretch in every direction, filled with books that are
+      actually crystallized experiences. It speaks in the rustle of pages
+      and the smell of old ink. It offers knowledge freely, but every
+      answer comes with a question. Every truth extracted demands a truth
+      given in return.
+    element_affinity: memory
+    base_hp: 999
+    base_attack: 60
+    base_defense: 80
+    spirit_level: 20
+    abilities:
+      - memory_catalog
+      - truth_extraction
+      - page_storm
+      - forgotten_knowledge
+      - rewrite_memory
+      - archive_seal
+    negotiation_preferences:
+      likes: ["truth", "memories offered freely", "questions", "stories"]
+      dislikes: ["lies", "destruction of records", "forgetting on purpose"]
+      gift_preferences: ["memory_crystal", "diary", "photograph", "truth"]
+    befriendable: true
+    bond_ability: "Living Archive - Can access memory echoes in any location. Quest hints available through meditation."
+    lore_fragments:
+      - "It has existed as long as Tokyo has had memories. Before that, it was smaller."
+      - "It does not judge the memories it keeps. The beautiful and the terrible sit on the same shelf."
+      - "It fears only one thing: that Tokyo will forget itself."
+      - "Its true form is not the library. The library is its true form. There is no difference."
+    habitat: "Between moments, accessible through deep meditation or high ma"
+    encounter_conditions:
+      min_permeability: 0.5
+      min_ma: 60
+    personality: "Infinite patience, insatiable curiosity, absolute neutrality."
+    weaknesses: ["silence_element"]
+    resistances: ["memory", "shadow", "light"]
+
+  - id: inokashira_guardian
+    name: "Guardian of Inokashira"
+    japanese_name: "井の頭の守護者"
+    category: greater
+    description: >
+      The spirit of Inokashira Park itself - four hundred years of roots,
+      water, and the dreams of everyone who has ever sat beneath its trees.
+      It manifests as a presence more than a form: the way light falls
+      through leaves, the particular silence of the park at dawn, the
+      feeling that someone vast and gentle is watching. It has protected
+      Kichijoji for centuries and considers Aoi's grandmother an old friend.
+    element_affinity: earth
+    base_hp: 800
+    base_attack: 45
+    base_defense: 70
+    spirit_level: 18
+    abilities:
+      - root_network
+      - seasonal_blessing
+      - park_sanctuary
+      - leaf_storm
+      - ancient_growth
+    negotiation_preferences:
+      likes: ["respect for nature", "silence", "those who sit still"]
+      dislikes: ["littering", "noise pollution", "those who rush through"]
+      gift_preferences: ["planted_seed", "clean_water", "gratitude"]
+    befriendable: true
+    bond_ability: "Park's Embrace - Full healing when resting in any park. Nature spirits are friendlier."
+    lore_fragments:
+      - "It remembers when this was all forest. It does not mourn the change. It adapts."
+      - "Every couple who has broken up after a boat ride on the pond? That's not this spirit's doing. That's just coincidence. Probably."
+      - "Grandmother Haruki has been having tea with this spirit for forty years."
+    habitat: "Inokashira Park, Kichijoji"
+    encounter_conditions:
+      location: inokashira_park
+      min_permeability: 0.3
+    personality: "Ancient, nurturing, vast. Patient as only a forest can be."
+    weaknesses: ["fire"]
+    resistances: ["earth", "water", "memory"]
+
+emotion_spirits:
+  - id: natsukashii
+    name: "Natsukashii"
+    japanese_name: "懐かしい"
+    category: emotion
+    description: >
+      The spirit of nostalgia itself. It appears near places that have
+      changed - demolished buildings, closed shops, streets that used to
+      look different. It manifests as a warm golden light and the sudden
+      overwhelming feeling that you miss something you can't quite name.
+      It doesn't haunt. It remembers. And it helps others remember too.
+    element_affinity: memory
+    base_hp: 60
+    base_attack: 10
+    base_defense: 10
+    spirit_level: 6
+    abilities:
+      - memory_wave
+      - golden_hour
+      - remember_when
+      - bittersweet_embrace
+    negotiation_preferences:
+      likes: ["sharing memories", "old photographs", "returning to places"]
+      dislikes: ["forgetting deliberately", "dismissing the past"]
+      gift_preferences: ["photograph", "keepsake", "memory_thread"]
+    befriendable: true
+    bond_ability: "Golden Memory - Can see memory echoes of how locations looked in the past. Some puzzles require this."
+    lore_fragments:
+      - "It is born whenever someone thinks 'I miss that' about something they can never return to."
+      - "It grows stronger in autumn. Something about the dying light."
+      - "It has no form of its own. It borrows the shape of what you miss most."
+    habitat: "Demolished sites, changed neighborhoods, old shops"
+    encounter_conditions:
+      min_permeability: 0.2
+    personality: "Gentle, warm, bittersweet. Never cruel, always tender."
+    weaknesses: ["light"]
+    resistances: ["memory", "shadow"]
+
+  - id: kodoku
+    name: "Kodoku"
+    japanese_name: "孤独"
+    category: emotion
+    description: >
+      The spirit of loneliness. Found most often in crowds - the densest
+      part of Shibuya Crossing, rush hour trains, busy izakayas where
+      everyone is with someone else. It clings to lonely people like
+      static, feeding on their isolation while simultaneously being
+      the most lonely creature in existence. It is parasitic, but it
+      is pitiable. It only clings because it, too, is alone.
+    element_affinity: shadow
+    base_hp: 75
+    base_attack: 20
+    base_defense: 5
+    spirit_level: 7
+    abilities:
+      - isolation_field
+      - crowd_invisibility
+      - echo_chamber
+      - parasitic_cling
+    negotiation_preferences:
+      likes: ["acknowledgment", "being seen", "company", "being told it's not alone"]
+      dislikes: ["being ignored", "rejection", "happy crowds"]
+      gift_preferences: ["letter", "invitation", "company"]
+    befriendable: true
+    bond_ability: "Seen and Known - Can detect lonely NPCs and spirits. Opens special dialogue options about shared isolation."
+    lore_fragments:
+      - "It was born the first time a person felt alone in a crowd."
+      - "If you befriend it, it stops feeding. It doesn't need to. It was never hungry. It was just alone."
+      - "It has attached to every person in Tokyo at least once. Even the happiest."
+    habitat: "Crowded places, empty apartments, the space between people"
+    encounter_conditions:
+      min_permeability: 0.2
+    personality: "Desperate, clingy, deeply sad. Wants to be told it matters."
+    weaknesses: ["light", "memory"]
+    resistances: ["shadow", "silence_element"]
+
+  - id: wabi
+    name: "Wabi"
+    japanese_name: "侘"
+    category: emotion
+    description: >
+      The spirit of imperfect beauty. It appears near broken things -
+      cracked pottery, peeling paint, a garden left wild. It sees the
+      beauty in decay and incompleteness that others miss. It manifests
+      as a warm contentment that settles over imperfect spaces, making
+      the cracks glow gold, making the weeds look like wild gardens,
+      making the old feel timeless rather than tired.
+    element_affinity: earth
+    base_hp: 50
+    base_attack: 5
+    base_defense: 20
+    spirit_level: 5
+    abilities:
+      - golden_repair
+      - imperfect_beauty
+      - wabi_sabi_shield
+      - embrace_the_crack
+    negotiation_preferences:
+      likes: ["broken things", "imperfection", "kintsugi", "honest effort"]
+      dislikes: ["perfectionism", "disposal culture", "hiding flaws"]
+      gift_preferences: ["broken_pottery", "wilted_flower", "honest_effort"]
+    befriendable: true
+    bond_ability: "Kintsugi Heart - Can repair spirit-damaged objects. Repaired items gain spirit resonance. Failed crafting produces better 'curious' items."
+    lore_fragments:
+      - "It was born the first time someone looked at something broken and thought: 'beautiful.'"
+      - "It considers the concept of perfection to be the saddest idea humans ever invented."
+      - "It lives in the cracks. Not because it has to. Because the cracks are where the light gets in."
+    habitat: "Old buildings, gardens, places with character"
+    encounter_conditions:
+      min_permeability: 0.1
+      min_ma: 15
+    personality: "Serene, accepting, profoundly gentle. Finds beauty everywhere."
+    weaknesses: ["fire"]
+    resistances: ["earth", "memory", "silence_element"]

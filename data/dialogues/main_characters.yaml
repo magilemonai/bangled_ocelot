@@ -1,0 +1,1968 @@
+# =============================================================================
+# Ma no Kuni - Main Character Dialogues
+#
+# Each dialogue tree is a conversation that breathes.
+# Stage directions are enclosed in *asterisks*.
+# Silence is always an option. Sometimes it is the only right one.
+# Spirit whispers bleed through when perception allows.
+# =============================================================================
+
+dialogue_trees:
+
+  # ===========================================================================
+  # OBAA-CHAN (Grandmother Haruki) - Evening Conversations
+  # ===========================================================================
+
+  - id: obaa_chan_evening
+    npc_id: obaa_chan
+    title: "Quiet Evenings with Grandmother"
+    description: >
+      Triggered when Aoi is home in the evening. The living room, the tea,
+      the cat on the cushion. These are the moments that hold the world together.
+    entry_node: evening_start
+    priority: 5
+    one_shot: false
+    tags: [family, home, ma, evening]
+    conditions:
+      - type: time_of_day
+        times: [evening, midnight]
+
+    nodes:
+      - id: evening_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The living room is warm. Obaa-chan has set out two cups of tea --
+              she always knows when you're coming home. Mikan is curled on the
+              cushion between your usual spots, purring in that low, harmonic way
+              that makes the air feel thicker. Softer.
+            tone: gentle
+            stage_direction:
+              text: "*The steam from the tea traces shapes in the lamplight.*"
+              pause: 2.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "You're home."
+            tone: warm
+            stage_direction:
+              text: "*She doesn't look up from her sewing, but she smiles.*"
+            spirit_whisper:
+              text: >
+                (The garden spirits press close to the walls of the house.
+                They are listening. They always listen when she speaks.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: cryptic
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Sit. The tea won't stay warm forever."
+            tone: gentle
+            pause_after: 1.5
+
+        choices:
+          - id: evening_sit_quietly
+            text: ""
+            display_text: "[Sit down. Say nothing. Let the quiet settle.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_silence
+            effects:
+              - type: modify_ma
+                amount: 5.0
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: understanding
+                amount: 0.05
+            stage_direction:
+              text: >
+                *You sit. The cushion is warm -- Mikan was sleeping on it
+                earlier. The tea is exactly the right temperature. Outside,
+                the garden rustles with something that isn't wind.*
+
+          - id: evening_tell_about_day
+            text: "I saw something today, Obaa-chan. In the old district."
+            tone: curious
+            next_node: evening_tell_story
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: trust
+                amount: 0.03
+
+          - id: evening_ask_about_garden
+            text: "The garden feels different lately. Have you noticed?"
+            tone: curious
+            next_node: evening_garden_talk
+            conditions:
+              - type: stat_min
+                stat: perception
+                minimum: 6
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: understanding
+                amount: 0.04
+
+          - id: evening_ask_about_parents
+            text: "Obaa-chan... have they called?"
+            tone: vulnerable
+            next_node: evening_parents
+            conditions:
+              - type: flag_not_set
+                flag: asked_about_parents_today
+            effects:
+              - type: set_flag
+                flag: asked_about_parents_today
+              - type: modify_emotion
+                emotion: melancholy
+                intensity: 0.3
+
+      # -- Silence path (the ma choice) --
+      - id: evening_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You sit together. The tea cools by a degree, then another.
+              Mikan shifts in his sleep, paws twitching. Obaa-chan's needle
+              moves in and out of the fabric with a rhythm like breathing.
+            tone: gentle
+            stage_direction:
+              text: "*Minutes pass. They feel like hours. They feel like seconds.*"
+              pause: 3.0
+
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              This is what ma feels like -- the space between words where
+              something larger than language lives. Your grandmother taught
+              you this without ever saying a word about it.
+            tone: gentle
+            spirit_whisper:
+              text: >
+                (The spirits in the garden settle closer. One of them -- small,
+                round, luminous -- presses against the window glass like a child
+                watching a family through the light.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 3
+              tone: gentle
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "...Good."
+            tone: warm
+            stage_direction:
+              text: >
+                *She says it like a full sentence. Like a paragraph.
+                Like everything that needs to be said.*
+            pause_after: 2.0
+
+        choices:
+          - id: silence_continue
+            text: ""
+            display_text: "[Stay in the quiet a while longer.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_deep_silence
+            effects:
+              - type: modify_ma
+                amount: 10.0
+              - type: modify_emotion
+                emotion: calm
+                intensity: 0.4
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: affinity
+                amount: 0.05
+
+          - id: silence_break_gently
+            text: "Thank you, Obaa-chan."
+            tone: warm
+            next_node: evening_end_warm
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: affinity
+                amount: 0.03
+
+      - id: evening_deep_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The room fills with something you can't name. It isn't silence
+              exactly -- it's what silence protects. The feeling of being
+              known so completely that nothing needs to be explained.
+            tone: gentle
+            stage_direction:
+              text: >
+                *Mikan opens one eye, looks at you, looks at Obaa-chan,
+                and closes it again. Satisfied.*
+              pause: 2.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "You've always understood this, Aoi. Even as a child."
+            tone: warm
+            stage_direction:
+              text: "*Her voice is very quiet. Like she's telling you a secret.*"
+            spirit_whisper:
+              text: >
+                (She almost says something else. You can feel the words
+                gathering behind her lips like spirits at a threshold.
+                But she lets them go. Not yet.)
+              conditions:
+                - type: stat_min
+                  stat: empathy
+                  minimum: 7
+              tone: cryptic
+
+        choices:
+          - id: deep_silence_end
+            text: ""
+            display_text: "[Let the evening end naturally. Some moments are complete.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_end_ma
+            effects:
+              - type: modify_ma
+                amount: 15.0
+              - type: record_memory
+                memory_id: evening_silence_with_grandmother
+                description: "A quiet evening with Obaa-chan. Nothing was said. Everything was understood."
+                significance: notable
+                participants: [obaa_chan, mikan]
+
+      # -- Story-telling path --
+      - id: evening_tell_story
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Oh?"
+            tone: curious
+            stage_direction:
+              text: >
+                *Her needle pauses. Just for a moment. Then continues.
+                But you caught it -- that flicker of something sharper
+                than curiosity.*
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Tell me."
+            tone: gentle
+            pause_after: 1.0
+            spirit_whisper:
+              text: >
+                (She knows. She already knows. Watch her hands --
+                they're steady, but the thread trembles.)
+              conditions:
+                - type: stat_min
+                  stat: perception
+                  minimum: 8
+              tone: cryptic
+
+        choices:
+          - id: tell_about_spirit
+            text: "There was something in the old shrine. Not a person. Not an animal. Something... between."
+            tone: vulnerable
+            next_node: evening_grandmother_knows
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: trust
+                amount: 0.05
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: understanding
+                amount: 0.03
+
+          - id: tell_vaguely
+            text: "I thought I saw something. It was probably nothing."
+            tone: neutral
+            next_node: evening_grandmother_waits
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: trust
+                amount: -0.02
+
+      - id: evening_grandmother_knows
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Between."
+            tone: gentle
+            stage_direction:
+              text: >
+                *She sets down her sewing. She does this so rarely that
+                when it happens, you pay attention.*
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              When I was young -- younger than you -- my grandmother
+              told me that the world has thin places. Places where what's
+              here and what's... elsewhere... almost touch. She said they
+              were like the spaces between the threads in fabric.
+            tone: warm
+            stage_direction:
+              text: "*She touches the fabric in her lap.*"
+            pause_after: 1.5
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "She said the threads have been loosening for a long time."
+            tone: cryptic
+            stage_direction:
+              text: >
+                *Mikan raises his head. Stares at Obaa-chan. Stares at
+                the garden door. The purring has stopped.*
+
+        choices:
+          - id: grandmother_press
+            text: "Obaa-chan, what do you know about this?"
+            tone: firm
+            next_node: evening_grandmother_deflects
+            effects:
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: trust
+                amount: 0.02
+
+          - id: grandmother_listen
+            text: ""
+            display_text: "[Wait. Let her continue in her own time.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_grandmother_opens
+            effects:
+              - type: modify_ma
+                amount: 5.0
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: understanding
+                amount: 0.06
+
+      - id: evening_grandmother_opens
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You wait. The room waits with you. Obaa-chan looks at
+              her hands for a long time.
+            tone: gentle
+            stage_direction:
+              text: "*When she speaks again, her voice is different. Older. More careful.*"
+              pause: 3.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              You have your great-grandmother's eyes, Aoi. Not the color.
+              The way they look at things. The way they see what's behind
+              what's in front.
+            tone: warm
+            spirit_whisper:
+              text: >
+                (The garden is completely still. Every spirit within earshot
+                has gone quiet. They are listening to her the way the shore
+                listens to the tide.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: gentle
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Be careful with those eyes. They show you true things. But true things are heavy."
+            tone: gentle
+            pause_after: 2.0
+
+        effects_on_enter:
+          - type: set_flag
+            flag: grandmother_spoke_of_eyes
+          - type: record_memory
+            memory_id: grandmother_eyes_warning
+            description: "Obaa-chan spoke of great-grandmother's eyes. A warning wrapped in love."
+            significance: important
+            participants: [obaa_chan]
+        is_terminal: true
+
+      - id: evening_grandmother_deflects
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "I know that the tea is getting cold."
+            tone: gentle
+            stage_direction:
+              text: >
+                *She picks up her sewing again. The moment closes like
+                a door -- gently, but firmly. She's not ready. Or you're not.*
+            pause_after: 1.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Drink your tea, Aoi. We'll talk more another evening."
+            tone: warm
+        is_terminal: true
+
+      - id: evening_grandmother_waits
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Mm."
+            tone: neutral
+            stage_direction:
+              text: >
+                *The smallest sound. Not agreement, not dismissal. An
+                acknowledgment that you spoke and chose not to say what
+                you meant. She heard both.*
+            pause_after: 2.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "When you want to tell me, I'll be here."
+            tone: warm
+        effects_on_enter:
+          - type: set_flag
+            flag: held_back_from_grandmother
+        is_terminal: true
+
+      # -- Garden path --
+      - id: evening_garden_talk
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Different."
+            tone: neutral
+            stage_direction:
+              text: "*She repeats the word like she's tasting it.*"
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              The persimmon tree bloomed two weeks early. The moss is
+              growing in patterns I've never seen. And Mikan... Mikan
+              has been guarding the north wall every night.
+            tone: gentle
+            stage_direction:
+              text: >
+                *At the mention of his name, Mikan's ears rotate toward
+                Obaa-chan without the rest of him moving.*
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "I think the garden has visitors."
+            tone: cryptic
+            spirit_whisper:
+              text: >
+                (She knows exactly what the visitors are. She has been
+                leaving offerings by the persimmon tree for thirty years.)
+              conditions:
+                - type: stat_min
+                  stat: perception
+                  minimum: 7
+              tone: cryptic
+
+        choices:
+          - id: garden_ask_visitors
+            text: "Visitors? What kind?"
+            tone: curious
+            next_node: evening_garden_visitors
+          - id: garden_offer_help
+            text: "Should I check on the garden? I could... look."
+            tone: hopeful
+            next_node: evening_garden_offer
+            conditions:
+              - type: spirit_sight_level
+                minimum: 1
+          - id: garden_silence
+            text: ""
+            display_text: "[Look toward the garden. Listen.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_garden_listen
+            effects:
+              - type: modify_ma
+                amount: 5.0
+
+      - id: evening_garden_visitors
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "The good kind. The kind that have always been here, just... quieter before."
+            tone: warm
+            stage_direction:
+              text: "*She looks toward the garden door with an expression you've never seen -- or never noticed.*"
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Don't worry about them. They're family too, in their way."
+            tone: gentle
+        effects_on_enter:
+          - type: set_flag
+            flag: grandmother_mentioned_garden_spirits
+        is_terminal: true
+
+      - id: evening_garden_offer
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: ""
+            tone: silence
+            stage_direction:
+              text: >
+                *She looks at you. Really looks at you. Her eyes are bright
+                and deep and old. For a moment you see something in them that
+                is not surprise but recognition.*
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Yes. I think... yes. Go look, Aoi. But gently."
+            tone: warm
+        effects_on_enter:
+          - type: set_flag
+            flag: grandmother_approved_garden_visit
+          - type: modify_relationship
+            npc_id: obaa_chan
+            axis: trust
+            amount: 0.05
+        is_terminal: true
+
+      - id: evening_garden_listen
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You turn toward the garden. Through the glass door, the
+              garden is a dark tapestry of shadows and moonlight. The
+              persimmon tree sways in a wind you can't feel from here.
+            tone: gentle
+            spirit_whisper:
+              text: >
+                (They are there. Dozens of tiny lights, like fireflies but
+                steadier, clustered around the roots of the persimmon tree.
+                One of them turns toward the house. Toward you.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 1
+              tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "You hear it too, don't you."
+            tone: warm
+            stage_direction:
+              text: "*It is not a question.*"
+        effects_on_enter:
+          - type: modify_ma
+            amount: 8.0
+          - type: spirit_sight_xp
+            amount: 2.0
+        is_terminal: true
+
+      # -- Parents path --
+      - id: evening_parents
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The question hangs in the air. You watch the steam from
+              your tea curl and disperse. Mikan's ears flatten slightly.
+            tone: sad
+            stage_direction:
+              text: "*Obaa-chan's needle stops. This time it does not resume.*"
+              pause: 2.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Not today."
+            tone: gentle
+            pause_after: 1.0
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "But they will, Aoi. In their time."
+            tone: warm
+            stage_direction:
+              text: >
+                *She reaches across Mikan and rests her hand over yours.
+                Her fingers are cool and thin and steady.*
+
+        choices:
+          - id: parents_accept
+            text: "...Okay."
+            tone: sad
+            next_node: evening_end_warm
+            effects:
+              - type: modify_emotion
+                emotion: melancholy
+                intensity: 0.2
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: affinity
+                amount: 0.03
+
+          - id: parents_anger
+            text: "It's been months, Obaa-chan."
+            tone: angry
+            next_node: evening_parents_anger
+            effects:
+              - type: modify_emotion
+                emotion: anxious
+                intensity: 0.3
+
+          - id: parents_silence
+            text: ""
+            display_text: "[Let her hand stay on yours. Say nothing.]"
+            tone: silence
+            is_silence: true
+            next_node: evening_end_warm
+            effects:
+              - type: modify_ma
+                amount: 5.0
+              - type: modify_emotion
+                emotion: melancholy
+                intensity: 0.15
+              - type: modify_relationship
+                npc_id: obaa_chan
+                axis: understanding
+                amount: 0.04
+
+      - id: evening_parents_anger
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "I know."
+            tone: gentle
+            pause_after: 1.5
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              I know, Aoi. I'm not going to tell you it's okay, because
+              it isn't. But I am going to tell you that I'm here. Mikan is
+              here. This house is here.
+            tone: warm
+            stage_direction:
+              text: >
+                *She squeezes your hand. Mikan, sensing the shift in the room,
+                stands up and walks into your lap. Sits down. Refuses to move.*
+
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "And that isn't nothing."
+            tone: firm
+        effects_on_enter:
+          - type: record_memory
+            memory_id: grandmother_anchor
+            description: "When the anger about my parents rose, Obaa-chan held steady. She always holds steady."
+            significance: important
+            participants: [obaa_chan, mikan]
+        is_terminal: true
+
+      # -- Endings --
+      - id: evening_end_warm
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The evening settles around you like a blanket. The tea,
+              the cat, the quiet sounds of the house. Tomorrow the world
+              will be complicated again. But right now, this room is enough.
+            tone: gentle
+            stage_direction:
+              text: "*Obaa-chan returns to her sewing. The needle catches the light.*"
+        is_terminal: true
+
+      - id: evening_end_ma
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Later, you won't remember who fell asleep first. Only that
+              the room was warm, and the tea was good, and Mikan purred
+              the both of you into a darkness that held no shadows.
+            tone: gentle
+            stage_direction:
+              text: "*The garden spirits keep watch until dawn.*"
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+        effects_on_enter:
+          - type: modify_ma
+            amount: 5.0
+          - type: modify_emotion
+            emotion: calm
+            intensity: 0.5
+        is_terminal: true
+
+  # ===========================================================================
+  # MIKAN - The Cat Who Sees
+  # ===========================================================================
+
+  - id: mikan_interact
+    npc_id: mikan
+    title: "Mikan"
+    description: >
+      Mikan the cat sits on the engawa, watching things that may or may
+      not be there. Cats have always seen both worlds.
+    entry_node: mikan_start
+    priority: 5
+    one_shot: false
+    tags: [pet, home, spirit]
+
+    nodes:
+      - id: mikan_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Mikan looks up at you with those enormous amber eyes.
+              He purrs — a deep, resonant sound that seems to vibrate
+              in frequencies you can almost see.
+            tone: gentle
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              His gaze drifts to something just past your shoulder.
+              Something you can't quite see. Then he yawns, stretches,
+              and settles back down.
+            tone: mysterious
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Cats have always lived between worlds. Mikan more than most.
+            tone: contemplative
+        is_terminal: true
+        effects:
+          - type: ma
+            amount: 2.0
+
+  # ===========================================================================
+  # OBAA-CHAN (Grandmother Haruki) - Garden Morning
+  # ===========================================================================
+
+  - id: obaa_chan_garden
+    npc_id: obaa_chan
+    title: "Morning in the Garden"
+    description: >
+      The first conversation with grandmother. She is tending the garden
+      and notices that something has changed about Aoi.
+    entry_node: garden_start
+    priority: 10
+    one_shot: false
+    tags: [family, home, garden, introduction]
+
+    nodes:
+      - id: garden_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Grandmother is kneeling among the flowers, her hands
+              dark with earth. She looks up as you approach — and
+              something in her expression shifts. As if she can see
+              something new in you.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Ah, Aoi. You're up early. Come, sit with me a moment."
+            tone: warm
+        choices:
+          - id: ask_about_seeing
+            text: "Obaa-chan... I've been seeing things. Strange shapes."
+            tone: vulnerable
+            next_node: seeing_things
+          - id: ask_about_garden
+            text: "The garden looks different today."
+            tone: curious
+            next_node: garden_different
+          - id: morning_silence
+            text: ""
+            display_text: "[Sit beside her in silence.]"
+            tone: silence
+            next_node: sit_in_silence
+
+      - id: seeing_things
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: "Seeing things?"
+            tone: careful
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              She pauses. Her hands still in the earth. For a long moment
+              she is very quiet, and in that quiet you feel something
+              vast and patient, like the garden itself is listening.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "The world has many layers, Aoi. Like soil.
+              Most people only see the surface. But some of us...
+              we see deeper."
+            tone: knowing
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Don't be afraid of what you see. The spirits have
+              always been here. They're just... closer now."
+            tone: warm
+        is_terminal: true
+        effects:
+          - type: flag
+            flag: grandmother_told_about_spirits
+            value: true
+          - type: ma
+            amount: 5.0
+
+      - id: garden_different
+        lines:
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Does it? Perhaps it does."
+            tone: amused
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              She brushes earth from a small stone at the garden's edge.
+              For just a moment — less than a heartbeat — you think you
+              see the stone glow with a faint, warm light.
+            tone: mysterious
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "The garden has always been special. Your grandfather
+              knew that. I think... you're beginning to understand it too."
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "Why don't you explore a little? Walk the path to the
+              arcade gate. But pay attention, Aoi. Really pay attention."
+            tone: encouraging
+        is_terminal: true
+        effects:
+          - type: flag
+            flag: grandmother_suggested_explore
+            value: true
+
+      - id: sit_in_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You sit beside her. The garden breathes. Somewhere a
+              bird calls and is answered by something that is almost,
+              but not quite, a bird. Grandmother's hands move through
+              the earth with the patience of seasons.
+            tone: contemplative
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              After a while, she speaks without looking up.
+            tone: gentle
+          - speaker: obaa_chan
+            speaker_type: npc
+            text: >
+              "You feel it too, don't you? The humming."
+            tone: quiet
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You do. You always have. But today, for the first time,
+              you understand that it isn't just the wind.
+            tone: revelation
+        is_terminal: true
+        effects:
+          - type: ma
+            amount: 8.0
+          - type: flag
+            flag: shared_silence_grandmother
+            value: true
+
+  # ===========================================================================
+  # REN - First Meeting at the Shrine
+  # ===========================================================================
+
+  - id: ren_first_meeting
+    npc_id: ren
+    title: "The Shrine Keeper Who Was Always Right"
+    description: >
+      Aoi visits Kanda Shrine and encounters Ren for the first time.
+      Ren is abrasive, defensive, and deeply wounded. This is not an
+      easy conversation. But the best things rarely are.
+    entry_node: ren_meet_start
+    priority: 10
+    one_shot: true
+    tags: [first_meeting, shrine, kanda, ren]
+    conditions:
+      - type: flag_not_set
+        flag: met_ren
+
+    nodes:
+      - id: ren_meet_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              Kanda Shrine sits at the top of worn stone steps, between
+              two convenience stores and above a ramen shop. The torii
+              gate is faded vermillion, paint peeling in strips that look
+              almost deliberate. Someone is sweeping the path with the
+              intensity of a person who is angry at the dirt personally.
+            tone: neutral
+            spirit_whisper:
+              text: >
+                (The shrine hums. Not with sound -- with presence. Something
+                ancient watches from beneath the gate, and it has been watching
+                for a very long time.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 1
+              tone: cryptic
+
+          - speaker: ren
+            speaker_type: npc
+            text: "If you're here for a charm, the box is by the office. If you're here to gawk, don't."
+            tone: cold
+            stage_direction:
+              text: >
+                *They don't look up. The broom moves in sharp, precise arcs.
+                Their shrine keeper's outfit is slightly too big, sleeves
+                rolled to the elbows. There's ink on their fingers.*
+
+        choices:
+          - id: ren_apologize
+            text: "Sorry, I didn't mean to interrupt. I just... felt something here."
+            tone: gentle
+            next_node: ren_meet_felt
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.03
+
+          - id: ren_direct
+            text: "You can see them too, can't you?"
+            tone: firm
+            next_node: ren_meet_direct
+            conditions:
+              - type: spirit_sight_level
+                minimum: 1
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.05
+
+          - id: ren_observe
+            text: ""
+            display_text: "[Watch them sweep. Wait.]"
+            tone: silence
+            is_silence: true
+            next_node: ren_meet_observe
+            effects:
+              - type: modify_ma
+                amount: 3.0
+
+      - id: ren_meet_felt
+        lines:
+          - speaker: ren
+            speaker_type: npc
+            text: "Felt something."
+            tone: cold
+            stage_direction:
+              text: "*The broom stops. They look at you for the first time.*"
+
+          - speaker: ren
+            speaker_type: npc
+            text: >
+              Right. Sure. Everyone 'feels something' now. Three months ago
+              I was the crazy shrine kid who talked to the air. Now suddenly
+              everyone's spiritual.
+            tone: angry
+            stage_direction:
+              text: >
+                *Their grip on the broom tightens. There's real pain under
+                the anger, layered and old.*
+            spirit_whisper:
+              text: >
+                (Behind them, at the base of the shrine, a fox-shaped spirit
+                watches with amber eyes. It looks at Ren with something
+                that might be sorrow.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: sad
+
+        choices:
+          - id: ren_understand
+            text: "You're right. I'm new to this. You're not. That must be... a lot."
+            tone: gentle
+            next_node: ren_meet_crack
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.08
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.04
+
+          - id: ren_defend
+            text: "I'm not like the others. This isn't a trend for me."
+            tone: firm
+            next_node: ren_meet_defense
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.02
+
+          - id: ren_silence_felt
+            text: ""
+            display_text: "[Hold their gaze. Don't defend. Don't explain.]"
+            tone: silence
+            is_silence: true
+            next_node: ren_meet_crack
+            effects:
+              - type: modify_ma
+                amount: 5.0
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.06
+
+      - id: ren_meet_direct
+        lines:
+          - speaker: ren
+            speaker_type: npc
+            text: ""
+            tone: silence
+            stage_direction:
+              text: >
+                *The broom clatters to the stone. They stare at you.
+                Not with hostility now -- with something raw and searching,
+                like someone who has been shouting into a void and just
+                heard the void shout back.*
+              pause: 2.0
+
+          - speaker: ren
+            speaker_type: npc
+            text: "How long?"
+            tone: vulnerable
+            pause_after: 1.0
+
+        choices:
+          - id: ren_honest_new
+            text: "Not long. A few weeks. It started with flickering at the edges."
+            tone: vulnerable
+            next_node: ren_meet_crack
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.06
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.05
+
+          - id: ren_honest_always
+            text: "I'm not sure. Maybe always, a little. But only clearly since the thinning."
+            tone: vulnerable
+            next_node: ren_meet_kinship
+            conditions:
+              - type: stat_min
+                stat: spirit_affinity
+                minimum: 6
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.08
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.08
+
+      - id: ren_meet_observe
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You stand at the edge of the path. Ren sweeps. The shrine
+              breathes around you both. Minutes pass. The rhythm of the
+              broom is almost meditative -- almost, except for the sharp
+              snap at the end of each stroke that gives the anger away.
+            tone: neutral
+            stage_direction:
+              text: "*Finally, without looking up:*"
+              pause: 3.0
+
+          - speaker: ren
+            speaker_type: npc
+            text: "You're still here."
+            tone: neutral
+
+          - speaker: ren
+            speaker_type: npc
+            text: "Most people leave when I'm rude to them. That's usually the point."
+            tone: cold
+            stage_direction:
+              text: "*A ghost of a smile. Gone before you can be sure it was there.*"
+
+        choices:
+          - id: ren_observe_stay
+            text: "I'm not most people."
+            tone: firm
+            next_node: ren_meet_crack
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.05
+
+          - id: ren_observe_honest
+            text: "I didn't have anywhere else to be."
+            tone: vulnerable
+            next_node: ren_meet_crack
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.06
+
+      - id: ren_meet_crack
+        lines:
+          - speaker: ren
+            speaker_type: npc
+            text: "..."
+            tone: silence
+            stage_direction:
+              text: >
+                *Something shifts in their expression. Not a thaw --
+                that's too much to ask for -- but a crack. A thin line
+                of light in a wall that has been solid for years.*
+              pause: 2.0
+
+          - speaker: ren
+            speaker_type: npc
+            text: "I'm Ren. I keep the shrine. I've kept the shrine since I was old enough to hold a broom."
+            tone: neutral
+
+          - speaker: ren
+            speaker_type: npc
+            text: "And I've seen the spirits since before I could talk. If that matters to you."
+            tone: vulnerable
+            stage_direction:
+              text: "*They say it like a challenge. Like a test. Like a hand extended with the expectation of being slapped.*"
+
+        choices:
+          - id: ren_crack_respect
+            text: "It matters. I'm Aoi."
+            tone: warm
+            next_node: ren_meet_end
+            effects:
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.05
+              - type: modify_relationship
+                npc_id: ren
+                axis: affinity
+                amount: 0.04
+
+          - id: ren_crack_silence
+            text: ""
+            display_text: "[Nod. Offer your name quietly: 'Aoi.']"
+            tone: silence
+            is_silence: true
+            next_node: ren_meet_end
+            effects:
+              - type: modify_ma
+                amount: 3.0
+              - type: modify_relationship
+                npc_id: ren
+                axis: trust
+                amount: 0.06
+              - type: modify_relationship
+                npc_id: ren
+                axis: understanding
+                amount: 0.04
+
+      - id: ren_meet_defense
+        lines:
+          - speaker: ren
+            speaker_type: npc
+            text: "That's what they all say."
+            tone: cold
+            stage_direction:
+              text: "*They resume sweeping. Harder than before.*"
+            pause_after: 1.5
+
+          - speaker: ren
+            speaker_type: npc
+            text: "Come back when you can show me, not just tell me."
+            tone: firm
+        effects_on_enter:
+          - type: set_flag
+            flag: ren_challenged_aoi
+        is_terminal: true
+
+      - id: ren_meet_kinship
+        lines:
+          - speaker: ren
+            speaker_type: npc
+            text: "Always. A little."
+            tone: vulnerable
+            stage_direction:
+              text: >
+                *They sit down on the shrine steps. Just -- collapse,
+                really. Like a string was cut. The broom leans against
+                the wall, forgotten.*
+              pause: 2.0
+
+          - speaker: ren
+            speaker_type: npc
+            text: >
+              Yeah. I know what that's like. That thing where you're not
+              sure if the shadow in the corner is real or if you're making
+              it up and then one day you realize it's been waving at you
+              for your entire life.
+            tone: vulnerable
+            stage_direction:
+              text: "*Something that might be a laugh. Might be a sob. Hard to tell.*"
+            spirit_whisper:
+              text: >
+                (The fox spirit at the shrine base uncurls and pads silently
+                to sit beside Ren. It presses its spectral flank against
+                their leg. Ren's hand drops to where it would be, if they
+                could feel it. Maybe they can.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: gentle
+
+          - speaker: ren
+            speaker_type: npc
+            text: "I'm Ren."
+            tone: neutral
+            pause_after: 1.0
+        auto_advance: ren_meet_end
+
+      - id: ren_meet_end
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The shrine settles. The wind moves through the torii gate,
+              carrying something older than sound. You've made a beginning.
+              Not a friendship -- Ren isn't ready for that word. But a
+              crack in a wall. And sometimes that's where the light gets in.
+            tone: hopeful
+            spirit_whisper:
+              text: >
+                (The shrine guardian watches from the shadows. For the first
+                time in years, it relaxes. Just slightly.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: gentle
+        effects_on_enter:
+          - type: set_flag
+            flag: met_ren
+          - type: record_memory
+            memory_id: first_meeting_ren
+            description: "Met Ren at Kanda Shrine. Angry, wounded, real. Something started there."
+            significance: important
+            participants: [ren]
+        is_terminal: true
+
+  # ===========================================================================
+  # YUKI - Konbini Spirit Commerce
+  # ===========================================================================
+
+  - id: yuki_konbini_intro
+    npc_id: yuki
+    title: "The Konbini Between Worlds"
+    description: >
+      First visit to Yuki's konbini. The fluorescent lights flicker.
+      The shelves hold things that shouldn't exist. Yuki handles it
+      like she handles everything: with practical grace.
+    entry_node: konbini_enter
+    priority: 10
+    one_shot: true
+    tags: [first_meeting, konbini, yuki, spirits, commerce]
+    conditions:
+      - type: flag_not_set
+        flag: met_yuki
+
+    nodes:
+      - id: konbini_enter
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The automatic doors open with their familiar chime. Inside,
+              fluorescent lights buzz overhead. It looks like every other
+              konbini in Tokyo -- the magazine rack, the bento shelf, the
+              coffee machine humming in the corner. Then you notice the
+              second set of shelves.
+            tone: neutral
+
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              They're labeled in handwritten characters: "Spirit-Side Goods."
+              The items on them shimmer slightly, as if they exist at a
+              different frequency than the rest of the store. A small sign
+              reads: "If you can see these, you're in the right place.
+              If you can't, please enjoy our regular selection."
+            tone: curious
+            spirit_whisper:
+              text: >
+                (The air in this shop is layered. There are at least three
+                small spirits browsing the spirit shelves. One of them is
+                trying to read a magazine with tiny, luminous hands.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 1
+              tone: playful
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "Welcome. First time?"
+            tone: neutral
+            stage_direction:
+              text: >
+                *Behind the counter, a woman in her late twenties looks up
+                from a battered notebook. She has the calm, assessing eyes
+                of someone who has been surprised too many times to be
+                surprised anymore.*
+
+        choices:
+          - id: konbini_about_shelves
+            text: "Are those... spirit goods? You sell things to spirits?"
+            tone: curious
+            next_node: konbini_spirit_goods
+
+          - id: konbini_act_normal
+            text: "Just browsing. Nice shop."
+            tone: neutral
+            next_node: konbini_normal
+
+          - id: konbini_overwhelmed
+            text: ""
+            display_text: "[Stand in the doorway. Take it all in.]"
+            tone: silence
+            is_silence: true
+            next_node: konbini_observe
+            effects:
+              - type: modify_ma
+                amount: 2.0
+
+      - id: konbini_spirit_goods
+        lines:
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              Sell is a strong word. They browse. Some of them pay. The currency
+              is... irregular.
+            tone: playful
+            stage_direction:
+              text: >
+                *She holds up a small wooden box behind the counter.
+                Inside: a pearl that glows faintly, three acorns that
+                hum when touched, and what appears to be a captured
+                sunset the size of a marble.*
+
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              I haven't figured out the exchange rate yet, but I'm working on it.
+              My uncle left me this shop and apparently forgot to mention it
+              was built on a... what did the last spirit call it?
+            tone: neutral
+            pause_after: 0.5
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "A 'convergence of ley currents.' Whatever that means in zoning terms."
+            tone: playful
+            stage_direction:
+              text: "*She says it completely deadpan. This is Yuki's humor -- you learn to listen for it.*"
+
+        choices:
+          - id: konbini_ask_uncle
+            text: "Your uncle knew about the spirits?"
+            tone: curious
+            next_node: konbini_uncle
+
+          - id: konbini_ask_help
+            text: "This is incredible. How can I help?"
+            tone: hopeful
+            next_node: konbini_help
+            effects:
+              - type: modify_relationship
+                npc_id: yuki
+                axis: affinity
+                amount: 0.05
+
+          - id: konbini_admire
+            text: "You're handling this remarkably well."
+            tone: warm
+            next_node: konbini_handling
+            effects:
+              - type: modify_relationship
+                npc_id: yuki
+                axis: affinity
+                amount: 0.03
+
+      - id: konbini_normal
+        lines:
+          - speaker: yuki
+            speaker_type: npc
+            text: "Uh-huh."
+            tone: neutral
+            stage_direction:
+              text: >
+                *She watches you not look at the spirit shelves.
+                She watches you carefully not react when something
+                invisible bumps into your elbow on aisle two.*
+
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              Look. I do this thing where I pretend the spirit shelves
+              don't exist if the customer pretends. But you walked in
+              here and your eyes went straight to them. So let's skip
+              the part where we both pretend.
+            tone: direct
+            stage_direction:
+              text: "*She puts down her pen. Full attention.*"
+        auto_advance: konbini_spirit_goods
+
+      - id: konbini_observe
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You stand in the doorway and let the konbini wash over you.
+              The fluorescent hum. The faint, sweet smell of nikuman in
+              the warmer. And underneath all of it, a vibration -- like
+              the store itself is breathing.
+            tone: curious
+            spirit_whisper:
+              text: >
+                (Two spirits are having what appears to be a polite
+                disagreement over the last melon bread. A third, perched
+                on top of the magazine rack, is reading a manga upside down.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 2
+              tone: playful
+            stage_direction:
+              text: "*Yuki watches you take it all in. She nods slowly.*"
+              pause: 2.0
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "You can see them."
+            tone: neutral
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "Good. I have questions."
+            tone: firm
+        auto_advance: konbini_spirit_goods
+
+      - id: konbini_uncle
+        lines:
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              Apparently. He left a notebook. Half of it is normal business
+              records -- inventory, expenses, that kind of thing. The other half
+              is... diagrams. Spirit names. Lunar calendars with annotations.
+              Rules for things I didn't know had rules.
+            tone: neutral
+            stage_direction:
+              text: "*She taps the battered notebook on the counter.*"
+
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              He died two years before the permeation. So either he was preparing
+              for something, or he was the most creative accountant in Chiyoda ward.
+            tone: neutral
+            spirit_whisper:
+              text: >
+                (Under the counter, pressed against the wall, a tanuki spirit
+                dozes. It has been here longer than Yuki. Longer than her uncle.
+                It smells of incense and old wood.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 3
+              tone: gentle
+        effects_on_enter:
+          - type: set_flag
+            flag: learned_about_yukis_uncle
+        is_terminal: true
+
+      - id: konbini_help
+        lines:
+          - speaker: yuki
+            speaker_type: npc
+            text: "Help?"
+            tone: curious
+            stage_direction:
+              text: >
+                *She blinks. This is clearly not a response she expected.
+                People don't usually volunteer at a convenience store.*
+
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              You know what, I won't say no. I can't see the spirits clearly --
+              just heat shimmer, like looking at pavement in August. If you can
+              actually see them, you might be able to tell me what they want
+              before they start rearranging my shelves.
+            tone: warm
+            stage_direction:
+              text: >
+                *She extends a hand across the counter. Her grip is firm
+                and practical.*
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "I'm Yuki. The onigiri is on the house."
+            tone: warm
+        effects_on_enter:
+          - type: set_flag
+            flag: offered_to_help_yuki
+          - type: modify_relationship
+            npc_id: yuki
+            axis: trust
+            amount: 0.06
+          - type: modify_relationship
+            npc_id: yuki
+            axis: affinity
+            amount: 0.05
+          - type: record_memory
+            memory_id: first_meeting_yuki
+            description: "Met Yuki at the konbini. Offered to help. She gave me onigiri. A pragmatic beginning."
+            significance: notable
+            participants: [yuki]
+          - type: set_flag
+            flag: met_yuki
+        is_terminal: true
+
+      - id: konbini_handling
+        lines:
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              What's the alternative? Close the shop? Move? The spirits were
+              here before me. If I left, they'd still be here, and someone
+              less organized would have to deal with them.
+            tone: neutral
+            pause_after: 1.0
+
+          - speaker: yuki
+            speaker_type: npc
+            text: >
+              Besides --
+            tone: warm
+            stage_direction:
+              text: >
+                *She glances at the spirit shelves. Something small and
+                glowing places a tiny coin -- no, a seed -- on the counter
+                and takes a wrapped candy.*
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "I think they need this place. And maybe I need them needing it."
+            tone: vulnerable
+            stage_direction:
+              text: "*She catches herself. Clears her throat. Returns to her notebook.*"
+
+          - speaker: yuki
+            speaker_type: npc
+            text: "Anyway. I'm Yuki. You?"
+            tone: neutral
+        effects_on_enter:
+          - type: set_flag
+            flag: met_yuki
+          - type: modify_relationship
+            npc_id: yuki
+            axis: understanding
+            amount: 0.05
+          - type: record_memory
+            memory_id: first_meeting_yuki
+            description: "Met Yuki at the konbini. She pretends not to care. She absolutely cares."
+            significance: notable
+            participants: [yuki]
+        is_terminal: true
+
+  # ===========================================================================
+  # THE ARCHIVIST - First Encounter
+  # ===========================================================================
+
+  - id: archivist_first_encounter
+    npc_id: the_archivist
+    title: "The Library Between Breaths"
+    description: >
+      Aoi finds the Archive -- or the Archive finds Aoi. A place that
+      exists in the pause between one thought and the next. The Archivist
+      waits inside, ancient and patient and frightened of something they
+      will not name.
+    entry_node: archive_arrival
+    priority: 10
+    one_shot: true
+    tags: [first_meeting, the_archive, archivist, spirit, major]
+    conditions:
+      - type: flag_not_set
+        flag: met_the_archivist
+      - type: spirit_sight_level
+        minimum: 3
+      - type: ma_min
+        minimum: 40.0
+
+    nodes:
+      - id: archive_arrival
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You don't walk into the Archive. You fall into it -- or
+              rather, a moment stretches, and you realize you are inside
+              the stretch. The space between two heartbeats opens like
+              a door, and there is a library on the other side.
+            tone: cryptic
+            stage_direction:
+              text: >
+                *The light here is the color of old paper. The air smells
+                of ink and rain and something older than either. Shelves
+                rise in every direction -- not just up, but sideways,
+                curving in geometries that the material world doesn't allow.*
+              pause: 3.0
+
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              The shelves do not hold books. They hold light -- soft orbs,
+              each one pulsing with a gentle rhythm, like fireflies dreaming.
+              Memories. Thousands upon thousands of memories, cataloged and
+              kept and cared for in this impossible place.
+            tone: cryptic
+            spirit_whisper:
+              text: >
+                (Every orb is a moment someone lived. You can feel them
+                pressing at your consciousness -- a child's first snow,
+                a kiss in a doorway, a grandmother singing, a city on fire,
+                a cat in a sunbeam. All of Tokyo, remembered.)
+              conditions:
+                - type: stat_min
+                  stat: perception
+                  minimum: 7
+              tone: gentle
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "You found the door."
+            tone: cryptic
+            stage_direction:
+              text: >
+                *The voice comes from everywhere and nowhere. Then it
+                gathers, condenses, and a figure steps from between
+                two shelves. Tall. Indistinct. Like a person drawn in
+                ink that hasn't quite dried -- the edges blur and shift.
+                But the eyes are sharp. Old and sharp and impossibly kind.*
+              pause: 2.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "Or perhaps the door found you. It does that sometimes."
+            tone: neutral
+
+        choices:
+          - id: archive_awe
+            text: "What is this place?"
+            tone: curious
+            next_node: archive_explanation
+
+          - id: archive_who
+            text: "Who are you?"
+            tone: curious
+            next_node: archive_identity
+
+          - id: archive_stillness
+            text: ""
+            display_text: "[Stand very still. Let the Archive speak for itself.]"
+            tone: silence
+            is_silence: true
+            next_node: archive_silence
+            effects:
+              - type: modify_ma
+                amount: 10.0
+              - type: modify_relationship
+                npc_id: the_archivist
+                axis: understanding
+                amount: 0.08
+
+      - id: archive_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You stand still. The Archive breathes around you. The memories
+              on the shelves pulse in a rhythm that gradually, impossibly,
+              syncs with your heartbeat. The Archivist watches. And then --
+              slowly, like dawn -- they smile.
+            tone: gentle
+            stage_direction:
+              text: >
+                *It is the smile of someone who has waited a very long time
+                to not have to explain.*
+              pause: 3.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              You understand ma. I thought you might. Your grandmother
+              understood it too, when she was young enough to visit.
+            tone: warm
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "She was braver than she knows. And you are more like her than you know."
+            tone: gentle
+            spirit_whisper:
+              text: >
+                (A memory orb drifts close -- inside it, a young woman with
+                Obaa-chan's eyes stands in this exact spot, hands trembling,
+                chin raised.)
+              conditions:
+                - type: stat_min
+                  stat: perception
+                  minimum: 8
+              tone: gentle
+        effects_on_enter:
+          - type: set_flag
+            flag: archivist_mentioned_grandmother
+          - type: record_memory
+            memory_id: archivist_grandmother_connection
+            description: "The Archivist knew Obaa-chan. She came here when she was young."
+            significance: defining
+            participants: [the_archivist, obaa_chan]
+        auto_advance: archive_bargain_intro
+
+      - id: archive_explanation
+        lines:
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "This is the Archive. Every memory Tokyo has ever held lives here."
+            tone: neutral
+            stage_direction:
+              text: >
+                *They gesture. The shelves seem to extend forever --
+                curving into distances that shouldn't exist in an indoor space.*
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              The first laugh in what would become Edo. The last breath of
+              every person who ever called this city home. The shape of every
+              building before it was demolished. The dreams of every cat who
+              ever slept in every sunbeam in every window.
+            tone: cryptic
+            pause_after: 1.5
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "I keep them. It is what I am for."
+            tone: neutral
+        auto_advance: archive_bargain_intro
+
+      - id: archive_identity
+        lines:
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "I am what remembers."
+            tone: cryptic
+            pause_after: 2.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              When the first storyteller in this place told a tale, and the
+              first listener remembered it, I came into being. I have been
+              here longer than the city has had a name. I will be here after
+              the name changes again.
+            tone: neutral
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              I am called the Archivist. It is not a name. It is a function.
+              But it will do.
+            tone: cryptic
+            stage_direction:
+              text: >
+                *They seem almost amused. As though having an identity is
+                a quaint human custom they've adopted out of politeness.*
+        auto_advance: archive_bargain_intro
+
+      - id: archive_bargain_intro
+        lines:
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "You have come here because the world is changing. I know."
+            tone: neutral
+            pause_after: 1.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              The veil thins. Spirits walk the material streets. Memories
+              are forming faster than I can catalog them. The Archive grows
+              and grows and I --
+            tone: neutral
+            stage_direction:
+              text: >
+                *A pause. In the Archivist, a pause is significant. They do
+                not pause by accident.*
+              pause: 2.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "I need help."
+            tone: vulnerable
+            stage_direction:
+              text: >
+                *The words cost them something. You can feel it -- a fissure
+                in something ancient and vast, admitting a weakness for the
+                first time in centuries.*
+
+        choices:
+          - id: archive_offer
+            text: "Tell me what you need."
+            tone: firm
+            next_node: archive_end
+            effects:
+              - type: modify_relationship
+                npc_id: the_archivist
+                axis: trust
+                amount: 0.06
+
+          - id: archive_careful
+            text: "Help from a human? What would that cost?"
+            tone: curious
+            next_node: archive_cost
+            effects:
+              - type: modify_relationship
+                npc_id: the_archivist
+                axis: understanding
+                amount: 0.04
+
+          - id: archive_compassion_silence
+            text: ""
+            display_text: "[Say nothing. Understand that this being just said the hardest thing it has ever said.]"
+            tone: silence
+            is_silence: true
+            next_node: archive_end
+            effects:
+              - type: modify_ma
+                amount: 8.0
+              - type: modify_relationship
+                npc_id: the_archivist
+                axis: understanding
+                amount: 0.1
+              - type: modify_relationship
+                npc_id: the_archivist
+                axis: trust
+                amount: 0.08
+
+      - id: archive_cost
+        lines:
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "Ah."
+            tone: neutral
+            stage_direction:
+              text: "*Something like respect in those ancient eyes.*"
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              A fair question. Nothing here is free -- that is the nature
+              of an archive. Everything given is something recorded. Every
+              answer costs a memory. But I deal in fair exchanges.
+            tone: neutral
+            pause_after: 1.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "I will never take a memory you cannot afford to lose."
+            tone: firm
+        auto_advance: archive_end
+
+      - id: archive_end
+        lines:
+          - speaker: the_archivist
+            speaker_type: npc
+            text: >
+              We will speak again. The door will open when you need it.
+              When the ma is deep enough, and your eyes are clear enough,
+              you will find your way back.
+            tone: neutral
+            stage_direction:
+              text: >
+                *The Archive begins to recede -- or rather, you begin to
+                return. The shelves of light grow distant. The Archivist's
+                form blurs at the edges, becoming part of the space between
+                spaces.*
+              pause: 2.0
+
+          - speaker: the_archivist
+            speaker_type: npc
+            text: "Be well, Aoi. Your file grows more interesting by the day."
+            tone: cryptic
+
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You blink. You are standing on a Tokyo street. The noise of
+              the city floods back -- traffic, voices, the distant chime
+              of a crossing signal. The Archive is gone. But you can still
+              feel it, like a room in a house you've always lived in that
+              you only just discovered.
+            tone: gentle
+            stage_direction:
+              text: "*Your hands are trembling. In your pocket, you find a single glowing seed that wasn't there before.*"
+        effects_on_enter:
+          - type: set_flag
+            flag: met_the_archivist
+          - type: set_flag
+            flag: has_archive_seed
+          - type: give_item
+            item_id: archive_seed
+            item_name: "Archive Seed"
+            description: "A small seed that glows with inner light. It pulses in rhythm with your heartbeat. The Archivist's gift."
+          - type: record_memory
+            memory_id: first_archive_visit
+            description: "Found the Archive. Met the Archivist -- an ancient spirit who remembers all of Tokyo. They asked for help. They were afraid."
+            significance: defining
+            participants: [the_archivist]
+          - type: spirit_sight_xp
+            amount: 10.0
+        is_terminal: true

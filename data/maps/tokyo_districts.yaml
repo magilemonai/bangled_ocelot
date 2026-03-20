@@ -1,0 +1,449 @@
+# Ma no Kuni - Tokyo Districts
+# Each district is a world unto itself, where material and spirit blend differently.
+
+districts:
+  - id: kichijoji
+    name: "Kichijoji"
+    japanese_name: "吉祥寺"
+    description: >
+      A warm residential neighborhood in western Tokyo. Home to Inokashira Park,
+      a beloved shopping arcade, and Aoi's grandmother's house. The spirit
+      permeation here feels gentle - household spirits peek from windows,
+      garden spirits tend flowers alongside humans, and the park is a major
+      spiritual nexus where the veil is thin enough to see through on clear days.
+    spirit_permeability_modifier: 0.1
+    danger_level: 1
+    dominant_spirit_types: [household, nature, garden]
+    connected_districts: [shibuya, shimokitazawa, shinjuku]
+    atmosphere:
+      dawn: "Morning light through grandmother's kitchen window. Mikan yawns. Small spirits stir in the garden."
+      morning: "The shopping arcade wakes. Shopkeepers set out displays. A tsukumogami stretches in a antique shop."
+      midday: "Inokashira Park hums with life - human and spirit. Paddle boats drift past sleeping kappa."
+      afternoon: "Shadows lengthen under the park trees. Kodama begin to whisper."
+      dusk: "The golden hour. Grandmother's house glows. Every garden spirit is visible to Aoi."
+      evening: "Quiet streets. Lanterns (some spirit, some not) light the way home."
+      midnight: "The park becomes a spirit gathering. From grandmother's window, Aoi can see them dance."
+      witching: "Deep stillness. Only Mikan is awake, watching spirits that are too ancient for names."
+    key_locations:
+      - id: grandmothers_house
+        name: "Grandmother's House"
+        description: "A small wooden house with a garden. Every object in it is on the verge of becoming a tsukumogami. The tea kettle already has."
+        type: home_base
+        spirit_resonance: 0.7
+      - id: inokashira_park
+        name: "Inokashira Park"
+        description: "A sprawling park with a sacred pond. The spiritual nexus at its center has been active for centuries."
+        type: spiritual_nexus
+        spirit_resonance: 0.9
+      - id: kichijoji_arcade
+        name: "Sun Road Shopping Arcade"
+        description: "A covered shopping street where spirit and human commerce mingle. Some shops serve both."
+        type: market
+        spirit_resonance: 0.3
+      - id: hidden_shrine
+        name: "Hidden Shrine"
+        description: "Behind a row of houses, down a path that only appears at certain hours. The shrine keeper is a fox."
+        type: shrine
+        spirit_resonance: 0.8
+    ambient_sounds: ["birdsong", "distant_train", "wind_in_trees", "grandmother_humming"]
+    permeation_effects:
+      - "Garden plants grow in patterns that spell words in an old language"
+      - "Grandmother's cat holds court with neighborhood spirits every evening"
+      - "The park fountain sometimes flows upward when no one is watching"
+      - "Old photographs in the house occasionally show people who weren't there"
+
+  - id: shibuya
+    name: "Shibuya"
+    japanese_name: "渋谷"
+    description: >
+      The pulsing neon heart of youth culture. Overwhelming even before
+      the permeation - now it's a sensory hurricane where emotion spirits
+      thrive on the concentrated feelings of millions. Shibuya Crossing
+      is a vortex of spiritual energy during rush hour. The Hachiko statue
+      has become a pilgrimage site for spirits of loyalty and loss.
+    spirit_permeability_modifier: 0.05
+    danger_level: 3
+    dominant_spirit_types: [emotion, modern_tsukumogami, crowd]
+    connected_districts: [kichijoji, shinjuku, roppongi, shimokitazawa]
+    atmosphere:
+      dawn: "Empty streets still humming with last night's energy. Neon reflects in puddles that aren't there."
+      morning: "The crowds begin. Each person carries small spirits they don't know about."
+      midday: "The crossing pulses. Emotion spirits swirl like invisible hurricanes."
+      afternoon: "Shopping districts buzz. Vending machine spirits compete for customers."
+      dusk: "The neon comes alive. The spirit world and the real world become hard to tell apart."
+      evening: "Peak energy. Kodoku spirits cling to lonely figures in the crowd. Music spirits dance."
+      midnight: "The crowd thins but the spirits don't. Center-gai becomes a spirit market."
+      witching: "The Hachiko statue glows. The loyalty spirit waits, as it has for a hundred years."
+    key_locations:
+      - id: shibuya_crossing
+        name: "Shibuya Crossing"
+        description: "The world's busiest crossing. During high permeation, spirits cross alongside humans. They wait for the light too."
+        type: spiritual_nexus
+        spirit_resonance: 0.6
+      - id: hachiko_statue
+        name: "Hachiko Statue"
+        description: "The bronze dog has become a spirit of absolute loyalty. Other spirits leave offerings."
+        type: shrine
+        spirit_resonance: 0.8
+      - id: center_gai
+        name: "Center-gai"
+        description: "The entertainment strip. After midnight, spirit vendors sell memories and dreams from stalls."
+        type: market
+        spirit_resonance: 0.4
+    ambient_sounds: ["crowd_murmur", "crosswalk_signal", "neon_hum", "distant_music", "train_announcement"]
+    permeation_effects:
+      - "The crossing signal shows spirit-world pedestrian counts alongside human ones"
+      - "Some neon signs display messages only spirit-sensitive people can read"
+      - "Emotion spirits cause spontaneous mood swings in crowds"
+      - "Lost items reappear at Hachiko - placed there by the loyalty spirit"
+
+  - id: asakusa
+    name: "Asakusa"
+    japanese_name: "浅草"
+    description: >
+      The old heart of Tokyo. Senso-ji temple is a beacon in the spirit
+      world - a towering pillar of golden light visible from every district.
+      Here, the old ways never fully faded, and the spirits never fully
+      left. The permeation feels natural here, like breathing. Monks and
+      spirits have been coexisting for a thousand years. The new permeation
+      just made it visible to everyone else.
+    spirit_permeability_modifier: 0.25
+    danger_level: 2
+    dominant_spirit_types: [temple, ancestral, nature, ancient]
+    connected_districts: [ueno, akihabara]
+    atmosphere:
+      dawn: "Temple bells. Incense smoke curls into spirit forms. Monks pray alongside ancient spirits."
+      morning: "Nakamise-dori opens. Spirit and human shopkeepers compete with equal enthusiasm."
+      midday: "Tourists and spirits mingle at Senso-ji. Some tourists are spirits. Some spirits are tourists."
+      afternoon: "The temple grounds glow. Spirit energy is thick enough to taste - like incense and rain."
+      dusk: "The evening prayers begin. The spirit world responds. Both worlds pray together."
+      evening: "Paper lanterns line the streets. Half are real. Half are chochin-obake. All give light."
+      midnight: "Senso-ji is a cathedral of spirit light. The ancient guardians walk the grounds."
+      witching: "The oldest spirits gather. Conversations that have been ongoing for centuries continue."
+    key_locations:
+      - id: sensoji
+        name: "Senso-ji Temple"
+        description: "Tokyo's oldest temple. In the spirit world, it is a tower of golden light stretching to the sky."
+        type: spiritual_nexus
+        spirit_resonance: 0.95
+      - id: nakamise_dori
+        name: "Nakamise-dori"
+        description: "The shopping street leading to Senso-ji. Spirit vendors sell alongside human ones."
+        type: market
+        spirit_resonance: 0.5
+      - id: sumida_river_bank
+        name: "Sumida River Bank"
+        description: "The kappa's domain. Approach with respect and a cucumber."
+        type: water
+        spirit_resonance: 0.7
+    ambient_sounds: ["temple_bells", "incense_crackle", "prayer_chants", "river_flow"]
+    permeation_effects:
+      - "Fortune slips at the temple sometimes contain prophecies from spirits"
+      - "The incense smoke forms readable kanji when spirits are near"
+      - "The river runs clearer than it has in decades - the kappa is purifying it"
+      - "Old buildings have started repairing themselves overnight"
+
+  - id: akihabara
+    name: "Akihabara"
+    japanese_name: "秋葉原"
+    description: >
+      Electric Town. The birthplace of modern tsukumogami. Every device,
+      every screen, every server has a spirit stirring inside it. The
+      permeation here is chaotic - digital and spiritual energy intertwine,
+      creating glitches in reality. Arcade machines play themselves.
+      Computers boot up with spirit messages. The internet has become
+      a spirit highway.
+    spirit_permeability_modifier: 0.2
+    danger_level: 3
+    dominant_spirit_types: [modern_tsukumogami, digital, electric]
+    connected_districts: [asakusa, ueno, shinjuku]
+    atmosphere:
+      dawn: "Screens flicker on by themselves. The early morning upload of spirit data."
+      morning: "Shops open. Some electronics are already awake and chattering."
+      midday: "Peak digital-spirit interference. GPS goes haywire. Phones display spirit messages."
+      afternoon: "Arcade spirits challenge passersby. Winning earns spirit tokens."
+      dusk: "The neon transforms. Spirit-code overlays every screen."
+      evening: "Electric Town becomes Electric Spirit Town. Both layers fully visible."
+      midnight: "The servers dream. Digital spirits hold council in the network."
+      witching: "The oldest computer spirit remembers the first calculator. It hums a simple sum."
+    key_locations:
+      - id: electric_town
+        name: "Electric Town Main Strip"
+        description: "The main drag of electronics shops. Every device for sale has a proto-spirit."
+        type: market
+        spirit_resonance: 0.6
+      - id: spirit_arcade
+        name: "Spirit Arcade"
+        description: "An arcade where the games are alive. Beat them honestly and they teach you things."
+        type: entertainment
+        spirit_resonance: 0.7
+      - id: server_shrine
+        name: "The Server Shrine"
+        description: "A hidden server room that has become a digital spirit temple. Accessible only through spirit vision."
+        type: spiritual_nexus
+        spirit_resonance: 0.8
+    ambient_sounds: ["electronic_hum", "arcade_music", "server_fans", "digital_chatter"]
+    permeation_effects:
+      - "All electronics occasionally display spirit-world weather reports"
+      - "WiFi signals carry spirit whispers"
+      - "Old game cartridges contain memories of every player who loved them"
+      - "The first computer bug was actually a spirit. It's still here."
+
+  - id: shinjuku
+    name: "Shinjuku"
+    japanese_name: "新宿"
+    description: >
+      Labyrinthine, dual-natured, impossible to fully know. Shinjuku
+      Station - the world's busiest - is a nexus where thousands of
+      spirit paths intersect. Golden Gai's tiny bars have become
+      spirit confessionals. Shinjuku Gyoen holds gardens where past
+      and present grow side by side. The district has always been
+      a place of thresholds, and the permeation has made that literal.
+    spirit_permeability_modifier: 0.15
+    danger_level: 4
+    dominant_spirit_types: [threshold, lost, path]
+    connected_districts: [shibuya, kichijoji, akihabara, roppongi]
+    atmosphere:
+      dawn: "The station exhales. Overnight spirits disperse into morning."
+      morning: "Rush hour. The station becomes a spirit crossroads. Lost spirits seek directions."
+      midday: "Shinjuku Gyoen is an oasis. The garden spirits are calm and welcoming."
+      afternoon: "The streets tangle. Spirit paths and human paths weave together."
+      dusk: "Golden Gai lights up. Each bar is a different spirit frequency."
+      evening: "The red light district glows with spirit energy. Not all of it is safe."
+      midnight: "The station's underground passages become spirit tunnels."
+      witching: "Shinjuku folds. The labyrinth reveals passages to places that shouldn't exist."
+    key_locations:
+      - id: shinjuku_station
+        name: "Shinjuku Station"
+        description: "3.6 million daily passengers. An unknowable number of spirits. Finding your exit is a puzzle."
+        type: train_station
+        spirit_resonance: 0.5
+      - id: golden_gai
+        name: "Golden Gai"
+        description: "Tiny bars packed into narrow alleys. Each one is a portal to a different conversation."
+        type: entertainment
+        spirit_resonance: 0.6
+      - id: shinjuku_gyoen
+        name: "Shinjuku Gyoen"
+        description: "A national garden where three garden styles meet. In the spirit world, the gardens grow memories."
+        type: park
+        spirit_resonance: 0.7
+    ambient_sounds: ["station_announcements", "crowd_flow", "distant_karaoke", "wind_between_buildings"]
+    permeation_effects:
+      - "The station adds new exits that only appear on certain days"
+      - "Golden Gai bartenders sometimes serve drinks that taste like memories"
+      - "Shinjuku Gyoen's cherry blossoms bloom according to emotional weather, not seasons"
+      - "You can get genuinely, metaphysically lost in Shinjuku. Spirits offer directions. Not all are correct."
+
+  - id: yanaka
+    name: "Yanaka"
+    japanese_name: "谷中"
+    description: >
+      The cemetery district. Where Tokyo's dead rest - and now walk.
+      Yanaka survived the firebombing of WWII and the development boom.
+      Its old streets remember. Since the permeation, ancestral spirits
+      walk openly here, visiting their old neighborhoods. It is not
+      frightening. It is tender. The living and the dead share the streets
+      with quiet recognition.
+    spirit_permeability_modifier: 0.2
+    danger_level: 2
+    dominant_spirit_types: [ancestral, memory, household]
+    connected_districts: [ueno]
+    atmosphere:
+      dawn: "Ancestral spirits return to their graves as dawn breaks. They don't have to. They choose to."
+      morning: "The old shopping street opens. Some shopkeepers are ancestral spirits who don't know they're dead."
+      midday: "Cats and spirits nap in the sun. Yanaka has always been a place for cats."
+      afternoon: "Cemetery walks. Visitors bring flowers. Spirits bring memories."
+      dusk: "The Yanaka sunset viewed from the steps is famous. Spirits watch it too, remembering when."
+      evening: "Lanterns light up. Every one is a memory. The streets glow with the past."
+      midnight: "The ancestral spirits hold their own evening. Tea is served. Old stories are told."
+      witching: "The boundary between living and dead is thinnest here. It always has been."
+    key_locations:
+      - id: yanaka_cemetery
+        name: "Yanaka Cemetery"
+        description: "Resting place of thousands. Since the permeation, the residents occasionally visit the living."
+        type: cemetery
+        spirit_resonance: 0.8
+      - id: yanaka_ginza
+        name: "Yanaka Ginza"
+        description: "An old shopping street where time moves differently. Some shops sell goods from decades past."
+        type: market
+        spirit_resonance: 0.5
+      - id: sunset_steps
+        name: "Yuyake Dandan (Sunset Steps)"
+        description: "Steps overlooking the district. At sunset, you can see both layers of the world."
+        type: landmark
+        spirit_resonance: 0.6
+    ambient_sounds: ["wind_through_graves", "distant_temple_bells", "cat_purring", "leaves_rustling"]
+    permeation_effects:
+      - "Old photographs in shops animate when no one is looking"
+      - "Cats serve as messengers between ancestral spirits and the living"
+      - "The cemetery's cherry trees bloom with the memories of the departed"
+      - "Time occasionally stutters - you might see the street as it was fifty years ago"
+
+  - id: shimokitazawa
+    name: "Shimokitazawa"
+    japanese_name: "下北沢"
+    description: >
+      Bohemian, creative, the tanuki's kingdom. This district has always
+      attracted artists and free spirits - now it attracts literal spirits
+      too. The tanuki who have lived here for centuries have claimed it as
+      their territory and run half the vintage shops. Art comes alive.
+      Music summons spirits. Theater performances attract audiences from
+      both worlds.
+    spirit_permeability_modifier: 0.15
+    danger_level: 2
+    dominant_spirit_types: [tanuki, art, music, creative]
+    connected_districts: [kichijoji, shibuya]
+    atmosphere:
+      dawn: "Artists' studios breathe in the morning. Paint spirits stir."
+      morning: "Vintage shops open. Tanuki shopkeepers adjust their human disguises."
+      midday: "Street musicians play for human and spirit audiences alike."
+      afternoon: "Theater rehearsals. The spirits in the scripts wake up and improvise."
+      dusk: "The creative energy peaks. Everything seems possible."
+      evening: "Live houses pulse with music that spirits dance to. Tanuki revelry begins."
+      midnight: "The tanuki drop their disguises. The real Shimokitazawa emerges."
+      witching: "Ponpoko holds court. The vintage shop becomes a tanuki palace."
+    key_locations:
+      - id: ponpokos_vintage
+        name: "Ponpoko's Vintage"
+        description: "A vintage clothing shop run by the tanuki boss. The clothes have stories. Some of them walk."
+        type: shop
+        spirit_resonance: 0.6
+      - id: live_house
+        name: "Spirit Stage Live House"
+        description: "A music venue where spirit bands play alongside human ones."
+        type: entertainment
+        spirit_resonance: 0.5
+      - id: hinatas_studio
+        name: "Hinata's Street Art Studio"
+        description: "Where Hinata paints murals that come alive. The spirit of art itself lives here."
+        type: studio
+        spirit_resonance: 0.7
+    ambient_sounds: ["live_music", "laughter", "paint_brushes", "tanuki_drumming"]
+    permeation_effects:
+      - "Murals move when you're not looking directly at them"
+      - "Vintage clothes remember their previous owners and share memories when worn"
+      - "Music played with genuine passion attracts spirit audiences"
+      - "The tanuki throw disguised festivals that humans accidentally attend"
+
+  - id: ueno
+    name: "Ueno"
+    japanese_name: "上野"
+    description: >
+      Cultural heart. Museums, temples, a vast park. The spirits of art
+      reside in galleries that now display work from both worlds. Ueno
+      Park is home to ancient spirits that have watched Tokyo grow from
+      a fishing village. The zoo is complicated - the spirits of animals
+      that lived and died there have opinions about captivity.
+    spirit_permeability_modifier: 0.1
+    danger_level: 2
+    dominant_spirit_types: [art, cultural, nature, ancestral]
+    connected_districts: [yanaka, asakusa, akihabara]
+    atmosphere:
+      dawn: "Park spirits stretch. Museum spirits prepare for the day's viewing."
+      morning: "Visitors begin. Art spirits observe who looks longest at which paintings."
+      midday: "The park is alive with picnickers and spirits sharing the same benches."
+      afternoon: "Museum halls echo differently. Some echoes are spirit commentaries on the art."
+      dusk: "The park transforms. Spirit paths appear between the trees."
+      evening: "Cultural spirits hold their own exhibitions in closed galleries."
+      midnight: "The paintings dream. The sculptures remember being stone."
+      witching: "An ancient spirit sits on the hill where Ueno's temple once burned. It is at peace."
+    key_locations:
+      - id: ueno_park
+        name: "Ueno Park"
+        description: "A vast park with museums, temples, and spirits that have been here since before Tokyo."
+        type: park
+        spirit_resonance: 0.6
+      - id: spirit_gallery
+        name: "Spirit Gallery"
+        description: "A hidden gallery accessible through spirit vision. Art from both worlds."
+        type: cultural
+        spirit_resonance: 0.7
+    ambient_sounds: ["museum_quiet", "park_birds", "distant_music", "temple_drums"]
+    permeation_effects:
+      - "Museum paintings occasionally change subtly - spirits adding their perspective"
+      - "The park's ancient trees whisper histories to those who listen"
+      - "Art created with spiritual awareness hangs between both worlds"
+
+  - id: odaiba
+    name: "Odaiba"
+    japanese_name: "お台場"
+    description: >
+      An artificial island. Built on reclaimed land with no spiritual
+      history. Spirits struggle here - there are no ley lines, no ancient
+      paths, no accumulated memory. It is spiritually barren, and the
+      few spirits that wander here are lost, confused, or drawn by the
+      massive structures that try too hard to impress. It is the one
+      place in Tokyo where the permeation feels wrong.
+    spirit_permeability_modifier: -0.1
+    danger_level: 3
+    dominant_spirit_types: [lost, confused, artificial]
+    connected_districts: [shibuya, roppongi]
+    atmosphere:
+      dawn: "The artificial sunrise feels hollow. No spirits greet the morning."
+      morning: "Tourists arrive. The island performs its function. Spirits watch, puzzled."
+      midday: "The giant Gundam statue is the closest thing to a spirit this place has produced."
+      afternoon: "The shopping mall hums. Inside, proto-spirits flicker and fail."
+      dusk: "The Rainbow Bridge carries spirits that are just passing through."
+      evening: "The island's lights are beautiful but empty. A spirit desert."
+      midnight: "Lost spirits wash up here like driftwood. They don't know how they got here."
+      witching: "The artificial land groans. It is trying to develop a soul. It hasn't succeeded yet."
+    key_locations:
+      - id: rainbow_bridge
+        name: "Rainbow Bridge"
+        description: "A bridge that spirits use as a passage, never a destination."
+        type: bridge
+        spirit_resonance: 0.2
+      - id: reclaimed_shore
+        name: "Reclaimed Shore"
+        description: "Where the island meets the bay. Lost spirits gather here, staring at the mainland."
+        type: waterfront
+        spirit_resonance: 0.1
+    ambient_sounds: ["wind", "distant_traffic", "empty_echoes", "water_lapping"]
+    permeation_effects:
+      - "Electronics malfunction more frequently - not from spirits but from the lack of them"
+      - "Visitors feel vaguely uneasy without knowing why"
+      - "The few spirits here are disoriented and frightened"
+      - "The island itself seems to be reaching toward the mainland, imperceptibly"
+
+  - id: roppongi
+    name: "Roppongi"
+    japanese_name: "六本木"
+    description: >
+      Corporate towers and nightlife. MIRAIKAN Corporation's headquarters
+      looms here, a building that actively suppresses spirit activity in
+      its vicinity while extracting spirit energy within its walls.
+      The district is a spiritual warzone - corporate corruption spreading
+      outward while spirits resist. Roppongi Hills has become a fortress.
+      The spirits here are either captured, corrupted, or fighting back.
+    spirit_permeability_modifier: 0.0
+    danger_level: 5
+    dominant_spirit_types: [captured, corrupted, resistance]
+    connected_districts: [shibuya, shinjuku, odaiba]
+    atmosphere:
+      dawn: "MIRAIKAN's tower catches the first light. Inside, captured spirits stir."
+      morning: "Employees file in. Some have spirit-suppression devices. Some feel sick about it."
+      midday: "The corporate lunch crowd. MIRAIKAN lobbyists meet with politicians."
+      afternoon: "Corruption spreads outward. Plants near the tower wilt. Spirits avoid whole blocks."
+      dusk: "The resistance. Free spirits probe MIRAIKAN's defenses."
+      evening: "Nightlife ignites. The clubs are noisy enough to mask spirit screams from the tower."
+      midnight: "Kaito works late. Through his office window, he can see what they're doing to the spirits."
+      witching: "The tower's containment fields pulse. The spirits inside sing in frequencies that make dogs howl."
+    key_locations:
+      - id: miraikan_tower
+        name: "MIRAIKAN Tower"
+        description: "A crystal spire that drains color from its surroundings. The spirit world's wound."
+        type: corporate
+        spirit_resonance: 0.0
+      - id: resistance_alley
+        name: "Resistance Alley"
+        description: "A back alley where free spirits and human allies plan against MIRAIKAN."
+        type: hidden
+        spirit_resonance: 0.5
+    ambient_sounds: ["corporate_hum", "containment_pulse", "muffled_spirit_cries", "elevator_dings"]
+    permeation_effects:
+      - "Spirit suppression fields make the area feel 'dead' - even non-sensitive people notice"
+      - "Electronics near the tower display subliminal MIRAIKAN advertisements"
+      - "Plants and animals avoid a three-block radius around the tower"
+      - "Corrupted spirits occasionally breach containment, causing localized chaos"

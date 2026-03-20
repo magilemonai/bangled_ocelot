@@ -1,0 +1,190 @@
+# Ma no Kuni - Kichijoji Starting Area Map
+# A 30x20 tile map of the area around grandmother's house
+# Tile legend:
+#   . = grass/garden    r = road          h = house/building
+#   t = tree            w = water         b = bridge
+#   s = shrine          g = gate/torii    f = fence
+#   d = door            p = path          G = grandmother's house
+#   S = spiritual_nexus m = market_stall  T = train_station
+#   # = wall
+
+name: "Kichijoji - Grandmother's Neighborhood"
+district: kichijoji
+width: 30
+height: 20
+player_start:
+  x: 8
+  y: 10
+
+# Map grid (30 columns x 20 rows)
+# Each character maps to a tile type
+tiles: |
+  tttttttttttttt..wwwwttttttttttt
+  tt...ttttt.....wwwww.ttttttt.t
+  t..........r..bwwwwb..........
+  ttt........r...wwww...........
+  ffffGGGGf..r..........tt.ttttt
+  f........f.r......tt..t..tsss.
+  f..garden.fr......tt.....sggs.
+  f........f.r.............ssss.
+  ffffddffff.r..................
+  .........r.r.......rrrrrrrrrr.
+  .........rrrrrrrrrrr..........
+  .........r.................mm.
+  .........r...hhhh..hhhh...mm.
+  rrrrrrrrrrr..hhhh..hhhh...mm.
+  ..........r..hhhh..hhhh......
+  ..........r..................
+  ..........r...rrrrrrrrrrrrrrr
+  ..........r...r..............
+  ..........rrrrr....TTTTTTT...
+  ......................TTTTTTT..
+
+# Tile type definitions
+tile_types:
+  ".":
+    type: grass
+    walkable: true
+    spirit_resonance: 0.1
+  "r":
+    type: road
+    walkable: true
+    spirit_resonance: 0.05
+  "p":
+    type: path
+    walkable: true
+    spirit_resonance: 0.1
+  "t":
+    type: tree
+    walkable: false
+    spirit_resonance: 0.3
+  "w":
+    type: water
+    walkable: false
+    spirit_resonance: 0.5
+  "b":
+    type: bridge
+    walkable: true
+    spirit_resonance: 0.2
+  "h":
+    type: building
+    walkable: false
+    spirit_resonance: 0.05
+  "s":
+    type: shrine
+    walkable: true
+    spirit_resonance: 0.7
+  "g":
+    type: torii_gate
+    walkable: true
+    spirit_resonance: 0.8
+  "f":
+    type: fence
+    walkable: false
+    spirit_resonance: 0.05
+  "d":
+    type: door
+    walkable: true
+    spirit_resonance: 0.1
+  "G":
+    type: grandmothers_house
+    walkable: false
+    spirit_resonance: 0.7
+  "m":
+    type: market_stall
+    walkable: true
+    spirit_resonance: 0.15
+  "S":
+    type: spiritual_nexus
+    walkable: true
+    spirit_resonance: 0.9
+  "T":
+    type: train_station
+    walkable: true
+    spirit_resonance: 0.2
+  "#":
+    type: wall
+    walkable: false
+    spirit_resonance: 0.0
+
+# NPCs placed on this map
+npcs:
+  - id: grandmother_haruki
+    name: "Grandmother Haruki"
+    x: 5
+    y: 6
+    dialogue: "obaa_chan_evening"
+    sprite: "grandmother_haruki"
+    schedule:
+      morning: {x: 5, y: 6}     # In the garden
+      afternoon: {x: 6, y: 5}    # Inside (near house)
+      evening: {x: 5, y: 6}     # Garden again
+      night: {x: 6, y: 5}       # Inside
+
+  - id: mikan
+    name: "Mikan"
+    x: 7
+    y: 7
+    dialogue: null
+    sprite: "mikan_cat"
+    schedule:
+      morning: {x: 7, y: 7}     # Garden, watching spirits
+      afternoon: {x: 3, y: 10}   # Wandering the street
+      evening: {x: 5, y: 6}     # With grandmother
+      night: {x: 6, y: 5}       # Inside, sleeping
+
+# Spirit entities on this map (visible at different permeability levels)
+spirits:
+  - id: tea_kettle_spirit
+    name: "Ocha"
+    x: 6
+    y: 5
+    min_permeability: 0.1
+    sprite: "tea_kettle_spirit"
+    description: "A small, warm spirit that lives in grandmother's tea kettle. It hums contentedly."
+
+  - id: garden_kodama_1
+    name: "Small Kodama"
+    x: 3
+    y: 6
+    min_permeability: 0.3
+    sprite: "kodama"
+    description: "A tiny tree spirit hiding in the garden. It watches you with curious eyes."
+
+  - id: park_guardian_presence
+    name: "A Vast Presence"
+    x: 17
+    y: 2
+    min_permeability: 0.5
+    sprite: null
+    description: "You sense something immense and gentle watching from the park across the water."
+
+# Interaction points
+interactions:
+  - x: 5
+    y: 8
+    type: door
+    description: "The door to grandmother's house. The wood is warm to the touch."
+    action: enter_grandmothers_house
+
+  - x: 14
+    y: 6
+    type: examine
+    description: "The hidden shrine path. A fox-shaped shadow flickers at the edge of vision."
+    condition:
+      min_permeability: 0.3
+
+  - x: 24
+    y: 18
+    type: fast_travel
+    description: "Kichijoji Station. Trains to Shibuya, Shinjuku, and beyond."
+    destinations: [shibuya, shinjuku, shimokitazawa]
+
+# Ambient events for this map
+ambient:
+  - trigger: time_evening
+    text: "The garden spirits begin to gather. You can almost see them."
+  - trigger: permeability_high
+    text: "The air shimmers. For a moment, the garden is full of tiny lights."
+  - trigger: first_visit
+    text: "Home. Grandmother's house. The smell of green tea and old wood."

@@ -1,0 +1,920 @@
+# ==========================================================================
+# Ma no Kuni (間の国) — Full Soundtrack Definitions
+#
+# Each track is a layered composition with four possible layers:
+#   base     - ambient drone / rhythmic foundation
+#   melodic  - primary melody
+#   harmonic - chordal / harmonic accompaniment
+#   spirit   - ethereal instrumentation that fades in with permeability
+#
+# The spirit layer is silent by default and emerges as the veil thins.
+# ==========================================================================
+
+tracks:
+
+  # -----------------------------------------------------------------------
+  # 1. Aoi's Theme — "The Space Between Heartbeats"
+  # -----------------------------------------------------------------------
+  - track_id: aoi_theme
+    name: "The Space Between Heartbeats"
+    composer_notes: >
+      Aoi's theme begins with a solo flute — searching, tentative, like
+      someone feeling their way through a dark room. As her journey deepens,
+      strings enter. By the finale, the full orchestra carries what the
+      flute once whispered alone. In D minor, the key of introspection.
+    tempo_bpm: 72
+    key: Dm
+    time_signature: "4/4"
+    instruments:
+      - flute
+      - violin
+      - viola
+      - cello
+      - harp
+      - shakuhachi  # spirit layer
+    mood: contemplative, searching, gentle
+    conditions:
+      game_states: [exploration, vignette]
+      locations: [yanaka, ueno_park]
+      time_of_day: [dawn, morning, afternoon]
+      min_permeability: 0.0
+      max_permeability: 0.5
+    layers:
+      base:
+        asset: "audio/music/aoi_theme_base.ogg"
+        volume: 0.6
+        instruments: [cello, contrabass]
+        description: "Sustained low strings, breathing rhythm"
+      melodic:
+        asset: "audio/music/aoi_theme_melody.ogg"
+        volume: 0.8
+        instruments: [flute]
+        description: "Solo flute melody in D minor — Aoi's voice"
+      harmonic:
+        asset: "audio/music/aoi_theme_harmony.ogg"
+        volume: 0.5
+        instruments: [violin, viola, harp]
+        description: "Gentle string pads with harp arpeggios"
+      spirit:
+        asset: "audio/music/aoi_theme_spirit.ogg"
+        volume: 0.4
+        instruments: [shakuhachi]
+        permeability_threshold: 0.3
+        description: "Shakuhachi doubles the flute melody, an octave lower"
+    transitions:
+      to_battle: {type: hard_cut, duration: 0.5}
+      to_spirit_world: {type: spirit_bleed, duration: 4.0}
+      to_ma: {type: ma_transition, duration: 6.0, silence_gap: 3.0}
+      to_grandmother: {type: crossfade, duration: 3.0}
+      to_tokyo_day: {type: crossfade, duration: 2.5}
+
+  # -----------------------------------------------------------------------
+  # 2. Grandmother's Theme — "What the Garden Remembers"
+  # -----------------------------------------------------------------------
+  - track_id: grandmother_theme
+    name: "What the Garden Remembers"
+    composer_notes: >
+      Warmth and nostalgia in G major. The koto carries the melody
+      with the gentleness of old hands. A soft piano provides harmonic
+      grounding. This is the safest place in the game — musically,
+      the only track that never has a spirit layer. Grandmother's
+      home is fully protected.
+    tempo_bpm: 66
+    key: G
+    time_signature: "3/4"
+    instruments:
+      - koto
+      - piano
+      - cello
+      - flute
+    mood: warm, nostalgic, safe, loving
+    conditions:
+      game_states: [dialogue, vignette, exploration]
+      locations: [grandmother_house]
+      characters: [grandmother]
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/grandmother_base.ogg"
+        volume: 0.5
+        instruments: [cello]
+        description: "Warm cello, like a heartbeat at rest"
+      melodic:
+        asset: "audio/music/grandmother_melody.ogg"
+        volume: 0.8
+        instruments: [koto]
+        description: "Koto melody — each note placed with care, like arranging flowers"
+      harmonic:
+        asset: "audio/music/grandmother_harmony.ogg"
+        volume: 0.6
+        instruments: [piano]
+        description: "Simple piano chords, unhurried, in waltz time"
+      spirit:
+        asset: null
+        volume: 0.0
+        instruments: []
+        permeability_threshold: 1.0
+        description: "No spirit layer. This home is sacred ground."
+    transitions:
+      to_aoi: {type: crossfade, duration: 3.0}
+      to_ma: {type: ma_transition, duration: 8.0, silence_gap: 5.0}
+      to_memory: {type: memory_wash, duration: 4.0}
+
+  # -----------------------------------------------------------------------
+  # 3. Spirit World Theme — "The Other Side of Air"
+  # -----------------------------------------------------------------------
+  - track_id: spirit_world_theme
+    name: "The Other Side of Air"
+    composer_notes: >
+      Fully modal — no Western harmonic function. Built on the Hirajoshi
+      scale. The shakuhachi leads, accompanied by suzu bells and the sho
+      mouth organ creating sustained cluster chords. Otherworldly yet
+      ancient. The reverb is cavernous, as if the spirit world is a vast
+      empty space that only sounds can fill.
+    tempo_bpm: 54
+    key: D_hirajoshi
+    time_signature: "free"
+    instruments:
+      - shakuhachi
+      - suzu_bells
+      - sho
+      - koto
+      - celesta
+    mood: ethereal, otherworldly, vast, ancient
+    conditions:
+      game_states: [exploration, spirit_vision]
+      locations: [spirit_crossing]
+      time_of_day: [all]
+      min_permeability: 0.7
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/spirit_world_base.ogg"
+        volume: 0.7
+        instruments: [sho]
+        description: "Sho organ sustained clusters — the breathing of the spirit world"
+      melodic:
+        asset: "audio/music/spirit_world_melody.ogg"
+        volume: 0.7
+        instruments: [shakuhachi]
+        description: "Free-time shakuhachi — breath tones, bends, silence"
+      harmonic:
+        asset: "audio/music/spirit_world_harmony.ogg"
+        volume: 0.5
+        instruments: [koto, celesta]
+        description: "Sparse koto arpeggios with celesta glimmers"
+      spirit:
+        asset: "audio/music/spirit_world_spirit.ogg"
+        volume: 0.8
+        instruments: [suzu_bells]
+        permeability_threshold: 0.0
+        description: "Always present here — bells marking the boundary"
+    transitions:
+      to_aoi: {type: spirit_bleed, duration: 5.0}
+      to_battle: {type: hard_cut, duration: 0.3}
+      to_ma: {type: fade_to_silence, duration: 4.0, silence_gap: 6.0}
+
+  # -----------------------------------------------------------------------
+  # 4. Tokyo Daylight — "Ten Million Footsteps"
+  # -----------------------------------------------------------------------
+  - track_id: tokyo_day
+    name: "Ten Million Footsteps"
+    composer_notes: >
+      The bustle of modern Tokyo rendered in music. Piano arpeggios
+      over a light rhythmic pulse. Bright, forward-moving, major key.
+      The spirit layer adds distant shakuhachi as a reminder that the
+      old world is never far away, even at the brightest noon.
+    tempo_bpm: 112
+    key: Bb
+    time_signature: "4/4"
+    instruments:
+      - piano
+      - violin
+      - cello
+      - clarinet
+      - shakuhachi  # spirit layer
+    mood: bustling, optimistic, modern, rhythmic
+    conditions:
+      game_states: [exploration]
+      locations: [shibuya, akihabara]
+      time_of_day: [morning, midday, afternoon]
+      min_permeability: 0.0
+      max_permeability: 0.4
+    layers:
+      base:
+        asset: "audio/music/tokyo_day_base.ogg"
+        volume: 0.6
+        instruments: [cello]
+        description: "Pizzicato cello walking bass, city rhythm"
+      melodic:
+        asset: "audio/music/tokyo_day_melody.ogg"
+        volume: 0.8
+        instruments: [piano]
+        description: "Piano arpeggios cascading like commuters on stairs"
+      harmonic:
+        asset: "audio/music/tokyo_day_harmony.ogg"
+        volume: 0.5
+        instruments: [violin, clarinet]
+        description: "Light string and clarinet countermelody"
+      spirit:
+        asset: "audio/music/tokyo_day_spirit.ogg"
+        volume: 0.3
+        instruments: [shakuhachi]
+        permeability_threshold: 0.2
+        description: "A ghost of shakuhachi beneath the city music"
+    transitions:
+      to_tokyo_night: {type: crossfade, duration: 4.0}
+      to_battle: {type: hard_cut, duration: 0.5}
+      to_aoi: {type: crossfade, duration: 2.0}
+      to_spirit_world: {type: spirit_bleed, duration: 5.0}
+
+  # -----------------------------------------------------------------------
+  # 5. Tokyo Nightfall — "Neon and Ghosts"
+  # -----------------------------------------------------------------------
+  - track_id: tokyo_night
+    name: "Neon and Ghosts"
+    composer_notes: >
+      The city at night. Piano becomes more sparse, jazz-inflected.
+      Strings take on a darker hue. The spirit layer is more present —
+      at night, the veil is thinner, and the music knows it. Hints of
+      Hirajoshi scale creep into the Western harmony.
+    tempo_bpm: 88
+    key: Gm
+    time_signature: "4/4"
+    instruments:
+      - piano
+      - violin
+      - cello
+      - contrabass
+      - shakuhachi
+      - suzu_bells
+    mood: atmospheric, noir, liminal, reflective
+    conditions:
+      game_states: [exploration]
+      locations: [shibuya, akihabara, asakusa]
+      time_of_day: [evening, midnight]
+      min_permeability: 0.0
+      max_permeability: 0.7
+    layers:
+      base:
+        asset: "audio/music/tokyo_night_base.ogg"
+        volume: 0.6
+        instruments: [contrabass]
+        description: "Arco contrabass, slow and deep like breathing city"
+      melodic:
+        asset: "audio/music/tokyo_night_melody.ogg"
+        volume: 0.7
+        instruments: [piano]
+        description: "Sparse piano, notes placed like footsteps in empty streets"
+      harmonic:
+        asset: "audio/music/tokyo_night_harmony.ogg"
+        volume: 0.5
+        instruments: [violin, cello]
+        description: "Muted strings, warm but shadowed"
+      spirit:
+        asset: "audio/music/tokyo_night_spirit.ogg"
+        volume: 0.5
+        instruments: [shakuhachi, suzu_bells]
+        permeability_threshold: 0.15
+        description: "Shakuhachi and bells — closer at night, almost conversational"
+    transitions:
+      to_tokyo_day: {type: crossfade, duration: 4.0}
+      to_spirit_world: {type: spirit_bleed, duration: 3.0}
+      to_battle: {type: hard_cut, duration: 0.5}
+      to_ma: {type: ma_transition, duration: 5.0, silence_gap: 4.0}
+
+  # -----------------------------------------------------------------------
+  # 6. Ma Theme — "The Weight of Silence"
+  # -----------------------------------------------------------------------
+  - track_id: ma_theme
+    name: "The Weight of Silence"
+    composer_notes: >
+      Almost nothing. A single note — D4 — sustained on shakuhachi with
+      deep reverb. Then silence. Then another note, perhaps the fifth, A4.
+      The space between the notes IS the music. This is what ma sounds
+      like. It plays during the game's most profound moments of stillness.
+    tempo_bpm: 40
+    key: D_ma
+    time_signature: "free"
+    instruments:
+      - shakuhachi
+      - silence
+    mood: profound, still, sacred, empty
+    conditions:
+      game_states: [vignette]
+      ma_level_min: 0.6
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/ma_theme_base.ogg"
+        volume: 0.15
+        instruments: [silence]
+        description: "Room tone. The sound of a space waiting."
+      melodic:
+        asset: "audio/music/ma_theme_melody.ogg"
+        volume: 0.25
+        instruments: [shakuhachi]
+        description: "Single notes, minutes apart, each one a world"
+      harmonic:
+        asset: null
+        volume: 0.0
+        instruments: []
+        description: "No harmony. Harmony implies resolution. Ma does not resolve."
+      spirit:
+        asset: null
+        volume: 0.0
+        instruments: []
+        permeability_threshold: 1.0
+        description: "In ma, the spirit world is not separate. It simply is."
+    transitions:
+      to_aoi: {type: fade_to_silence, duration: 6.0, silence_gap: 4.0}
+      to_spirit_world: {type: fade_to_silence, duration: 5.0, silence_gap: 3.0}
+
+  # -----------------------------------------------------------------------
+  # 7. Battle Theme — "The Veil Tears"
+  # -----------------------------------------------------------------------
+  - track_id: battle_theme
+    name: "The Veil Tears"
+    composer_notes: >
+      Urgent taiko drums drive the rhythm — primal, physical, the heartbeat
+      of conflict. The shamisen plays aggressive melodic lines in the In
+      scale. The spirit layer adds an otherworldly chorus that swells as
+      spirit permeability rises during combat. Western strings provide
+      harmonic urgency. Combat in Ma no Kuni is not just physical — it
+      is a collision of worlds.
+    tempo_bpm: 152
+    key: Em
+    time_signature: "7/8"
+    instruments:
+      - taiko
+      - shamisen
+      - violin
+      - cello
+      - timpani
+      - sho
+    mood: urgent, fierce, primal, collision
+    conditions:
+      game_states: [combat]
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/battle_base.ogg"
+        volume: 0.9
+        instruments: [taiko, timpani]
+        description: "Taiko and timpani — the heartbeat of conflict"
+      melodic:
+        asset: "audio/music/battle_melody.ogg"
+        volume: 0.8
+        instruments: [shamisen]
+        description: "Shamisen in the In scale — sharp, aggressive, alive"
+      harmonic:
+        asset: "audio/music/battle_harmony.ogg"
+        volume: 0.6
+        instruments: [violin, cello]
+        description: "Driving string ostinato, relentless forward motion"
+      spirit:
+        asset: "audio/music/battle_spirit.ogg"
+        volume: 0.6
+        instruments: [sho]
+        permeability_threshold: 0.2
+        description: "Sho organ swells — the spirit world screaming through"
+    transitions:
+      to_aoi: {type: crossfade, duration: 2.0}
+      to_spirit_world: {type: spirit_bleed, duration: 2.0}
+      to_tokyo_day: {type: crossfade, duration: 2.0}
+      to_tokyo_night: {type: crossfade, duration: 2.0}
+      to_victory: {type: crossfade, duration: 1.5}
+
+  # -----------------------------------------------------------------------
+  # 8. MIRAIKAN Corp Theme — "Progress Without Soul"
+  # -----------------------------------------------------------------------
+  - track_id: miraikan_theme
+    name: "Progress Without Soul"
+    composer_notes: >
+      Cold, mechanical, oppressive. Built on synthesized versions of
+      spirit-world instruments — as if the sounds were captured, sampled,
+      and stripped of their life. A glass harmonica plays a corrupted
+      version of the spirit world melody. The rhythm is metronomic,
+      inhuman. There is no ma here — every space is filled with sound
+      because MIRAIKAN cannot tolerate emptiness.
+    tempo_bpm: 100
+    key: Bbm
+    time_signature: "4/4"
+    instruments:
+      - synth_pad
+      - glass_harmonica
+      - piano
+      - cello
+    mood: cold, mechanical, oppressive, corrupted
+    conditions:
+      game_states: [exploration, dialogue, combat]
+      locations: [miraikan_tower, miraikan_lab]
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/miraikan_base.ogg"
+        volume: 0.7
+        instruments: [synth_pad]
+        description: "Machine drone, perfectly tuned, soulless"
+      melodic:
+        asset: "audio/music/miraikan_melody.ogg"
+        volume: 0.6
+        instruments: [glass_harmonica]
+        description: "Corrupted spirit melody — recognizable but wrong"
+      harmonic:
+        asset: "audio/music/miraikan_harmony.ogg"
+        volume: 0.5
+        instruments: [piano, cello]
+        description: "Sparse, clinical piano and detuned cello"
+      spirit:
+        asset: "audio/music/miraikan_spirit.ogg"
+        volume: 0.4
+        instruments: [synth_pad]
+        permeability_threshold: 0.3
+        description: "Captured spirit sounds, looped and distorted"
+    transitions:
+      to_battle: {type: hard_cut, duration: 0.3}
+      to_aoi: {type: crossfade, duration: 3.0}
+      to_spirit_world: {type: spirit_bleed, duration: 4.0}
+
+  # -----------------------------------------------------------------------
+  # 9. Love Theme — "Two Strings, One Song"
+  # -----------------------------------------------------------------------
+  - track_id: love_theme
+    name: "Two Strings, One Song"
+    composer_notes: >
+      A violin and koto duet. The violin carries Western melody in
+      D major; the koto answers in Kumoi scale on the same root. Neither
+      is complete alone. They orbit each other, sometimes harmonizing,
+      sometimes separated by rests that ache. The blending of instruments
+      mirrors the blending of worlds, and of hearts.
+    tempo_bpm: 60
+    key: D
+    time_signature: "4/4"
+    instruments:
+      - violin
+      - koto
+      - cello
+      - harp
+    mood: aching, beautiful, tender, yearning
+    conditions:
+      game_states: [dialogue, vignette]
+      characters: [love_interest]
+      time_of_day: [dusk, evening]
+      min_permeability: 0.0
+      max_permeability: 0.6
+    layers:
+      base:
+        asset: "audio/music/love_base.ogg"
+        volume: 0.4
+        instruments: [cello]
+        description: "Cello pedal tone, warm as held hands"
+      melodic:
+        asset: "audio/music/love_melody.ogg"
+        volume: 0.9
+        instruments: [violin, koto]
+        description: "Violin and koto in conversation — call and response"
+      harmonic:
+        asset: "audio/music/love_harmony.ogg"
+        volume: 0.5
+        instruments: [harp]
+        description: "Harp arpeggios, gentle as rainfall on still water"
+      spirit:
+        asset: "audio/music/love_spirit.ogg"
+        volume: 0.3
+        instruments: [celesta]
+        permeability_threshold: 0.3
+        description: "Celesta shimmer — love transcends the veil"
+    transitions:
+      to_aoi: {type: crossfade, duration: 4.0}
+      to_ma: {type: ma_transition, duration: 6.0, silence_gap: 5.0}
+      to_memory: {type: memory_wash, duration: 3.0}
+
+  # -----------------------------------------------------------------------
+  # 10. Memory Theme — "Heard Through Water"
+  # -----------------------------------------------------------------------
+  - track_id: memory_theme
+    name: "Heard Through Water"
+    composer_notes: >
+      Everything is filtered, muffled, distant — like hearing a song
+      played in another room, or beneath the surface of a lake. Uses
+      heavy low-pass filtering and reverb on the currently playing theme,
+      then introduces a music box playing fragments of Grandmother's melody.
+      Memories in Ma no Kuni are not clear — they shimmer and distort.
+    tempo_bpm: 58
+    key: G
+    time_signature: "3/4"
+    instruments:
+      - music_box
+      - piano
+      - celesta
+      - harp
+    mood: distant, nostalgic, blurred, bittersweet
+    conditions:
+      game_states: [vignette]
+      story_flags: [memory_sequence]
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/memory_base.ogg"
+        volume: 0.3
+        instruments: [piano]
+        description: "Piano chords with extreme reverb, swimming in echo"
+      melodic:
+        asset: "audio/music/memory_melody.ogg"
+        volume: 0.6
+        instruments: [music_box]
+        description: "Music box playing Grandmother's melody, fragmented"
+      harmonic:
+        asset: "audio/music/memory_harmony.ogg"
+        volume: 0.4
+        instruments: [celesta, harp]
+        description: "Celesta and harp, heavily filtered, dream-like"
+      spirit:
+        asset: "audio/music/memory_spirit.ogg"
+        volume: 0.3
+        instruments: [sho]
+        permeability_threshold: 0.1
+        description: "Sho washes — memories and spirits share the same space"
+    transitions:
+      to_aoi: {type: memory_wash, duration: 3.0}
+      to_grandmother: {type: crossfade, duration: 4.0}
+      to_ma: {type: fade_to_silence, duration: 5.0, silence_gap: 3.0}
+
+  # -----------------------------------------------------------------------
+  # 11. Victory Theme — "Breath After Storm"
+  # -----------------------------------------------------------------------
+  - track_id: victory_theme
+    name: "Breath After Storm"
+    composer_notes: >
+      Brief and resolving. The taiko rhythm slows and fades. A solo
+      flute plays a victorious variation of Aoi's theme, now in
+      D major — the minor third raised, darkness lifting. The koto
+      joins for the final phrase. Victory is not triumphant; it is
+      relief. The pause after exertion. Ma after battle.
+    tempo_bpm: 80
+    key: D
+    time_signature: "4/4"
+    instruments:
+      - flute
+      - koto
+      - taiko
+      - violin
+    mood: relief, resolution, earned peace
+    conditions:
+      game_states: [combat]
+      triggers: [battle_won]
+      time_of_day: [all]
+    layers:
+      base:
+        asset: "audio/music/victory_base.ogg"
+        volume: 0.4
+        instruments: [taiko]
+        description: "Taiko fading — the storm receding"
+      melodic:
+        asset: "audio/music/victory_melody.ogg"
+        volume: 0.8
+        instruments: [flute]
+        description: "Aoi's theme in major — sunrise after night"
+      harmonic:
+        asset: "audio/music/victory_harmony.ogg"
+        volume: 0.6
+        instruments: [violin, koto]
+        description: "Violin and koto resolve together, worlds in harmony"
+      spirit:
+        asset: null
+        volume: 0.0
+        instruments: []
+        permeability_threshold: 1.0
+        description: "After victory, the spirit world is still, watching"
+    transitions:
+      to_aoi: {type: crossfade, duration: 2.0}
+      to_tokyo_day: {type: crossfade, duration: 2.5}
+
+  # -----------------------------------------------------------------------
+  # 12. Puzzle Theme — "Threads of Thought"
+  # -----------------------------------------------------------------------
+  - track_id: puzzle_theme
+    name: "Threads of Thought"
+    composer_notes: >
+      Gentle, repetitive, encouraging without being intrusive. Piano
+      arpeggios in a cycle. Each time a puzzle step is solved, a new
+      instrument joins briefly. The spirit layer adds when puzzles
+      involve spirit-world mechanics. Influenced by minimalist composers.
+    tempo_bpm: 96
+    key: Am
+    time_signature: "6/8"
+    instruments:
+      - piano
+      - celesta
+      - harp
+      - flute
+      - koto
+    mood: focused, gentle, encouraging, cyclical
+    conditions:
+      game_states: [puzzle]
+      time_of_day: [all]
+      min_permeability: 0.0
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/puzzle_base.ogg"
+        volume: 0.5
+        instruments: [piano]
+        description: "Repeating piano pattern, like gears turning"
+      melodic:
+        asset: "audio/music/puzzle_melody.ogg"
+        volume: 0.6
+        instruments: [celesta, flute]
+        description: "Celesta and flute tracing the shape of the puzzle"
+      harmonic:
+        asset: "audio/music/puzzle_harmony.ogg"
+        volume: 0.4
+        instruments: [harp]
+        description: "Harp chords, each progression a small revelation"
+      spirit:
+        asset: "audio/music/puzzle_spirit.ogg"
+        volume: 0.4
+        instruments: [koto]
+        permeability_threshold: 0.3
+        description: "Koto appears when the puzzle touches the spirit world"
+    transitions:
+      to_aoi: {type: crossfade, duration: 2.0}
+      to_battle: {type: hard_cut, duration: 0.5}
+
+  # -----------------------------------------------------------------------
+  # 13. Asakusa Evening — "Incense and Iron"
+  # -----------------------------------------------------------------------
+  - track_id: asakusa_evening
+    name: "Incense and Iron"
+    composer_notes: >
+      The temple district at dusk, when the material and spirit worlds
+      are most balanced. Koto and biwa carry the melody in Yo scale.
+      Western strings provide a subtle foundation. The spirit layer is
+      rich here — temple bells, sho organ. This is the track where
+      both musical traditions coexist most naturally.
+    tempo_bpm: 66
+    key: A_yo
+    time_signature: "4/4"
+    instruments:
+      - koto
+      - biwa
+      - violin
+      - cello
+      - sho
+      - suzu_bells
+    mood: liminal, balanced, reverent, ancient-modern
+    conditions:
+      game_states: [exploration]
+      locations: [asakusa]
+      time_of_day: [dusk, evening]
+      min_permeability: 0.2
+      max_permeability: 0.8
+    layers:
+      base:
+        asset: "audio/music/asakusa_base.ogg"
+        volume: 0.6
+        instruments: [cello]
+        description: "Cello drone on the tonic, incense smoke in sound"
+      melodic:
+        asset: "audio/music/asakusa_melody.ogg"
+        volume: 0.7
+        instruments: [koto, biwa]
+        description: "Koto and biwa in the Yo scale — ancient festival echoes"
+      harmonic:
+        asset: "audio/music/asakusa_harmony.ogg"
+        volume: 0.5
+        instruments: [violin]
+        description: "Solo violin with vibrato, bridging East and West"
+      spirit:
+        asset: "audio/music/asakusa_spirit.ogg"
+        volume: 0.6
+        instruments: [sho, suzu_bells]
+        permeability_threshold: 0.15
+        description: "Sho and bells — the temple's spirit voice is always near"
+    transitions:
+      to_spirit_world: {type: spirit_bleed, duration: 3.0}
+      to_battle: {type: hard_cut, duration: 0.5}
+      to_ma: {type: ma_transition, duration: 5.0, silence_gap: 4.0}
+
+  # -----------------------------------------------------------------------
+  # 14. Witching Hour — "The Deepest Crossing"
+  # -----------------------------------------------------------------------
+  - track_id: witching_hour
+    name: "The Deepest Crossing"
+    composer_notes: >
+      2 AM to 5 AM. The spirit world is at its most powerful. This track
+      is almost entirely Japanese instrumentation with heavy reverb and
+      processing. Western instruments appear only as ghosts. The tempo is
+      very slow, the spaces between notes enormous. Built on the Iwato scale
+      — brooding, temple-bell intervals. Unsettling yet beautiful.
+    tempo_bpm: 44
+    key: D_iwato
+    time_signature: "free"
+    instruments:
+      - shakuhachi
+      - sho
+      - suzu_bells
+      - koto
+      - glass_harmonica
+    mood: deepest_night, powerful, unsettling, vast
+    conditions:
+      game_states: [exploration, spirit_vision]
+      time_of_day: [witching]
+      min_permeability: 0.5
+      max_permeability: 1.0
+    layers:
+      base:
+        asset: "audio/music/witching_base.ogg"
+        volume: 0.6
+        instruments: [sho]
+        description: "Sho sustained chord — the breath of the deep night"
+      melodic:
+        asset: "audio/music/witching_melody.ogg"
+        volume: 0.5
+        instruments: [shakuhachi]
+        description: "Shakuhachi in Iwato scale, each phrase separated by vast silence"
+      harmonic:
+        asset: "audio/music/witching_harmony.ogg"
+        volume: 0.4
+        instruments: [koto, glass_harmonica]
+        description: "Koto harmonics and glass harmonica — crystalline and cold"
+      spirit:
+        asset: "audio/music/witching_spirit.ogg"
+        volume: 0.8
+        instruments: [suzu_bells]
+        permeability_threshold: 0.0
+        description: "The bells never stop ringing during the witching hour"
+    transitions:
+      to_spirit_world: {type: crossfade, duration: 3.0}
+      to_battle: {type: hard_cut, duration: 0.3}
+      to_dawn: {type: fade_to_silence, duration: 8.0, silence_gap: 5.0}
+
+  # -----------------------------------------------------------------------
+  # 15. Dawn — "First Light"
+  # -----------------------------------------------------------------------
+  - track_id: dawn_theme
+    name: "First Light"
+    composer_notes: >
+      The spirits recede. The city wakes. A solo shinobue (high-pitched
+      bamboo flute) plays a melody derived from Aoi's theme but in
+      a major key, with the rising intervals of a question becoming
+      an answer. Strings enter gently. Bird calls are woven into the
+      texture. The spirit layer carries the last whispers of the night
+      before falling silent. Dawn in Ma no Kuni is always earned.
+    tempo_bpm: 76
+    key: D
+    time_signature: "4/4"
+    instruments:
+      - shinobue
+      - violin
+      - viola
+      - cello
+      - harp
+      - shakuhachi
+    mood: hopeful, earned, gentle, new
+    conditions:
+      game_states: [exploration]
+      time_of_day: [dawn]
+      min_permeability: 0.0
+      max_permeability: 0.5
+    layers:
+      base:
+        asset: "audio/music/dawn_base.ogg"
+        volume: 0.5
+        instruments: [cello, viola]
+        description: "Sustained strings, warmth rising like the sun"
+      melodic:
+        asset: "audio/music/dawn_melody.ogg"
+        volume: 0.8
+        instruments: [shinobue]
+        description: "Shinobue carrying Aoi's theme into the light"
+      harmonic:
+        asset: "audio/music/dawn_harmony.ogg"
+        volume: 0.5
+        instruments: [violin, harp]
+        description: "Violin and harp weaving the first colours of day"
+      spirit:
+        asset: "audio/music/dawn_spirit.ogg"
+        volume: 0.3
+        instruments: [shakuhachi]
+        permeability_threshold: 0.2
+        description: "Shakuhachi fading — the spirits' lullaby to themselves"
+    transitions:
+      to_tokyo_day: {type: crossfade, duration: 4.0}
+      to_aoi: {type: crossfade, duration: 3.0}
+      to_battle: {type: hard_cut, duration: 0.5}
+
+  # -----------------------------------------------------------------------
+  # 16. Title Screen — "Ma no Kuni"
+  # -----------------------------------------------------------------------
+  - track_id: title_theme
+    name: "Ma no Kuni"
+    composer_notes: >
+      The game's main theme. Opens with silence — true silence, not
+      room tone. Then a single shakuhachi note, D4, breath-tone. A
+      long pause. The koto enters with the game's main motif: a five-note
+      phrase from the Hirajoshi scale. Then the full orchestra builds.
+      The title theme contains fragments of every character's motif,
+      woven together like the threads of a story not yet told. By the
+      end, both Western and Japanese instruments play in unison, and
+      then everything fades back to a single note, and then nothing.
+    tempo_bpm: 68
+    key: D
+    time_signature: "4/4"
+    instruments:
+      - shakuhachi
+      - koto
+      - flute
+      - violin
+      - viola
+      - cello
+      - contrabass
+      - piano
+      - harp
+      - taiko
+      - sho
+    mood: epic, sweeping, anticipatory, unifying
+    conditions:
+      game_states: [title]
+      time_of_day: [all]
+    layers:
+      base:
+        asset: "audio/music/title_base.ogg"
+        volume: 0.7
+        instruments: [cello, contrabass, taiko]
+        description: "Full low strings and taiko — the weight of the world"
+      melodic:
+        asset: "audio/music/title_melody.ogg"
+        volume: 0.9
+        instruments: [shakuhachi, koto, flute]
+        description: "The main motif passed between shakuhachi, koto, and flute"
+      harmonic:
+        asset: "audio/music/title_harmony.ogg"
+        volume: 0.6
+        instruments: [violin, viola, piano, harp]
+        description: "Full orchestral harmony, both worlds singing together"
+      spirit:
+        asset: "audio/music/title_spirit.ogg"
+        volume: 0.5
+        instruments: [sho]
+        permeability_threshold: 0.0
+        description: "Sho organ throughout — the spirit world is always part of the story"
+    transitions:
+      to_aoi: {type: fade_to_silence, duration: 3.0, silence_gap: 2.0}
+
+  # -----------------------------------------------------------------------
+  # 17. Game Over — "The Pause Before Beginning Again"
+  # -----------------------------------------------------------------------
+  - track_id: game_over
+    name: "The Pause Before Beginning Again"
+    composer_notes: >
+      Not a defeat theme — Ma no Kuni does not believe in endings,
+      only pauses. Aoi's theme played in retrograde on music box,
+      slowing to silence. A final sho chord. Then room tone.
+      The title says it all: this is a ma between attempts.
+    tempo_bpm: 48
+    key: Dm
+    time_signature: "4/4"
+    instruments:
+      - music_box
+      - sho
+      - cello
+    mood: quiet, reflective, not-defeat, pause
+    conditions:
+      game_states: [game_over]
+      time_of_day: [all]
+    layers:
+      base:
+        asset: "audio/music/gameover_base.ogg"
+        volume: 0.3
+        instruments: [cello]
+        description: "A single cello note, fading"
+      melodic:
+        asset: "audio/music/gameover_melody.ogg"
+        volume: 0.5
+        instruments: [music_box]
+        description: "Music box playing Aoi's theme backwards, slower and slower"
+      harmonic:
+        asset: "audio/music/gameover_harmony.ogg"
+        volume: 0.3
+        instruments: [sho]
+        description: "Sho final chord — not an ending, a held breath"
+      spirit:
+        asset: null
+        volume: 0.0
+        instruments: []
+        permeability_threshold: 1.0
+        description: "Silence. The spirit world waits."
+    transitions:
+      to_title: {type: fade_to_silence, duration: 4.0, silence_gap: 3.0}
