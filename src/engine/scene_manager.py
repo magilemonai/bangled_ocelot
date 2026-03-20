@@ -1287,6 +1287,8 @@ class IntroScene(Scene):
         self._fully_revealed = False
 
     def render(self, renderer: Any) -> None:
+        if self._passage_index >= len(self._PASSAGES):
+            return
         if hasattr(renderer, "render_intro"):
             heading, body = self._PASSAGES[self._passage_index]
             renderer.render_intro(
