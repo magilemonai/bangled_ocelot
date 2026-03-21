@@ -218,7 +218,7 @@ class GameBootstrap:
                 except Exception as exc:
                     logger.warning(
                         "Failed to parse district '%s': %s",
-                        district_data.get("district_id", "unknown"),
+                        district_data.get("id", "unknown"),
                         exc,
                     )
             logger.info(
@@ -246,6 +246,11 @@ class GameBootstrap:
             SpiritEffectCategory,
         )
 
+        # YAML uses "id", District dataclass uses "district_id"
+        district_id = data["id"]
+
+        # Build connections from connected_districts list (simple string
+        # references) or structured connection objects if present
         connections = []
         for conn_data in data.get("connections", []):
             conn_type = ConnectionType.WALK
@@ -263,31 +268,57 @@ class GameBootstrap:
                 description=conn_data.get("description", ""),
                 requires_flag=conn_data.get("requires_flag"),
             ))
+        # Also support the simple "connected_districts" string list from YAML
+        for target_id in data.get("connected_districts", []):
+            if not any(c.target_district_id == target_id for c in connections):
+                connections.append(DistrictConnection(
+                    target_district_id=target_id,
+                    connection_type=ConnectionType.WALK,
+                    base_travel_minutes=15,
+                ))
 
+        # YAML uses "dominant_spirit_types" (string list); map to SpiritDomain
         dominant_spirits = []
-        for domain_str in data.get("dominant_spirits", []):
+        for domain_str in data.get("dominant_spirit_types", data.get("dominant_spirits", [])):
             try:
                 dominant_spirits.append(SpiritDomain(domain_str.lower()))
             except ValueError:
                 pass
 
+        # YAML atmosphere is a dict of time-of-day strings, not mood/lore
         atmosphere = None
         atm_data = data.get("atmosphere")
         if atm_data:
-            atmosphere = DistrictAtmosphere(
-                mood=atm_data.get("mood", ""),
-                permeation_lore=atm_data.get("permeation_lore", ""),
-            )
+            if isinstance(atm_data, dict):
+                # Build mood from description or first atmosphere entry
+                mood = data.get("description", "")
+                permeation_lore = ""
+                # Gather permeation effects if present
+                effects = data.get("permeation_effects", [])
+                if effects:
+                    permeation_lore = "; ".join(effects)
+                atmosphere = DistrictAtmosphere(
+                    mood=mood,
+                    permeation_lore=permeation_lore,
+                )
+
+        # Extract location IDs from key_locations list
+        location_ids = data.get("location_ids", [])
+        if not location_ids:
+            for loc in data.get("key_locations", []):
+                if isinstance(loc, dict) and "id" in loc:
+                    location_ids.append(loc["id"])
 
         return District(
-            district_id=data["district_id"],
-            name=data.get("name", data["district_id"]),
-            name_kanji=data.get("name_kanji", ""),
+            district_id=district_id,
+            name=data.get("name", district_id),
+            name_kanji=data.get("japanese_name", data.get("name_kanji", "")),
             subtitle=data.get("subtitle", ""),
-            base_permeability=data.get("base_permeability", 0.3),
+            base_permeability=data.get("base_permeability",
+                                       data.get("spirit_permeability_modifier", 0.3)),
             dominant_spirits=dominant_spirits,
             connections=connections,
-            location_ids=data.get("location_ids", []),
+            location_ids=location_ids,
             atmosphere=atmosphere,
             discovered=data.get("discovered", False),
             visited=data.get("visited", False),
@@ -715,9 +746,10 @@ class GameBootstrap:
         if data is not None:
             for track_data in data.get("tracks", []):
                 try:
+                    tid = track_data.get("track_id", track_data.get("id"))
                     track = TrackDefinition(
-                        track_id=track_data["id"],
-                        name=track_data.get("name", track_data["id"]),
+                        track_id=tid,
+                        name=track_data.get("name", tid),
                         tempo_bpm=track_data.get("tempo_bpm", 120.0),
                         key=track_data.get("key", "C"),
                         time_signature=track_data.get("time_signature", "4/4"),
@@ -740,7 +772,7 @@ class GameBootstrap:
                 except (KeyError, TypeError) as exc:
                     logger.warning(
                         "Failed to parse track '%s': %s",
-                        track_data.get("id", "unknown"),
+                        track_data.get("track_id", track_data.get("id", "unknown")),
                         exc,
                     )
             logger.info("Loaded %d music tracks", len(engine.tracks))
@@ -761,7 +793,12 @@ class GameBootstrap:
         sprite_path = self._data_root / "sprites" / "sprite_definitions.yaml"
         data = _load_yaml(sprite_path)
         if data is not None:
-            count = len(data.get("sprites", []))
+            # Sprite defs are at root level keyed by sprite name (aoi, mikan, etc.)
+            # If there's a "sprites" wrapper, use it; otherwise count all dict keys
+            if "sprites" in data:
+                count = len(data["sprites"])
+            else:
+                count = len([k for k in data if isinstance(data[k], dict)])
             logger.info("Loaded %d sprite definitions", count)
         else:
             logger.warning("No sprite definitions found")

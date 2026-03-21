@@ -346,6 +346,10 @@ class Bestiary:
         """
         Load spirit definitions from a YAML file.
         Returns the number of entries loaded.
+
+        Supports two YAML layouts:
+          - Flat: { "spirits": [ {spirit}, ... ] }
+          - Categorized: { "tsukumogami": [...], "nature_spirits": [...], ... }
         """
         if not os.path.exists(filepath):
             return 0
@@ -353,11 +357,23 @@ class Bestiary:
         with open(filepath, 'r', encoding='utf-8') as f:
             data = yaml.safe_load(f)
 
-        if not data or 'spirits' not in data:
+        if not data:
             return 0
 
+        # Collect all spirit entries from either layout
+        all_spirits: list[dict] = []
+        if 'spirits' in data:
+            all_spirits = data['spirits']
+        else:
+            # Categorized layout: each top-level key maps to a list of spirits
+            for key, value in data.items():
+                if isinstance(value, list):
+                    all_spirits.extend(value)
+
         count = 0
-        for spirit_data in data['spirits']:
+        for spirit_data in all_spirits:
+            if not isinstance(spirit_data, dict):
+                continue
             entry = self._parse_spirit_data(spirit_data)
             if entry:
                 self.entries[entry.id] = entry
@@ -366,10 +382,15 @@ class Bestiary:
         return count
 
     def _parse_spirit_data(self, data: dict) -> Optional[BestiaryEntry]:
-        """Parse a single spirit from YAML data into a BestiaryEntry."""
+        """Parse a single spirit from YAML data into a BestiaryEntry.
+
+        Handles both the structured format (nested stats, multiple desc fields)
+        and the YAML format actually used in data files (flat stats, single
+        description, element_affinity, japanese_name, etc.).
+        """
         try:
-            # Parse element
-            element_str = data.get('element', 'neutral').lower()
+            # Parse element — YAML uses "element_affinity", parser also accepts "element"
+            element_str = data.get('element_affinity', data.get('element', 'neutral')).lower()
             element = Element(element_str) if element_str in [
                 e.value for e in Element
             ] else Element.NEUTRAL
@@ -389,13 +410,14 @@ class Bestiary:
                 c.value for c in SpiritCategory
             ] else SpiritCategory.NATURE
 
-            # Parse stats
+            # Parse stats — YAML uses flat base_hp/base_attack/base_defense at
+            # top level; also support nested "stats" dict
             stats_data = data.get('stats', {})
             stats = SpiritStats(
-                base_hp=stats_data.get('hp', 50),
-                base_sp=stats_data.get('sp', 30),
-                attack=stats_data.get('attack', 8),
-                defense=stats_data.get('defense', 8),
+                base_hp=data.get('base_hp', stats_data.get('hp', 50)),
+                base_sp=data.get('base_sp', stats_data.get('sp', 30)),
+                attack=data.get('base_attack', stats_data.get('attack', 8)),
+                defense=data.get('base_defense', stats_data.get('defense', 8)),
                 spirit_power=stats_data.get('spirit_power', 10),
                 spirit_defense=stats_data.get('spirit_defense', 10),
                 speed=stats_data.get('speed', 10),
@@ -412,31 +434,42 @@ class Bestiary:
                 if r.lower() in [e.value for e in Element]
             ]
 
-            # Parse lore fragments
+            # Parse lore fragments — YAML uses a plain string list,
+            # also support structured objects with level/source
             lore_fragments = []
             for lore_data in data.get('lore_fragments', []):
-                level_str = lore_data.get('level', 'basic').upper()
-                try:
-                    level = RevealLevel[level_str]
-                except KeyError:
-                    level = RevealLevel.BASIC
-                lore_fragments.append(SpiritLoreFragment(
-                    text=lore_data.get('text', ''),
-                    reveal_level=level,
-                    source=lore_data.get('source', ''),
-                ))
+                if isinstance(lore_data, str):
+                    lore_fragments.append(SpiritLoreFragment(
+                        text=lore_data,
+                        reveal_level=RevealLevel.BASIC,
+                        source='',
+                    ))
+                elif isinstance(lore_data, dict):
+                    level_str = lore_data.get('level', 'basic').upper()
+                    try:
+                        level = RevealLevel[level_str]
+                    except KeyError:
+                        level = RevealLevel.BASIC
+                    lore_fragments.append(SpiritLoreFragment(
+                        text=lore_data.get('text', ''),
+                        reveal_level=level,
+                        source=lore_data.get('source', ''),
+                    ))
+
+            # Use "description" as basic_desc if specific desc fields are absent
+            description = data.get('description', '')
 
             entry = BestiaryEntry(
                 id=data['id'],
                 name=data.get('name', data['id']),
-                name_jp=data.get('name_jp', ''),
+                name_jp=data.get('japanese_name', data.get('name_jp', '')),
                 category=category,
                 element=element,
                 secondary_element=secondary,
-                level=data.get('level', 1),
+                level=data.get('spirit_level', data.get('level', 1)),
                 stats=stats,
                 silhouette_desc=data.get('silhouette_desc', ''),
-                basic_desc=data.get('basic_desc', ''),
+                basic_desc=data.get('basic_desc', description),
                 detailed_desc=data.get('detailed_desc', ''),
                 behavioral_desc=data.get('behavioral_desc', ''),
                 complete_desc=data.get('complete_desc', ''),
