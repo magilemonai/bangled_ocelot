@@ -554,15 +554,350 @@ class GameBootstrap:
         except ImportError:
             map_registry = _SimpleMapRegistry()
 
-        # Store using a simple dict-based registry for the movement map
-        map_registry._movement_maps = {"kichijoji_start": kichijoji}
+        # Build the arcade map and register both
+        arcade = self._create_arcade_map()
+
+        map_registry._movement_maps = {
+            "kichijoji_start": kichijoji,
+            "kichijoji_arcade": arcade,
+        }
 
         logger.info(
             "Created initial Kichijoji map: %dx%d tiles",
             kichijoji.width,
             kichijoji.height,
         )
+        logger.info(
+            "Created arcade map: %dx%d tiles",
+            arcade.width,
+            arcade.height,
+        )
         return map_registry, kichijoji
+
+    # ------------------------------------------------------------------ #
+    # Sun Road Shopping Arcade
+    # ------------------------------------------------------------------ #
+
+    def _create_arcade_map(self) -> Any:
+        """
+        Build the Kichijoji Sun Road Shopping Arcade — a covered
+        market street that grows quieter and more spirit-touched
+        the deeper you go.
+
+        Layout (20x15):
+          Rows  0-4:  Entrance — gate back to grandma's neighborhood
+          Rows  5-9:  Market heart — Yuki's konbini, Hinata's mural
+          Rows 10-14: Deep arcade — old shops, jizo, spirit traces
+
+        Returns a TileMap.
+        """
+        from src.exploration.movement import (
+            Tile, TileType, TileMap, TileCoord, InteractionType, MapConnection,
+        )
+
+        arcade = TileMap(
+            map_id="kichijoji_arcade",
+            name="Sun Road Shopping Arcade",
+            district="kichijoji",
+            width=20,
+            height=15,
+            description=(
+                "A covered shopping street where the smell of fresh taiyaki "
+                "mingles with something older and stranger."
+            ),
+            ambient_spirit_energy=0.2,
+        )
+
+        # ── Fill with walkable ground ──────────────────────────────
+        for y in range(15):
+            for x in range(20):
+                arcade.set_tile(x, y, Tile(tile_type=TileType.FLOOR))
+
+        # ── Boundary walls ─────────────────────────────────────────
+        for x in range(20):
+            arcade.set_tile(x, 0, Tile(tile_type=TileType.WALL, walkable=False))
+            arcade.set_tile(x, 14, Tile(tile_type=TileType.WALL, walkable=False))
+        for y in range(15):
+            arcade.set_tile(0, y, Tile(tile_type=TileType.WALL, walkable=False))
+            arcade.set_tile(19, y, Tile(tile_type=TileType.WALL, walkable=False))
+
+        # ── Entrance gate back to Kichijoji (north wall opening) ──
+        # Player arrives at (5, 1) from Kichijoji. Gate tile at (5, 0).
+        arcade.set_tile(5, 0, Tile(
+            tile_type=TileType.DOOR,
+            walkable=True,
+            interaction=InteractionType.OPEN,
+            interaction_id="arcade_entrance_gate",
+            event_trigger="map_transition",
+            metadata={"name": "gate to grandmother's neighborhood"},
+        ))
+
+        # Connection back to Kichijoji
+        arcade.connections.append(MapConnection(
+            source_coord=TileCoord(5, 0),
+            target_map_id="kichijoji_start",
+            target_coord=TileCoord(10, 13),
+            transition_text=(
+                "You step back through the gate. The garden air "
+                "replaces the smell of fried dough and old wood."
+            ),
+        ))
+
+        # ══════════════════════════════════════════════════════════
+        # ZONE 1: Entrance area (rows 1-4)
+        # A wider opening with a taiyaki stall on the right
+        # ══════════════════════════════════════════════════════════
+
+        # Arcade roof pillars along the sides — structural walls
+        # Left shop fronts
+        for y in range(1, 5):
+            arcade.set_tile(1, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+            arcade.set_tile(2, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+        # Right shop fronts
+        for y in range(1, 5):
+            arcade.set_tile(17, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+            arcade.set_tile(18, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+
+        # Taiyaki stall (right side, near entrance)
+        arcade.set_tile(16, 2, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.EXAMINE,
+            interaction_id="taiyaki_stall",
+            metadata={
+                "name": "taiyaki stall",
+                "description": "Golden fish-shaped cakes cool on a wire rack.",
+            },
+        ))
+
+        # Old notice board (left side)
+        arcade.set_tile(3, 2, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.EXAMINE,
+            interaction_id="arcade_notice_board",
+            metadata={
+                "name": "notice board",
+                "description": (
+                    "Layers of flyers. A missing cat poster. A calligraphy "
+                    "class. Beneath them all, a very old ward seal."
+                ),
+            },
+        ))
+
+        # ══════════════════════════════════════════════════════════
+        # ZONE 2: Market heart (rows 5-9)
+        # Yuki's konbini, Hinata's mural, vending machines
+        # ══════════════════════════════════════════════════════════
+
+        # -- Left side shops (wall blocks with doorways) --
+        for y in range(5, 10):
+            arcade.set_tile(1, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+        # Konbini wall with entrance
+        for x in range(2, 5):
+            arcade.set_tile(x, 5, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "konbini wall"},
+            ))
+            arcade.set_tile(x, 9, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "konbini wall"},
+            ))
+        arcade.set_tile(2, 6, Tile(
+            tile_type=TileType.WALL, walkable=False,
+            metadata={"name": "konbini wall"},
+        ))
+        arcade.set_tile(2, 7, Tile(
+            tile_type=TileType.WALL, walkable=False,
+            metadata={"name": "konbini wall"},
+        ))
+        arcade.set_tile(2, 8, Tile(
+            tile_type=TileType.WALL, walkable=False,
+            metadata={"name": "konbini wall"},
+        ))
+
+        # Konbini door
+        arcade.set_tile(3, 9, Tile(
+            tile_type=TileType.DOOR,
+            walkable=True,
+            interaction=InteractionType.OPEN,
+            interaction_id="konbini_door",
+            metadata={"name": "Yuki's Konbini"},
+        ))
+
+        # -- Yuki inside the konbini --
+        arcade.set_tile(3, 7, Tile(
+            tile_type=TileType.NPC,
+            walkable=False,
+            interaction=InteractionType.TALK,
+            interaction_id="yuki",
+            spirit_energy=0.15,
+            metadata={"name": "Yuki", "npc_id": "yuki"},
+        ))
+
+        # -- Right side shops --
+        for y in range(5, 10):
+            arcade.set_tile(18, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+        for y in range(5, 10):
+            arcade.set_tile(17, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shop wall"},
+            ))
+
+        # Vending machine — spirit-touched (the jidohanbaiki no kami)
+        arcade.set_tile(16, 7, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.USE,
+            interaction_id="spirit_vending_machine",
+            spirit_energy=0.4,
+            metadata={
+                "name": "old vending machine",
+                "description": (
+                    "The buttons glow faintly even though "
+                    "the power cord lies unplugged on the ground."
+                ),
+            },
+        ))
+
+        # Hinata's mural — on the right wall
+        arcade.set_tile(15, 6, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.EXAMINE,
+            interaction_id="hinata_mural",
+            spirit_energy=0.35,
+            metadata={
+                "name": "street mural",
+                "description": (
+                    "A sprawling painting of foxes and lanterns. "
+                    "The brushwork seems to shift when you aren't "
+                    "looking directly at it."
+                ),
+            },
+        ))
+
+        # Bench in the arcade corridor — a place to sit and watch
+        arcade.set_tile(8, 8, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.SIT,
+            interaction_id="arcade_bench",
+            metadata={
+                "name": "worn bench",
+                "ma_gain": 3.0,
+                "description": (
+                    "A bench polished smooth by decades of shoppers."
+                ),
+            },
+        ))
+
+        # ══════════════════════════════════════════════════════════
+        # ZONE 3: Deep arcade (rows 10-14)
+        # Older, quieter. Spirit energy rises. Hidden paths.
+        # ══════════════════════════════════════════════════════════
+
+        # Shuttered shops on both sides
+        for y in range(10, 14):
+            arcade.set_tile(1, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shuttered shop"},
+            ))
+            arcade.set_tile(2, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shuttered shop"},
+            ))
+            arcade.set_tile(17, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shuttered shop"},
+            ))
+            arcade.set_tile(18, y, Tile(
+                tile_type=TileType.WALL, walkable=False,
+                metadata={"name": "shuttered shop"},
+            ))
+
+        # Increase spirit energy in the deep arcade
+        for y in range(10, 14):
+            for x in range(3, 17):
+                tile = arcade.get_tile(x, y)
+                if tile is not None and tile.tile_type == TileType.FLOOR:
+                    tile.spirit_energy = 0.3 + (y - 10) * 0.1
+
+        # Small jizo tucked in the back corner
+        arcade.set_tile(3, 12, Tile(
+            tile_type=TileType.SAVE_POINT,
+            walkable=False,
+            interaction=InteractionType.PRAY,
+            interaction_id="jizo_arcade",
+            spirit_energy=0.5,
+            metadata={"name": "weathered jizo statue", "ma_gain": 3.0},
+        ))
+
+        # Old well — listen to the water far below
+        arcade.set_tile(14, 11, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.LISTEN,
+            interaction_id="arcade_old_well",
+            spirit_energy=0.5,
+            metadata={
+                "name": "old well",
+                "ma_gain": 4.0,
+                "description": (
+                    "A stone well sealed with a wooden lid. "
+                    "You can hear water — or breathing — far below."
+                ),
+            },
+        ))
+
+        # Spirit-only alcove (east wall, only visible with spirit vision)
+        # Hints at a deeper passage — future expansion point
+        for y in range(11, 13):
+            arcade.set_tile(16, y, Tile(
+                tile_type=TileType.SPIRIT_FLOOR,
+                walkable=False,
+                spirit_walkable=True,
+                spirit_energy=0.7,
+                discovery_id="arcade_spirit_alcove",
+                metadata={"name": "a passage only you can see"},
+            ))
+
+        # A faded shop sign at the dead end — mysterious
+        arcade.set_tile(10, 13, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.EXAMINE,
+            interaction_id="faded_shop_sign",
+            spirit_energy=0.4,
+            metadata={
+                "name": "faded shop sign",
+                "description": (
+                    "The characters have worn away to nothing. "
+                    "But when you close your eyes you can almost read: "
+                    "\"Memories Bought and Sold.\""
+                ),
+            },
+        ))
+
+        return arcade
 
     # ------------------------------------------------------------------ #
     # Step 3: Bestiary

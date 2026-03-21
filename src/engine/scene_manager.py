@@ -1445,6 +1445,12 @@ class SceneManager:
             priority=100,
             name="scene_manager",
         )
+        self.event_bus.subscribe(
+            EventType.SCREEN_TRANSITION,
+            self._on_screen_transition,
+            priority=100,
+            name="scene_manager",
+        )
 
     # -- Stack operations --
 
@@ -1703,6 +1709,53 @@ class SceneManager:
 
         elif target == "quit":
             self.game.running = False
+
+    def _on_screen_transition(self, event: GameEvent) -> None:
+        """Load target map and reposition the player."""
+        target_map_id = event.data.get("target_map", "")
+        target_x = event.data.get("target_x", 0)
+        target_y = event.data.get("target_y", 0)
+        text = event.data.get("text", "")
+
+        if not target_map_id:
+            logger.warning("Screen transition with no target map")
+            return
+
+        # Look up the target map in the registry
+        map_registry = self.game.systems.get("map_registry")
+        if map_registry is None:
+            logger.warning("No map registry — cannot transition to %s", target_map_id)
+            return
+
+        movement_maps = getattr(map_registry, "_movement_maps", {})
+        new_map = movement_maps.get(target_map_id)
+        if new_map is None:
+            logger.warning("Map '%s' not found in registry", target_map_id)
+            return
+
+        # Swap the map on the movement controller and reposition
+        movement = self.game.systems.get("movement")
+        if movement is not None:
+            from src.exploration.movement import TileCoord
+            movement.tile_map = new_map
+            movement.position = TileCoord(target_x, target_y)
+            movement.tiles_visited = {(target_x, target_y)}
+
+        # Update game state
+        self.game.current_map = new_map
+
+        logger.info(
+            "Map transition: -> %s at (%d, %d)%s",
+            target_map_id, target_x, target_y,
+            f" — {text}" if text else "",
+        )
+
+        # Show transition text as a toast on the exploration scene
+        if text:
+            for scene in reversed(self._scene_stack):
+                if isinstance(scene, ExplorationScene):
+                    scene._last_toast = text
+                    break
 
     # -- Context building --
 
