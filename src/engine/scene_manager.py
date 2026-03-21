@@ -157,12 +157,11 @@ class ExplorationScene(Scene):
         if movement is not None and hasattr(movement, "update"):
             movement.update(delta)
 
-        # Idle ma accumulation
+        # Idle ma accumulation — only the current frame's stillness counts
         self._idle_timer += delta
         if self._idle_timer >= self._idle_ma_threshold:
-            excess = self._idle_timer - self._idle_ma_threshold
             thresholds = self.game.ma.accumulate(
-                excess * 0.5, context="exploration_stillness"
+                delta * 0.5, context="exploration_stillness"
             )
             for t in thresholds:
                 self.event_bus.emit(GameEvent(
@@ -348,7 +347,18 @@ class ExplorationScene(Scene):
             InteractionType.USE,
             InteractionType.OPEN,
         ):
+            target_id = action.target_tile.interaction_id or ""
             name = action.target_tile.metadata.get("name", "")
+
+            # Workshop tiles open the crafting scene
+            if target_id == "workshop":
+                self.event_bus.emit(GameEvent(
+                    event_type=EventType.CRAFT_START,
+                    data={},
+                    source="exploration_scene",
+                ))
+                return
+
             verbs = {
                 InteractionType.EXAMINE: "examine",
                 InteractionType.PICK_UP: "pick up",
@@ -361,7 +371,7 @@ class ExplorationScene(Scene):
                 event_type=EventType.PLAYER_INTERACT,
                 data={
                     "interaction": action.interaction_type.value,
-                    "target_id": action.target_tile.interaction_id,
+                    "target_id": target_id,
                     "coord_x": action.target_coord.x,
                     "coord_y": action.target_coord.y,
                 },

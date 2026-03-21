@@ -153,7 +153,14 @@ class GameBootstrap:
         if music_engine is not None:
             game.register_system("music_engine", music_engine)
 
-        # 13. Save system
+        # 13. Crafting workshop
+        workshop = self._create_workshop(
+            material_registry, recipe_registry, game, player,
+        )
+        if workshop is not None:
+            game.register_system("workshop", workshop)
+
+        # 14. Save system
         save_system = self._create_save_system()
         game.register_system("save_system", save_system)
 
@@ -418,6 +425,14 @@ class GameBootstrap:
             walkable=True,
             event_trigger="location_grandmother_house",
             metadata={"name": "grandmother's house interior"},
+        ))
+        # Grandmother's kitchen table — crafting workshop
+        kichijoji.set_tile(3, 5, Tile(
+            tile_type=TileType.INTERACTIVE,
+            walkable=False,
+            interaction=InteractionType.USE,
+            interaction_id="workshop",
+            metadata={"name": "kitchen table"},
         ))
 
         # -- Garden (right of the house) --
@@ -1315,6 +1330,125 @@ class GameBootstrap:
     # ------------------------------------------------------------------ #
     # Step 13b: Save system
     # ------------------------------------------------------------------ #
+
+    def _create_workshop(
+        self,
+        material_registry: Any,
+        recipe_registry: Any,
+        game: Any,
+        player: Any,
+    ) -> Any:
+        """Create the CraftingWorkshop with an adapter for world state."""
+        try:
+            from src.crafting.workshop import CraftingWorkshop, Inventory
+            from src.crafting.recipes import CrafterProfile
+        except ImportError:
+            logger.warning("Could not import crafting system")
+            return None
+
+        # Adapter to satisfy WorldStateProvider protocol
+        class _WorldAdapter:
+            def __init__(self, g: Any):
+                self._game = g
+
+            @property
+            def time_of_day(self) -> str:
+                return self._game.clock.time_of_day.value
+
+            @property
+            def season(self) -> str:
+                return self._game.clock.season.value
+
+            @property
+            def current_location(self) -> str:
+                m = self._game.current_map
+                return m.name if m else ""
+
+            @property
+            def current_district(self) -> str:
+                return self._game.current_district or ""
+
+            @property
+            def spirit_permeability(self) -> float:
+                return self._game.clock.spirit_permeability
+
+            @property
+            def current_ma(self) -> float:
+                return self._game.ma.current_ma
+
+            @property
+            def moon_phase(self) -> str:
+                return self._game.clock.moon_phase.value
+
+            @property
+            def weather(self) -> str:
+                return "clear"
+
+            def check_flag(self, flag: str) -> bool:
+                return self._game.check_flag(flag)
+
+            @property
+            def active_companion(self):
+                return None
+
+        # Give Aoi a starter crafter profile with a few known recipes
+        crafter = CrafterProfile(spirit_affinity=1)
+
+        # Discover starter recipes from the recipe registry
+        if hasattr(recipe_registry, '_recipes'):
+            all_recipes = recipe_registry._recipes
+        elif hasattr(recipe_registry, 'recipes'):
+            all_recipes = recipe_registry.recipes
+        else:
+            all_recipes = {}
+
+        starter_count = 0
+        for rid, recipe in all_recipes.items():
+            # Start with basic recipes (skill requirement <= 1)
+            skill_req = getattr(recipe, 'required_skill', 0)
+            if isinstance(skill_req, int) and skill_req <= 1:
+                crafter.discover_recipe(rid)
+                starter_count += 1
+            elif not isinstance(skill_req, int):
+                # If skill_req is non-numeric, include it as starter
+                crafter.discover_recipe(rid)
+                starter_count += 1
+
+        inventory = Inventory()
+
+        # Give starter materials so the player can craft something
+        if hasattr(material_registry, '_materials'):
+            all_mats = material_registry._materials
+        elif hasattr(material_registry, 'materials'):
+            all_mats = material_registry.materials
+        else:
+            all_mats = {}
+
+        # Give a few of each basic material
+        mat_count = 0
+        for mid, mat in all_mats.items():
+            rarity = getattr(mat, 'rarity', None)
+            rarity_name = rarity.name.lower() if hasattr(rarity, 'name') else str(rarity)
+            if rarity_name in ('common', 'uncommon'):
+                try:
+                    inventory.add_material(mat, 3)
+                    mat_count += 1
+                except (ValueError, TypeError):
+                    pass
+
+        workshop = CraftingWorkshop(
+            material_registry=material_registry,
+            recipe_registry=recipe_registry,
+            crafter=crafter,
+            inventory=inventory,
+            world=_WorldAdapter(game),
+        )
+
+        logger.info(
+            "Workshop created: %d starter recipes, %d material types",
+            starter_count, mat_count,
+        )
+        return workshop
 
     def _create_save_system(self) -> Any:
         """Create the SaveSystem for save/load functionality."""

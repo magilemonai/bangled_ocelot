@@ -1926,10 +1926,83 @@ class PygameRenderer:
                       color, size=18)
 
     def render_crafting(self, crafting_state: Any = None, **kwargs: Any) -> None:
-        """Render crafting scene (placeholder)."""
-        self.screen.fill((20, 15, 10))
-        draw_text(self.screen, "— CRAFTING —", self.SCREEN_W // 2 - 60,
-                  20, self._CLR_WHITE, size=24)
+        """Render crafting scene with recipe list and details."""
+        recipes = kwargs.get("recipes", [])
+        selected = kwargs.get("selected", 0)
+
+        # Semi-transparent overlay
+        overlay = pygame.Surface((self.SCREEN_W, self.SCREEN_H), pygame.SRCALPHA)
+        overlay.fill((20, 15, 10, 200))
+        self.screen.blit(overlay, (0, 0))
+
+        # Title
+        draw_text(self.screen, "— Kitchen Table —",
+                  self.SCREEN_W // 2 - 80, 16, self._CLR_WHITE, size=20)
+
+        if not recipes:
+            draw_text(self.screen, "No recipes available.",
+                      40, 60, (180, 170, 150, 255), size=16)
+            draw_text(self.screen, "[X] Close",
+                      40, self.SCREEN_H - 30, (140, 130, 120, 255), size=14)
+            return
+
+        # Recipe list
+        y = 50
+        for i, recipe in enumerate(recipes):
+            name = getattr(recipe, "name", str(recipe))
+            if i == selected:
+                # Highlight bar
+                pygame.draw.rect(self.screen, (60, 50, 40),
+                                 (30, y - 2, self.SCREEN_W // 2 - 40, 20))
+                color = (255, 240, 200, 255)
+                draw_text(self.screen, ">", 20, y, color, size=16)
+            else:
+                color = (180, 170, 150, 255)
+            draw_text(self.screen, name, 40, y, color, size=16)
+            y += 22
+            if y > self.SCREEN_H - 80:
+                break
+
+        # Selected recipe details (right panel)
+        if 0 <= selected < len(recipes):
+            recipe = recipes[selected]
+            rx = self.SCREEN_W // 2 + 10
+            ry = 50
+            desc = getattr(recipe, "description", "")
+            if desc:
+                # Word-wrap description
+                words = desc.split()
+                line = ""
+                for word in words:
+                    test = f"{line} {word}".strip()
+                    if len(test) > 30:
+                        draw_text(self.screen, line, rx, ry,
+                                  (200, 190, 170, 255), size=14)
+                        ry += 18
+                        line = word
+                    else:
+                        line = test
+                if line:
+                    draw_text(self.screen, line, rx, ry,
+                              (200, 190, 170, 255), size=14)
+                    ry += 24
+
+            # Materials required
+            materials = getattr(recipe, "materials", [])
+            if materials:
+                draw_text(self.screen, "Materials:", rx, ry,
+                          (160, 150, 130, 255), size=14)
+                ry += 18
+                for mat in materials:
+                    mat_id = getattr(mat, "material_id", str(mat))
+                    qty = getattr(mat, "quantity", 1)
+                    draw_text(self.screen, f"  {mat_id} x{qty}", rx, ry,
+                              (140, 130, 110, 255), size=14)
+                    ry += 16
+
+        # Controls
+        draw_text(self.screen, "[Z] Craft   [X] Close",
+                  40, self.SCREEN_H - 30, (140, 130, 120, 255), size=14)
 
     def render_vignette_beat(self, beat: Any, vignette: Any, ma: Any) -> None:
         """Render a vignette narrative beat (placeholder)."""
