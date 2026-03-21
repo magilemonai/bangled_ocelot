@@ -1233,83 +1233,6 @@ class PygameRenderer:
                 (220, 220, 255, 255), 16,
             )
 
-    # -----------------------------------------------------------------------
-    # Menu rendering
-    # -----------------------------------------------------------------------
-
-    def render_menu(self, game_state: dict) -> None:
-        """Render a fullscreen menu overlay.
-
-        Expected ``game_state["menu"]`` keys:
-        - ``"title"``: str
-        - ``"items"``: list of str
-        - ``"selected"``: int (index of highlighted item)
-        - ``"description"``: optional str (description of selected item)
-        """
-        menu = game_state.get("menu")
-        if menu is None:
-            return
-
-        # Dim the background
-        dim = pygame.Surface((self.SCREEN_W, self.SCREEN_H), pygame.SRCALPHA)
-        dim.fill((0, 0, 0, 180))
-        self.screen.blit(dim, (0, 0))
-
-        title = menu.get("title", "Menu")
-        items = menu.get("items", [])
-        selected = menu.get("selected", 0)
-        description = menu.get("description", "")
-
-        # Title
-        draw_text(
-            self.screen, title,
-            self.SCREEN_W // 2 - len(title) * 6, 40,
-            (220, 200, 255, 255), 28,
-        )
-
-        # Divider line
-        pygame.draw.line(
-            self.screen, (100, 80, 140),
-            (self.SCREEN_W // 4, 72),
-            (self.SCREEN_W * 3 // 4, 72),
-        )
-
-        # Menu items
-        item_x = self.SCREEN_W // 3
-        item_y_start = 100
-        item_h = 32
-
-        for i, item in enumerate(items):
-            iy = item_y_start + i * item_h
-            is_sel = i == selected
-
-            if is_sel:
-                # Highlight background
-                sel_bg = pygame.Surface((self.SCREEN_W // 3, item_h - 4), pygame.SRCALPHA)
-                sel_bg.fill((80, 60, 120, 120))
-                self.screen.blit(sel_bg, (item_x - 8, iy - 2))
-
-            prefix = "> " if is_sel else "   "
-            text_color = (255, 255, 230) if is_sel else (160, 160, 180)
-            draw_text(
-                self.screen, f"{prefix}{item}",
-                item_x, iy,
-                (*text_color, 255), 20,
-            )
-
-        # Description pane
-        if description:
-            desc_y = item_y_start + len(items) * item_h + 20
-            pygame.draw.line(
-                self.screen, (60, 50, 80),
-                (self.SCREEN_W // 4, desc_y - 8),
-                (self.SCREEN_W * 3 // 4, desc_y - 8),
-            )
-            draw_text(
-                self.screen, description,
-                item_x, desc_y,
-                (180, 180, 200, 255), 14,
-            )
 
     # -----------------------------------------------------------------------
     # Toast notifications
@@ -2010,6 +1933,205 @@ class PygameRenderer:
         text = getattr(beat, "text", "...")
         draw_text(self.screen, text, 40, self.SCREEN_H // 3,
                   (180, 170, 200, 255), size=18)
+
+    def render_list_viewer(
+        self,
+        title: str = "",
+        entries: list = None,
+        selected: int = 0,
+        empty_message: str = "Nothing here.",
+    ) -> None:
+        """Generic list viewer overlay for inventory and similar screens."""
+        entries = entries or []
+        overlay = pygame.Surface((self.SCREEN_W, self.SCREEN_H), pygame.SRCALPHA)
+        overlay.fill((15, 12, 20, 210))
+        self.screen.blit(overlay, (0, 0))
+
+        draw_text(self.screen, f"— {title} —",
+                  self.SCREEN_W // 2 - 60, 16, self._CLR_WHITE, size=20)
+
+        if not entries:
+            draw_text(self.screen, empty_message,
+                      40, 60, (140, 130, 120, 255), size=16)
+        else:
+            y = 50
+            for i, (name, detail) in enumerate(entries):
+                if i == selected:
+                    pygame.draw.rect(self.screen, (50, 40, 60),
+                                     (30, y - 2, self.SCREEN_W - 60, 20))
+                    color = (255, 240, 200, 255)
+                    draw_text(self.screen, ">", 20, y, color, size=16)
+                else:
+                    color = (180, 170, 150, 255)
+                draw_text(self.screen, name, 40, y, color, size=16)
+                if detail:
+                    draw_text(self.screen, detail,
+                              self.SCREEN_W - 100, y, (140, 130, 110, 255), size=16)
+                y += 22
+                if y > self.SCREEN_H - 50:
+                    break
+
+        draw_text(self.screen, "[X] Close",
+                  40, self.SCREEN_H - 30, (140, 130, 120, 255), size=14)
+
+    def render_bestiary(
+        self,
+        spirits: list = None,
+        selected: int = 0,
+    ) -> None:
+        """Render the bestiary with spirit list and detail panel."""
+        spirits = spirits or []
+        overlay = pygame.Surface((self.SCREEN_W, self.SCREEN_H), pygame.SRCALPHA)
+        overlay.fill((10, 10, 25, 210))
+        self.screen.blit(overlay, (0, 0))
+
+        draw_text(self.screen, "— Bestiary —",
+                  self.SCREEN_W // 2 - 50, 16, self._CLR_WHITE, size=20)
+
+        if not spirits:
+            draw_text(self.screen, "No spirits encountered yet.",
+                      40, 60, (140, 130, 160, 255), size=16)
+        else:
+            y = 50
+            for i, spirit in enumerate(spirits):
+                name = getattr(spirit, "name", "???")
+                name_jp = getattr(spirit, "name_jp", "")
+                label = f"{name} ({name_jp})" if name_jp else name
+                if i == selected:
+                    pygame.draw.rect(self.screen, (40, 35, 60),
+                                     (30, y - 2, self.SCREEN_W // 2 - 40, 20))
+                    color = (200, 180, 255, 255)
+                    draw_text(self.screen, ">", 20, y, color, size=16)
+                else:
+                    color = (160, 150, 180, 255)
+                draw_text(self.screen, label, 40, y, color, size=14)
+                y += 20
+                if y > self.SCREEN_H - 50:
+                    break
+
+            # Detail panel for selected spirit
+            if 0 <= selected < len(spirits):
+                spirit = spirits[selected]
+                rx = self.SCREEN_W // 2 + 10
+                ry = 50
+                elem = getattr(spirit, "element", None)
+                if elem:
+                    draw_text(self.screen, f"Element: {elem.name.title()}",
+                              rx, ry, (150, 140, 170, 255), size=14)
+                    ry += 18
+                cat = getattr(spirit, "category", None)
+                if cat:
+                    draw_text(self.screen, f"Type: {cat.name.replace('_', ' ').title()}",
+                              rx, ry, (150, 140, 170, 255), size=14)
+                    ry += 18
+                lvl = getattr(spirit, "level", None)
+                if lvl:
+                    draw_text(self.screen, f"Level: {lvl}",
+                              rx, ry, (150, 140, 170, 255), size=14)
+                    ry += 24
+                desc = getattr(spirit, "basic_desc", "")
+                if desc:
+                    words = desc.split()
+                    line = ""
+                    for word in words:
+                        test = f"{line} {word}".strip()
+                        if len(test) > 32:
+                            draw_text(self.screen, line, rx, ry,
+                                      (130, 125, 150, 255), size=13)
+                            ry += 16
+                            line = word
+                        else:
+                            line = test
+                        if ry > self.SCREEN_H - 60:
+                            break
+                    if line and ry <= self.SCREEN_H - 60:
+                        draw_text(self.screen, line, rx, ry,
+                                  (130, 125, 150, 255), size=13)
+
+        draw_text(self.screen, "[X] Close",
+                  40, self.SCREEN_H - 30, (140, 130, 120, 255), size=14)
+
+    def render_quest_log(
+        self,
+        quests: list = None,
+        selected: int = 0,
+    ) -> None:
+        """Render the quest log with quest list and objectives."""
+        quests = quests or []
+        overlay = pygame.Surface((self.SCREEN_W, self.SCREEN_H), pygame.SRCALPHA)
+        overlay.fill((15, 10, 10, 210))
+        self.screen.blit(overlay, (0, 0))
+
+        draw_text(self.screen, "— Quest Log —",
+                  self.SCREEN_W // 2 - 55, 16, self._CLR_WHITE, size=20)
+
+        if not quests:
+            draw_text(self.screen, "No quests yet.",
+                      40, 60, (160, 140, 130, 255), size=16)
+        else:
+            y = 50
+            for i, quest in enumerate(quests):
+                title = getattr(quest, "title", "???")
+                qtype = getattr(quest, "quest_type", None)
+                prefix = ""
+                if qtype and hasattr(qtype, "name"):
+                    prefix = f"[{qtype.name.title()}] "
+                label = f"{prefix}{title}"
+                if i == selected:
+                    pygame.draw.rect(self.screen, (50, 35, 35),
+                                     (30, y - 2, self.SCREEN_W // 2 - 40, 20))
+                    color = (255, 220, 180, 255)
+                    draw_text(self.screen, ">", 20, y, color, size=16)
+                else:
+                    color = (180, 160, 140, 255)
+                draw_text(self.screen, label, 40, y, color, size=14)
+                y += 20
+                if y > self.SCREEN_H - 50:
+                    break
+
+            # Detail panel
+            if 0 <= selected < len(quests):
+                quest = quests[selected]
+                rx = self.SCREEN_W // 2 + 10
+                ry = 50
+                desc = getattr(quest, "short_description", "") or getattr(quest, "description", "")
+                if desc:
+                    words = desc.split()
+                    line = ""
+                    for word in words:
+                        test = f"{line} {word}".strip()
+                        if len(test) > 30:
+                            draw_text(self.screen, line, rx, ry,
+                                      (170, 155, 140, 255), size=14)
+                            ry += 18
+                            line = word
+                        else:
+                            line = test
+                    if line:
+                        draw_text(self.screen, line, rx, ry,
+                                  (170, 155, 140, 255), size=14)
+                        ry += 24
+
+                # Show objectives
+                objectives = getattr(quest, "objectives", [])
+                if objectives:
+                    draw_text(self.screen, "Objectives:", rx, ry,
+                              (150, 135, 120, 255), size=14)
+                    ry += 18
+                    for obj in objectives:
+                        completed = getattr(obj, "completed", False)
+                        mark = "x" if completed else "o"
+                        obj_desc = getattr(obj, "description", "")
+                        if len(obj_desc) > 35:
+                            obj_desc = obj_desc[:32] + "..."
+                        draw_text(self.screen, f"  [{mark}] {obj_desc}",
+                                  rx, ry, (140, 125, 110, 255), size=13)
+                        ry += 16
+                        if ry > self.SCREEN_H - 50:
+                            break
+
+        draw_text(self.screen, "[X] Close",
+                  40, self.SCREEN_H - 30, (140, 130, 120, 255), size=14)
 
     def render_intro(
         self,

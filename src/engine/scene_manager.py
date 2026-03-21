@@ -1111,6 +1111,149 @@ class CraftingScene(Scene):
 
 
 # ---------------------------------------------------------------------------
+# Inventory viewer
+# ---------------------------------------------------------------------------
+
+class InventoryScene(Scene):
+    """Read-only inventory viewer. Shows materials the player is carrying."""
+
+    def __init__(self, game: Game, event_bus: EventBus) -> None:
+        super().__init__(game, event_bus)
+        self.transparent = True
+        self._items: list[tuple[str, str, int]] = []  # (id, name, qty)
+        self._selected: int = 0
+
+    def enter(self) -> None:
+        super().enter()
+        workshop = self.game.systems.get("workshop")
+        if workshop is not None and hasattr(workshop, "_inventory"):
+            self._items = [
+                (mid, stack.material.name, stack.quantity)
+                for mid, stack in sorted(workshop._inventory.stacks.items())
+            ]
+        logger.info("Inventory scene: %d item types", len(self._items))
+
+    def update(self, delta: float) -> None:
+        pass
+
+    def handle_input(self, action: str, pressed: bool) -> None:
+        if not pressed:
+            return
+        if action in ("move_up", "choice_up") and self._items:
+            self._selected = (self._selected - 1) % len(self._items)
+        elif action in ("move_down", "choice_down") and self._items:
+            self._selected = (self._selected + 1) % len(self._items)
+        elif action in ("cancel", "menu", "confirm"):
+            self.event_bus.emit(GameEvent(
+                event_type=EventType.STATE_CHANGE,
+                data={"target_state": "pop_scene"},
+                source="inventory_scene",
+            ))
+
+    def render(self, renderer: Any) -> None:
+        if hasattr(renderer, "render_list_viewer"):
+            entries = [(name, f"x{qty}") for _, name, qty in self._items]
+            renderer.render_list_viewer(
+                title="Inventory",
+                entries=entries,
+                selected=self._selected,
+                empty_message="You aren't carrying anything.",
+            )
+
+
+# ---------------------------------------------------------------------------
+# Bestiary viewer
+# ---------------------------------------------------------------------------
+
+class BestiaryScene(Scene):
+    """Read-only bestiary viewer. Shows known spirits."""
+
+    def __init__(self, game: Game, event_bus: EventBus) -> None:
+        super().__init__(game, event_bus)
+        self.transparent = True
+        self._spirits: list[Any] = []
+        self._selected: int = 0
+
+    def enter(self) -> None:
+        super().enter()
+        bestiary = self.game.systems.get("bestiary")
+        if bestiary is not None and hasattr(bestiary, "entries"):
+            self._spirits = sorted(
+                bestiary.entries.values(), key=lambda s: s.name,
+            )
+        logger.info("Bestiary scene: %d spirits", len(self._spirits))
+
+    def update(self, delta: float) -> None:
+        pass
+
+    def handle_input(self, action: str, pressed: bool) -> None:
+        if not pressed:
+            return
+        if action in ("move_up", "choice_up") and self._spirits:
+            self._selected = (self._selected - 1) % len(self._spirits)
+        elif action in ("move_down", "choice_down") and self._spirits:
+            self._selected = (self._selected + 1) % len(self._spirits)
+        elif action in ("cancel", "menu", "confirm"):
+            self.event_bus.emit(GameEvent(
+                event_type=EventType.STATE_CHANGE,
+                data={"target_state": "pop_scene"},
+                source="bestiary_scene",
+            ))
+
+    def render(self, renderer: Any) -> None:
+        if hasattr(renderer, "render_bestiary"):
+            renderer.render_bestiary(
+                spirits=self._spirits,
+                selected=self._selected,
+            )
+
+
+# ---------------------------------------------------------------------------
+# Quest log viewer
+# ---------------------------------------------------------------------------
+
+class QuestLogScene(Scene):
+    """Read-only quest log viewer."""
+
+    def __init__(self, game: Game, event_bus: EventBus) -> None:
+        super().__init__(game, event_bus)
+        self.transparent = True
+        self._quests: list[Any] = []
+        self._selected: int = 0
+
+    def enter(self) -> None:
+        super().enter()
+        story = self.game.systems.get("story_manager")
+        if story is not None and hasattr(story, "quest_log"):
+            self._quests = list(story.quest_log.quests.values())
+        logger.info("Quest log scene: %d quests", len(self._quests))
+
+    def update(self, delta: float) -> None:
+        pass
+
+    def handle_input(self, action: str, pressed: bool) -> None:
+        if not pressed:
+            return
+        if action in ("move_up", "choice_up") and self._quests:
+            self._selected = (self._selected - 1) % len(self._quests)
+        elif action in ("move_down", "choice_down") and self._quests:
+            self._selected = (self._selected + 1) % len(self._quests)
+        elif action in ("cancel", "menu", "confirm"):
+            self.event_bus.emit(GameEvent(
+                event_type=EventType.STATE_CHANGE,
+                data={"target_state": "pop_scene"},
+                source="quest_log_scene",
+            ))
+
+    def render(self, renderer: Any) -> None:
+        if hasattr(renderer, "render_quest_log"):
+            renderer.render_quest_log(
+                quests=self._quests,
+                selected=self._selected,
+            )
+
+
+# ---------------------------------------------------------------------------
 # Vignette scene
 # ---------------------------------------------------------------------------
 
@@ -1783,6 +1926,15 @@ class SceneManager:
         elif target == "start_exploration":
             exploration = ExplorationScene(self.game, self.event_bus)
             self._schedule("clear_to", exploration)
+
+        elif target == "inventory":
+            self._schedule("push", InventoryScene(self.game, self.event_bus))
+
+        elif target == "bestiary":
+            self._schedule("push", BestiaryScene(self.game, self.event_bus))
+
+        elif target == "quests":
+            self._schedule("push", QuestLogScene(self.game, self.event_bus))
 
         elif target == "quit":
             self.game.running = False
