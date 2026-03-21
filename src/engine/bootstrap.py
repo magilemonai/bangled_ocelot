@@ -153,13 +153,17 @@ class GameBootstrap:
         if music_engine is not None:
             game.register_system("music_engine", music_engine)
 
-        # 13. Scene manager
+        # 13. Save system
+        save_system = self._create_save_system()
+        game.register_system("save_system", save_system)
+
+        # 14. Scene manager
         scene_manager = self._create_scene_manager(game, event_bus)
 
-        # 14. Set initial story flags for Chapter 1
+        # 15. Set initial story flags for Chapter 1
         self._set_initial_flags(game, story_manager)
 
-        # 15. Place NPCs at their starting positions
+        # 16. Place NPCs at their starting positions
         self._place_npcs(npc_registry, game.clock.hour, game.clock.day)
 
         logger.info("=== Ma no Kuni bootstrap complete ===")
@@ -778,6 +782,16 @@ class GameBootstrap:
             },
         ))
 
+        # Hinata — painting by her mural
+        arcade.set_tile(14, 6, Tile(
+            tile_type=TileType.NPC,
+            walkable=False,
+            interaction=InteractionType.TALK,
+            interaction_id="hinata",
+            spirit_energy=0.3,
+            metadata={"name": "Hinata", "npc_id": "hinata"},
+        ))
+
         # Hinata's mural — on the right wall
         arcade.set_tile(15, 6, Tile(
             tile_type=TileType.INTERACTIVE,
@@ -840,6 +854,16 @@ class GameBootstrap:
                 tile = arcade.get_tile(x, y)
                 if tile is not None and tile.tile_type == TileType.FLOOR:
                     tile.spirit_energy = 0.3 + (y - 10) * 0.1
+
+        # Ren — lingering near the old jizo, drawn to the spiritual weight
+        arcade.set_tile(5, 11, Tile(
+            tile_type=TileType.NPC,
+            walkable=False,
+            interaction=InteractionType.TALK,
+            interaction_id="ren",
+            spirit_energy=0.4,
+            metadata={"name": "Ren", "npc_id": "ren"},
+        ))
 
         # Small jizo tucked in the back corner
         arcade.set_tile(3, 12, Tile(
@@ -1289,7 +1313,21 @@ class GameBootstrap:
         return scene_manager
 
     # ------------------------------------------------------------------ #
-    # Step 14: Story flags
+    # Step 13b: Save system
+    # ------------------------------------------------------------------ #
+
+    def _create_save_system(self) -> Any:
+        """Create the SaveSystem for save/load functionality."""
+        from src.saves.save_system import SaveSystem
+        save_system = SaveSystem(base_path=".")
+        logger.info(
+            "Save system created (saves_exist=%s)",
+            save_system.any_saves_exist(),
+        )
+        return save_system
+
+    # ------------------------------------------------------------------ #
+    # Step 15: Story flags
     # ------------------------------------------------------------------ #
 
     def _set_initial_flags(self, game: Any, story_manager: Any) -> None:

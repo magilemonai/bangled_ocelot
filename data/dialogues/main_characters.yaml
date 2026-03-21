@@ -1966,3 +1966,146 @@ dialogue_trees:
           - type: spirit_sight_xp
             amount: 10.0
         is_terminal: true
+
+  # ===========================================================================
+  # HINATA - The Street Artist
+  # ===========================================================================
+
+  - id: hinata_arcade_mural
+    npc_id: hinata
+    title: "The Mural That Moves"
+    description: >
+      Hinata is painting on the arcade wall. Her brushwork captures
+      something that shouldn't be visible to the naked eye.
+    entry_node: hinata_start
+    priority: 5
+    one_shot: false
+    tags: [art, spirit, arcade]
+
+    nodes:
+      - id: hinata_start
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              A young woman crouches by the arcade wall, paint-stained
+              fingers working with furious concentration. The mural behind
+              her is enormous — foxes and lanterns and something else,
+              something at the edges that your eyes keep sliding off of.
+            tone: curious
+            stage_direction:
+              text: "*She hasn't noticed you yet. Or maybe she has, and she's choosing this moment to finish a brushstroke.*"
+              pause: 1.5
+
+          - speaker: hinata
+            speaker_type: npc
+            text: "Don't move."
+            tone: intense
+
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              She isn't looking at you. She's looking at something just
+              beside you, brush tracing quick shapes in the air before
+              touching paint to wall.
+            tone: mysterious
+            spirit_whisper:
+              text: >
+                (There is something standing next to you. Something
+                patient and warm. Hinata is painting it.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 1
+              tone: gentle
+
+          - speaker: hinata
+            speaker_type: npc
+            text: "Okay. Okay, got it."
+            tone: relieved
+            stage_direction:
+              text: "*She rocks back on her heels, grinning, and finally looks at you properly.*"
+
+        choices:
+          - text: "What were you painting?"
+            next_node: hinata_explain
+          - text: "Do you always talk to your subjects?"
+            next_node: hinata_humor
+          - text: ""
+            is_silence: true
+            next_node: hinata_silence
+
+      - id: hinata_explain
+        lines:
+          - speaker: hinata
+            speaker_type: npc
+            text: >
+              Something I can only see when I'm not trying to see it.
+              You know? Like when you catch something in the corner
+              of your eye and it's gone when you turn?
+            tone: earnest
+
+          - speaker: hinata
+            speaker_type: npc
+            text: >
+              I paint the corner-of-the-eye things. That's my whole deal.
+            tone: warm
+            stage_direction:
+              text: "*She gestures at the mural. The painted foxes almost seem to breathe.*"
+        effects_on_enter:
+          - type: modify_relationship
+            npc_id: hinata
+            axis: understanding
+            value: 1
+        is_terminal: true
+
+      - id: hinata_humor
+        lines:
+          - speaker: hinata
+            speaker_type: npc
+            text: >
+              Ha! Only the ones who hold still long enough.
+            tone: amused
+
+          - speaker: hinata
+            speaker_type: npc
+            text: >
+              Most people rush through here without looking.
+              But you stopped. That's... not nothing.
+            tone: warm
+        effects_on_enter:
+          - type: modify_relationship
+            npc_id: hinata
+            axis: affinity
+            value: 1
+        is_terminal: true
+
+      - id: hinata_silence
+        lines:
+          - speaker: narrator
+            speaker_type: narrator
+            text: >
+              You say nothing. Hinata studies your face for a long moment,
+              then nods slowly, as if you'd answered a question she hadn't
+              quite asked.
+            tone: gentle
+
+          - speaker: hinata
+            speaker_type: npc
+            text: "Yeah. You see them too, don't you."
+            tone: quiet
+            spirit_whisper:
+              text: >
+                (The presence beside you shifts. Settles. It is being
+                remembered by both of you now, and that matters.)
+              conditions:
+                - type: spirit_sight_level
+                  minimum: 1
+              tone: aching
+        effects_on_enter:
+          - type: modify_ma
+            value: 3.0
+          - type: modify_relationship
+            npc_id: hinata
+            axis: trust
+            value: 2
+        is_terminal: true

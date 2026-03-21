@@ -178,6 +178,9 @@ class ExplorationScene(Scene):
         # NPC proximity check
         self._check_npc_proximity()
 
+        # Vignette trigger check
+        self._check_vignettes(delta)
+
     # -- input --
 
     def handle_input(self, action: str, pressed: bool) -> None:
@@ -439,6 +442,32 @@ class ExplorationScene(Scene):
             pass  # handled separately
         elif event_id.startswith("discovery:"):
             pass  # already emitted as SECRET_DISCOVERED
+
+    def _check_vignettes(self, delta: float) -> None:
+        """Poll the StoryManager for vignettes whose conditions are met."""
+        story_manager = self.game.systems.get("story_manager")
+        if story_manager is None:
+            return
+        if not hasattr(story_manager, "check_for_vignette"):
+            return
+
+        # Increment the pacing counter
+        if hasattr(story_manager, "_beats_since_vignette"):
+            story_manager._beats_since_vignette += 1
+
+        # Player is idle if they haven't moved recently
+        player_idle = self._idle_timer >= 1.0
+
+        vignette = story_manager.check_for_vignette(
+            self.game, player_idle=player_idle, delta=delta,
+        )
+        if vignette is not None:
+            logger.info("Vignette triggered: %s", vignette.id)
+            self.event_bus.emit(GameEvent(
+                event_type=EventType.VIGNETTE_START,
+                data={"vignette_id": vignette.id, "vignette": vignette},
+                source="exploration_scene",
+            ))
 
     def _handle_map_transition(self, connection: Any) -> None:
         """Transition to a new map via a MapConnection."""
@@ -937,6 +966,28 @@ class MenuScene(Scene):
                 source="menu_scene",
             ))
 
+        elif action.startswith("save_slot_"):
+            try:
+                slot = int(action.split("_")[-1])
+                self.event_bus.emit(GameEvent(
+                    event_type=EventType.GAME_SAVE,
+                    data={"slot": slot},
+                    source="menu_scene",
+                ))
+            except ValueError:
+                pass
+
+        elif action.startswith("load_slot_"):
+            try:
+                slot = int(action.split("_")[-1])
+                self.event_bus.emit(GameEvent(
+                    event_type=EventType.GAME_LOAD,
+                    data={"slot": slot},
+                    source="menu_scene",
+                ))
+            except ValueError:
+                pass
+
 
 # ---------------------------------------------------------------------------
 # Crafting scene
@@ -1323,6 +1374,10 @@ class TitleScene(Scene):
         try:
             from src.ui.menus import TitleScreen
             self._title_screen = TitleScreen()
+            # Enable "Continue" if saves exist
+            save_system = self.game.systems.get("save_system")
+            if save_system is not None:
+                self._title_screen.check_saves(save_system.any_saves_exist())
         except ImportError:
             logger.warning("Could not import TitleScreen")
         logger.info("Title scene entered")
@@ -1448,6 +1503,18 @@ class SceneManager:
         self.event_bus.subscribe(
             EventType.SCREEN_TRANSITION,
             self._on_screen_transition,
+            priority=100,
+            name="scene_manager",
+        )
+        self.event_bus.subscribe(
+            EventType.GAME_SAVE,
+            self._on_game_save,
+            priority=100,
+            name="scene_manager",
+        )
+        self.event_bus.subscribe(
+            EventType.GAME_LOAD,
+            self._on_game_load,
             priority=100,
             name="scene_manager",
         )
@@ -1756,6 +1823,232 @@ class SceneManager:
                 if isinstance(scene, ExplorationScene):
                     scene._last_toast = text
                     break
+
+    # -- Save / Load --
+
+    def _on_game_save(self, event: GameEvent) -> None:
+        """Handle save request — push a save slot selection menu."""
+        slot = event.data.get("slot")
+        if slot is not None:
+            # Direct save to a specific slot (from save slot menu)
+            self._execute_save(slot)
+        else:
+            # Show save slot selection
+            self._push_save_slot_menu(mode="save")
+
+    def _on_game_load(self, event: GameEvent) -> None:
+        """Handle load request — push a load slot selection menu."""
+        slot = event.data.get("slot")
+        if slot is not None:
+            self._execute_load(slot)
+        else:
+            self._push_save_slot_menu(mode="load")
+
+    def _push_save_slot_menu(self, mode: str = "save") -> None:
+        """Build and push a save/load slot selection menu."""
+        from src.ui.menus import MenuState, MenuItem, MenuType
+
+        save_system = self.game.systems.get("save_system")
+        if save_system is None:
+            logger.warning("No save system available")
+            return
+
+        all_metadata = save_system.get_all_metadata()
+        items = []
+
+        for slot in range(1, save_system.MAX_SLOTS + 1):
+            meta = all_metadata.get(slot)
+            if meta is not None:
+                label = (
+                    f"Slot {slot}: {meta.location} — "
+                    f"Day {meta.day}, {meta.time_of_day} "
+                    f"({meta.play_time_formatted})"
+                )
+                description = f"Chapter {meta.chapter}: {meta.chapter_name}"
+            else:
+                label = f"Slot {slot}: — Empty —"
+                description = ""
+            items.append(MenuItem(
+                label=label,
+                description=description,
+                action=f"{mode}_slot_{slot}",
+                enabled=(True if mode == "save" else meta is not None),
+            ))
+
+        title = "Save Game" if mode == "save" else "Load Game"
+        menu = MenuState(
+            menu_type=MenuType.SAVE_LOAD,
+            title=title,
+            items=items,
+        )
+
+        save_load_scene = MenuScene(self.game, self.event_bus)
+        save_load_scene.configure(initial_menu=menu)
+        save_load_scene._save_load_mode = mode
+        self._schedule("push", save_load_scene)
+
+    def _execute_save(self, slot: int) -> None:
+        """Serialize current game state and write to slot."""
+        save_system = self.game.systems.get("save_system")
+        if save_system is None:
+            return
+
+        save_data = self._build_save_data()
+        success = save_system.save(slot, save_data)
+
+        toast = f"Game saved to slot {slot}." if success else "Save failed!"
+        logger.info("Save to slot %d: %s", slot, "OK" if success else "FAILED")
+
+        # Pop the save menu, show toast on exploration
+        self._schedule("pop")
+        for scene in reversed(self._scene_stack):
+            if isinstance(scene, ExplorationScene):
+                scene._last_toast = toast
+                break
+
+    def _execute_load(self, slot: int) -> None:
+        """Load game state from slot and restore."""
+        save_system = self.game.systems.get("save_system")
+        if save_system is None:
+            return
+
+        save_data = save_system.load(slot)
+        if save_data is None:
+            logger.warning("Failed to load slot %d", slot)
+            return
+
+        self._restore_save_data(save_data)
+        logger.info("Game loaded from slot %d", slot)
+
+        # Clear stack and start exploration at saved location
+        exploration = ExplorationScene(self.game, self.event_bus)
+        self._schedule("clear_to", exploration)
+
+    def _build_save_data(self) -> "Any":
+        """Serialize current Game into a SaveData."""
+        from src.saves.save_system import SaveData, SaveMetadata
+
+        movement = self.game.systems.get("movement")
+        player = self.game.player
+        clock = self.game.clock
+
+        # Build metadata
+        metadata = SaveMetadata(
+            slot=0,
+            save_name="Manual Save",
+            timestamp="",  # filled by SaveSystem.save()
+            play_time_seconds=self.game.statistics.get("play_time", 0.0),
+            chapter=self.game.flags.get("current_chapter", 1),
+            chapter_name=self.game.flags.get("current_chapter_name", "The Thinning"),
+            location=self.game.current_map.name if self.game.current_map else "Unknown",
+            district=self.game.current_district or "kichijoji",
+            level=1,
+            spirit_bonds=self.game.statistics.get("spirits_befriended", 0),
+            day=clock.day,
+            season=clock.season.value,
+            time_of_day=clock.time_of_day.value,
+            ma_total=self.game.ma.lifetime_ma,
+        )
+
+        # Player position
+        player_data = {}
+        if movement is not None:
+            player_data["x"] = movement.position.x
+            player_data["y"] = movement.position.y
+            player_data["map_id"] = (
+                movement.tile_map.map_id if movement.tile_map else "kichijoji_start"
+            )
+        if player is not None:
+            try:
+                player_data["spirit_sight_level"] = player.spirit_sight.level.value
+            except AttributeError:
+                pass
+
+        return SaveData(
+            metadata=metadata,
+            player=player_data,
+            clock={
+                "day": clock.day,
+                "hour": clock.hour,
+                "season": clock.season.value,
+                "moon_day": clock.moon_day,
+                "time_scale": clock.time_scale,
+            },
+            spirit_tide={
+                "global_level": self.game.spirit_tide.global_level,
+                "district_modifiers": dict(self.game.spirit_tide.district_modifiers),
+            },
+            ma_state={
+                "current_ma": self.game.ma.current_ma,
+                "max_ma": self.game.ma.max_ma,
+                "lifetime_ma": self.game.ma.lifetime_ma,
+                "accumulation_rate": self.game.ma.accumulation_rate,
+                "decay_rate": self.game.ma.decay_rate,
+            },
+            flags=dict(self.game.flags),
+            statistics=dict(self.game.statistics),
+            vignettes_seen=list(self.game.flags.get("vignettes_seen", [])),
+        )
+
+    def _restore_save_data(self, save_data: "Any") -> None:
+        """Restore Game state from a SaveData."""
+        from src.engine.game import Season
+
+        # Clock
+        clock_data = save_data.clock
+        if clock_data:
+            self.game.clock.day = clock_data.get("day", 1)
+            self.game.clock.hour = clock_data.get("hour", 6.0)
+            season_val = clock_data.get("season", "spring")
+            try:
+                self.game.clock.season = Season(season_val)
+            except ValueError:
+                pass
+            self.game.clock.moon_day = clock_data.get("moon_day", 0)
+            self.game.clock.time_scale = clock_data.get("time_scale", 1.0)
+
+        # Ma
+        ma_data = save_data.ma_state
+        if ma_data:
+            self.game.ma.current_ma = ma_data.get("current_ma", 0.0)
+            self.game.ma.max_ma = ma_data.get("max_ma", 100.0)
+            self.game.ma.lifetime_ma = ma_data.get("lifetime_ma", 0.0)
+            self.game.ma.accumulation_rate = ma_data.get("accumulation_rate", 1.0)
+            self.game.ma.decay_rate = ma_data.get("decay_rate", 0.5)
+
+        # Spirit tide
+        tide_data = save_data.spirit_tide
+        if tide_data:
+            self.game.spirit_tide.global_level = tide_data.get("global_level", 0.3)
+            self.game.spirit_tide.district_modifiers = tide_data.get(
+                "district_modifiers", {}
+            )
+
+        # Flags and statistics
+        if save_data.flags:
+            self.game.flags = dict(save_data.flags)
+        if save_data.statistics:
+            self.game.statistics = dict(save_data.statistics)
+
+        # Restore player position and map
+        player_data = save_data.player
+        if player_data:
+            map_id = player_data.get("map_id", "kichijoji_start")
+            px = player_data.get("x", 4)
+            py = player_data.get("y", 6)
+
+            map_registry = self.game.systems.get("map_registry")
+            movement = self.game.systems.get("movement")
+            if map_registry is not None and movement is not None:
+                from src.exploration.movement import TileCoord
+                movement_maps = getattr(map_registry, "_movement_maps", {})
+                target_map = movement_maps.get(map_id)
+                if target_map is not None:
+                    self.game.current_map = target_map
+                    movement.tile_map = target_map
+                    movement.position = TileCoord(px, py)
+
+            self.game.current_district = save_data.metadata.district
 
     # -- Context building --
 
